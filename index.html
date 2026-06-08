@@ -41,7 +41,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 .tramo-box{background:#EAF3DE;border:1px solid #8DC870;border-radius:9px;padding:9px 12px;font-size:11.5px;color:#1e4d0a;margin-bottom:9px;display:none;line-height:1.55}
 
 /* GARANTIA BUTTONS */
-.gar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:9px}
+.gar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:9px}
 .gar-btn{height:64px;border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--muted);font-size:11px;font-family:'Montserrat',sans-serif;cursor:pointer;transition:.15s;font-weight:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:5px;line-height:1.25}
 .gar-btn .ico{font-size:20px}
 .gar-btn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
@@ -127,7 +127,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     <div class="logo">▲<span>CREDIT</span></div>
     <div class="hdr-sub">Calculadora de Campo · Asesores</div>
   </div>
-  <span class="ver">v6.2</span>
+  <span class="ver">v6.3</span>
 </div>
 
 <div class="body">
@@ -197,6 +197,9 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
   </button>
   <button class="gar-btn" id="gar-hip" onclick="setGar('hipotecaria',this)">
     <span class="ico">🏗️</span>Hipotecaria
+  </button>
+  <button class="gar-btn" id="gar-liq" onclick="setGar('liquida',this)">
+    <span class="ico">💵</span>Líquida
   </button>
 </div>
 <div class="info-box" id="info-gar">🤝 Garantía Fiduciaria — Fiador solvente con ingresos verificables. Aplica para montos hasta L150,000.</div>
@@ -366,22 +369,22 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 // Tasa editable por el asesor (puede diferir del tarifario)
 // ============================================================
 const TAR_TRAMOS = [
-  {de:5000,   a:50000,   flat:4.00, ss:38.0, max:12, gar_min:'fiduciaria', com:0.04},
-  {de:50001,  a:100000,  flat:3.25, ss:36.0, max:24, gar_min:'fiduciaria', com:0.0325},
-  {de:100001, a:150000,  flat:3.00, ss:33.0, max:30, gar_min:'fiduciaria', com:0.03},
-  {de:150001, a:200000,  flat:2.75, ss:31.0, max:36, gar_min:'prendaria',  com:0.0275},
-  {de:200001, a:300000,  flat:2.50, ss:27.0, max:36, gar_min:'prendaria',  com:0.025},
-  {de:300001, a:500000,  flat:2.25, ss:26.0, max:48, gar_min:'prendaria',  com:0.0225},
-  {de:500001, a:700000,  flat:1.75, ss:24.0, max:48, gar_min:'hipotecaria',com:0.0175},
-  {de:700001, a:1000000, flat:1.50, ss:23.0, max:60, gar_min:'hipotecaria',com:0.015},
-  {de:1000001,a:1500000, flat:1.25, ss:22.0, max:60, gar_min:'hipotecaria',com:0.0125},
-  {de:1500001,a:2000000, flat:1.00, ss:21.0, max:72, gar_min:'hipotecaria',com:0.01},
-  {de:2000001,a:2500000, flat:1.00, ss:20.0, max:72, gar_min:'hipotecaria',com:0.01},
-  {de:2500001,a:3000000, flat:0.85, ss:19.0, max:72, gar_min:'hipotecaria',com:0.0085},
-  {de:3000001,a:3500000, flat:0.85, ss:18.0, max:84, gar_min:'hipotecaria',com:0.0085},
-  {de:3500001,a:4000000, flat:0.85, ss:17.5, max:84, gar_min:'hipotecaria',com:0.0085},
-  {de:4000001,a:4500000, flat:0.85, ss:17.0, max:84, gar_min:'hipotecaria',com:0.0085},
-  {de:4500001,a:5000000, flat:0.85, ss:16.5, max:84, gar_min:'hipotecaria',com:0.0085},
+  {de:5000,   a:50000.99,   flat:4.00, ss:38.0, max:12, gar_min:'fiduciaria', com:0.04},
+  {de:50001,  a:100000.99,  flat:3.25, ss:36.0, max:24, gar_min:'fiduciaria', com:0.0325},
+  {de:100001, a:150000.99,  flat:3.00, ss:33.0, max:30, gar_min:'fiduciaria', com:0.03},
+  {de:150001, a:200000.99,  flat:2.75, ss:31.0, max:36, gar_min:'prendaria',  com:0.0275},
+  {de:200001, a:300000.99,  flat:2.50, ss:27.0, max:36, gar_min:'prendaria',  com:0.025},
+  {de:300001, a:500000.99,  flat:2.25, ss:26.0, max:48, gar_min:'prendaria',  com:0.0225},
+  {de:500001, a:700000.99,  flat:1.75, ss:24.0, max:48, gar_min:'hipotecaria',com:0.0175},
+  {de:700001, a:1000000.99, flat:1.50, ss:23.0, max:60, gar_min:'hipotecaria',com:0.015},
+  {de:1000001,a:1500000.99, flat:1.25, ss:22.0, max:60, gar_min:'hipotecaria',com:0.0125},
+  {de:1500001,a:2000000.99, flat:1.00, ss:21.0, max:72, gar_min:'hipotecaria',com:0.01},
+  {de:2000001,a:2500000.99, flat:1.00, ss:20.0, max:72, gar_min:'hipotecaria',com:0.01},
+  {de:2500001,a:3000000.99, flat:0.85, ss:19.0, max:72, gar_min:'hipotecaria',com:0.0085},
+  {de:3000001,a:3500000.99, flat:0.85, ss:18.0, max:84, gar_min:'hipotecaria',com:0.0085},
+  {de:3500001,a:4000000.99, flat:0.85, ss:17.5, max:84, gar_min:'hipotecaria',com:0.0085},
+  {de:4000001,a:4500000.99, flat:0.85, ss:17.0, max:84, gar_min:'hipotecaria',com:0.0085},
+  {de:4500001,a:5000000.99, flat:0.85, ss:16.5, max:84, gar_min:'hipotecaria',com:0.0085},
 ];
 
 const CFG = {
@@ -396,6 +399,7 @@ const GAR_INFO = {
   fiduciaria : '🤝 Fiduciaria — Fiador solvente con ingresos verificables. Aplica hasta L150,000.',
   prendaria  : '🔑 Prendaria — Bien mueble (vehículo, maquinaria, menaje). Aplica L150,001–L500,000. Requiere avalúo.',
   hipotecaria: '🏗️ Hipotecaria — Bien inmueble inscrito en Registro de la Propiedad. Montos mayores a L500,000. Requiere escritura y avalúo.',
+  liquida     : '💵 Garantía Líquida — Depósito en efectivo o certificado de depósito. Comisión de desembolso = 0%. No requiere avalúo.',
 };
 
 // Estado
@@ -467,8 +471,10 @@ function actualizarTramo(){
 }
 
 // ── Garantías ────────────────────────────────────────────────
-const GAR_ORDEN = ['fiduciaria','prendaria','hipotecaria'];
-const GAR_IDS   = {fiduciaria:'gar-fid', prendaria:'gar-pre', hipotecaria:'gar-hip'};
+const GAR_ORDEN = ['fiduciaria','prendaria','hipotecaria']; // liquida siempre disponible
+const GAR_TODOS  = ['fiduciaria','prendaria','hipotecaria','liquida'];
+const GAR_IDS   = {fiduciaria:'gar-fid', prendaria:'gar-pre', hipotecaria:'gar-hip', liquida:'gar-liq'};
+const GAR_INFO_LIQ = '💵 Garantía Líquida — Depósito en efectivo o certificado de depósito. Comisión de desembolso = 0%. No requiere avalúo.';
 
 function updateGarButtons(garMin){
   const minIdx = GAR_ORDEN.indexOf(garMin||'fiduciaria');
@@ -477,6 +483,8 @@ function updateGarButtons(garMin){
     if(i < minIdx){ b.classList.add('disabled'); b.classList.remove('on'); }
     else { b.classList.remove('disabled'); }
   });
+  // Líquida siempre habilitada
+  el('gar-liq').classList.remove('disabled');
   // Si la seleccionada ya no aplica → ir a la mínima
   if(GAR_ORDEN.indexOf(garSel) < minIdx){
     garSel = garMin;
@@ -494,6 +502,7 @@ function setGar(g, btn){
   btn.classList.add('on');
   el('wrap-prend').classList.toggle('hidden', g!=='prendaria');
   el('wrap-hip').classList.toggle('hidden',   g!=='hipotecaria');
+  if(g==='liquida'||g==='fiduciaria'){ el('wrap-prend').classList.add('hidden'); el('wrap-hip').classList.add('hidden'); }
   el('info-gar').textContent = GAR_INFO[g];
   calcular();
 }
@@ -563,9 +572,12 @@ function calcular(){
   // Tasa anual display
   el('tasa-mensual').textContent = (tasaM*100).toFixed(4)+'%/mes';
 
+  // Garantía líquida: comisión desembolso = 0 (Excel: Porcentaje Comisión = 0)
+  const comPct = garSel==='liquida' ? 0 : tramo.com;
+
   // Monto base — igual que Excel SOTEICA:
   // Monto Crédito = Monto Solicitado + Comisión + Buró + Gastos Legales + Aval Prendario
-  const com    = monto*tramo.com;
+  const com    = monto*comPct;
   const prend2 = garSel==='prendaria' ? prend : 0;
   const gl2    = garSel==='prendaria' ? glP : (garSel==='hipotecaria' ? glH : 0);
   montoBase    = monto + com + CFG.buro + prend2 + gl2; // buró VA DENTRO del monto base
