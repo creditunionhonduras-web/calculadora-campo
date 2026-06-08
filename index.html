@@ -127,7 +127,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     <div class="logo">▲<span>CREDIT</span></div>
     <div class="hdr-sub">Calculadora de Campo · Asesores</div>
   </div>
-  <span class="ver">v6.1</span>
+  <span class="ver">v6.2</span>
 </div>
 
 <div class="body">
@@ -171,16 +171,16 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 <div class="tasa-wrap">
   <div class="fld">
     <span class="lbl">
-      Tasa mensual flat
+      Tasa anual flat
       <span class="tasa-tag">editable</span>
     </span>
     <div class="pfx-wrap">
-      <input type="text" id="tasa" placeholder="ej. 3.25" oninput="onTasaInput(this)" onblur="calcular()" style="padding-left:12px"/>
+      <input type="text" id="tasa" placeholder="ej. 39.00" oninput="onTasaInput(this)" onblur="calcular()" style="padding-left:12px"/>
     </div>
   </div>
   <div class="fld">
-    <span class="lbl">Equivalente anual</span>
-    <div id="tasa-anual" style="height:44px;display:flex;align-items:center;padding:0 12px;background:#f7f7f5;border-radius:10px;border:1.5px solid var(--bdr);font-size:15px;font-weight:600;color:var(--navy)">—</div>
+    <span class="lbl">Equivalente mensual</span>
+    <div id="tasa-mensual" style="height:44px;display:flex;align-items:center;padding:0 12px;background:#f7f7f5;border-radius:10px;border:1.5px solid var(--bdr);font-size:15px;font-weight:600;color:var(--navy)">—</div>
   </div>
 </div>
 <div class="tramo-box" id="tramo-box"></div>
@@ -421,7 +421,7 @@ function onTasaInput(inp){
   // Permite solo números y punto
   inp.value = inp.value.replace(/[^0-9.]/g,'');
   const t = parseFloat(inp.value)||0;
-  el('tasa-anual').textContent = t>0 ? (t*12).toFixed(2)+'%' : '—';
+  el('tasa-mensual').textContent = t>0 ? (t/12).toFixed(4)+'%/mes' : '—';
 }
 
 function onCambio(){
@@ -447,7 +447,7 @@ function actualizarTramo(){
   if(tramo){
     tb.style.display='block';
     tb.innerHTML = `📋 Tramo: ${fL(tramo.de)} – ${fL(tramo.a)} &nbsp;|&nbsp; `+
-      `Flat ref: <strong>${tramo.flat.toFixed(2)}%/mes</strong> &nbsp;|&nbsp; `+
+      `Flat ref: <strong>${(tramo.flat*12).toFixed(2)}% anual</strong> (${tramo.flat.toFixed(4)}%/mes) &nbsp;|&nbsp; `+
       `SS ref: <strong>${tramo.ss.toFixed(1)}% anual</strong> &nbsp;|&nbsp; `+
       `Comisión: <strong>${(tramo.com*100).toFixed(2)}%</strong> &nbsp;|&nbsp; `+
       `Plazo máx: <strong>${tramo.max} meses</strong> &nbsp;|&nbsp; `+
@@ -455,8 +455,8 @@ function actualizarTramo(){
 
     // Auto-llenar tasa si está vacía
     if(!el('tasa').value){
-      el('tasa').value = tramo.flat.toFixed(2);
-      el('tasa-anual').textContent = (tramo.flat*12).toFixed(2)+'%';
+      el('tasa').value = (tramo.flat*12).toFixed(2);
+      el('tasa-mensual').textContent = tramo.flat.toFixed(4)+'%/mes';
     }
 
     // Actualizar garantías
@@ -543,7 +543,8 @@ function calcular(){
 
   const monto  = gV('monto');
   const plazo  = parseInt(el('plazo').value)||12;
-  const tasaM  = (parseFloat(el('tasa').value)||0)/100; // tasa mensual flat ingresada
+  const tasaA  = parseFloat(el('tasa').value)||0;       // tasa anual flat ingresada
+  const tasaM  = tasaA / 12 / 100;                          // conversión a mensual
   const ingreso= gV('ingreso');
   const prend  = parseInt(el('sel-prend')?el('sel-prend').value:0)||0;
   const glP    = gV('gl-prend');
@@ -553,14 +554,14 @@ function calcular(){
     el('result-sec').classList.add('hidden');
     if(monto>=5000&&tasaM<=0) {
       el('warn-monto').style.display='block';
-      el('warn-monto').innerHTML='⚠️ Ingresa la tasa mensual para calcular.';
+      el('warn-monto').innerHTML='⚠️ Ingresa la tasa anual para calcular.';
     }
     return;
   }
   el('warn-monto').style.display='none';
 
   // Tasa anual display
-  el('tasa-anual').textContent = (tasaM*100*12).toFixed(2)+'%';
+  el('tasa-mensual').textContent = (tasaM*100).toFixed(4)+'%/mes';
 
   // Monto base — igual que Excel SOTEICA:
   // Monto Crédito = Monto Solicitado + Comisión + Buró + Gastos Legales + Aval Prendario
@@ -599,7 +600,7 @@ function calcular(){
     <span class="rdet-item">Comisión desembolso</span><span class="rdet-val">${fL2(com)}</span>
   `;
 
-  el('rnote').textContent = `Tasa ${(tasaM*100).toFixed(2)}%/mes flat · ${(tasaM*1200).toFixed(2)}% anual · Tarifario Ene-2025 Rev.1.2`;
+  el('rnote').textContent = `Tasa ${tasaA.toFixed(2)}% anual flat (${(tasaM*100).toFixed(4)}%/mes) · Tarifario Ene-2025 Rev.1.2`;
 
   // Desglose completo
   el('d-cap').textContent    = fL(monto);
