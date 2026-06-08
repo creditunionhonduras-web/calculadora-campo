@@ -104,7 +104,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 
 <div class="hdr">
   <div><div class="logo">▲<span>CREDIT</span></div><div class="hdr-sub">Calculadora de Campo · Asesores</div></div>
-  <span class="ver">v6.7</span>
+  <span class="ver">v6.9</span>
 </div>
 
 <div class="body">
@@ -178,7 +178,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     </div>
   </div>
   <div class="fld" style="margin-bottom:9px">
-    <span class="lbl">Gastos legales vehículo/maquinaria</span>
+    <span class="lbl">Gastos legales (vehículo/maquinaria)</span>
     <div class="pfx-wrap"><span class="pfx">L.</span>
       <input type="text" id="gl-prend" value="0" oninput="fmtM(this)" onblur="calcular()"/></div></div>
 </div>
@@ -362,6 +362,7 @@ function actualizarGarBtns(garMin){
     el(GAR_IDS[garSel]).classList.add('on');
     el('wrap-prend').classList.add('hidden');
     el('wrap-hip').classList.add('hidden');
+    avalTipo='none'; avalCant=1;
   }
   el('info-gar').textContent = GAR_INFO[garSel];
 }
