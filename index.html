@@ -20,8 +20,11 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);
 .lbl{font-size:11px;color:var(--muted);font-weight:500}
 select,input[type=text]{width:100%;height:44px;border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--text);font-size:15px;font-family:'Montserrat',sans-serif;padding:0 12px;outline:none;transition:.15s;-webkit-appearance:none;appearance:none}
 select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,87,130,.1)}
+input[type=text][style*="center"]{text-align:center}
 .pfx-wrap{position:relative}.pfx-wrap input{padding-left:34px}
 .pfx{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);pointer-events:none;font-weight:600}
+.tasa-tag{display:inline-block;font-size:9.5px;background:#FEF9EC;color:#7a5200;border:1px solid var(--yellow);border-radius:3px;padding:1px 6px;font-weight:600;margin-left:5px}
+.tasa-sub{font-size:11px;color:var(--blue);font-weight:600;text-align:center;padding:3px 0;background:#E8F4FD;border-radius:6px;margin-top:2px}
 .info-box{background:#E8F4FD;border:1px solid #90C8F0;border-radius:9px;padding:9px 12px;font-size:11.5px;color:#0C447C;margin-bottom:9px;line-height:1.55}
 .warn-box{background:#FDEEEC;border:1px solid var(--red);border-radius:9px;padding:9px 12px;font-size:12px;color:#922b21;margin-bottom:9px;display:none;line-height:1.5}
 .tramo-box{background:#EAF3DE;border:1px solid #8DC870;border-radius:9px;padding:9px 12px;font-size:11.5px;color:#1e4d0a;margin-bottom:9px;display:none;line-height:1.55}
@@ -33,7 +36,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 .gar-btn.disabled{opacity:.3;cursor:not-allowed;pointer-events:none}
 /* Aval prendario */
 .aval-tipo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:9px}
-.aval-btn{height:62px;border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--muted);font-family:'Montserrat',sans-serif;cursor:pointer;transition:.15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:18px;padding:4px}
+.aval-btn{height:62px;border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--muted);font-family:'Montserrat',sans-serif;cursor:pointer;transition:.15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:18px;padding:4px;width:100%}
 .aval-btn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 .aval-btn:active{transform:scale(.97)}
 .aval-lbl{font-size:11px;font-weight:600;line-height:1}
@@ -45,9 +48,6 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 .cnt-val{font-size:22px;font-weight:700;color:var(--navy);min-width:28px;text-align:center}
 .aval-total-box{margin-left:auto;text-align:right}
 .aval-total-val{font-size:15px;font-weight:700;color:var(--navy);display:block;margin-top:2px}
-/* Tasa */
-.tasa-wrap{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px;align-items:end}
-.tasa-tag{display:inline-block;font-size:9.5px;background:#FEF9EC;color:#7a5200;border:1px solid var(--yellow);border-radius:3px;padding:1px 6px;font-weight:600;margin-left:5px}
 /* Calcular */
 .calc-btn{width:100%;height:52px;background:var(--green);color:#0d3320;border:none;border-radius:12px;font-size:16px;font-weight:700;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:15px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s}
 .calc-btn:active{transform:scale(.98)}
@@ -71,7 +71,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 .drow:last-child{border:none}
 .dl{color:var(--muted);font-size:12px;flex:1}
 .dv{font-weight:500;white-space:nowrap}
-.dv.navy{color:var(--navy);font-weight:600}.dv.green{color:#1a6e3a;font-weight:600}.dv.red{color:var(--red)}
+.dv.navy{color:var(--navy);font-weight:600}.dv.green{color:#1a6e3a;font-weight:600}
 .drow.tot{background:#f7f7f5}
 /* Amort */
 .atab-wrap{display:flex;gap:6px;padding:8px 13px;border-bottom:1px solid var(--bdr)}
@@ -84,7 +84,6 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 .atbl td{padding:4.5px 6px;text-align:right;border-bottom:1px solid #f5f5f5}
 .atbl td:first-child{text-align:center;color:var(--muted)}
 .atbl .tot td{font-weight:600;background:#f0f0ee;border-top:1px solid var(--bdr)}
-
 /* Selector método compartir */
 .metodo-sel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .mbtn{border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--muted);font-family:'Montserrat',sans-serif;cursor:pointer;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.15s;width:100%}
@@ -93,8 +92,6 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 .mbtn-ico{font-size:18px}
 .mbtn-lbl{font-size:11px;font-weight:600}
 .mbtn-val{font-size:13px;font-weight:700;color:var(--green)}
-.mbtn.on .mbtn-val{color:var(--green)}
-
 /* Compartir */
 .wa-btn{width:100%;height:48px;background:#25D366;color:#fff;border:none;border-radius:11px;font-size:14px;font-weight:600;font-family:'Montserrat',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:7px;transition:.15s}
 .wa-btn:active{transform:scale(.98)}
@@ -115,7 +112,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 
 <div class="hdr">
   <div><div class="logo">▲<span>CREDIT</span></div><div class="hdr-sub">Calculadora de Campo · Asesores</div></div>
-  <span class="ver">v7.0</span>
+  <span class="ver">v7.2</span>
 </div>
 
 <div class="body">
@@ -143,12 +140,20 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
       oninput="this.value=this.value.replace(/[^0-9]/g,'')" onblur="calcular()" style="text-align:center"/></div>
 </div>
 
-<div class="tasa-wrap">
-  <div class="fld"><span class="lbl">Tasa anual flat <span class="tasa-tag">editable</span></span>
-    <input type="text" id="tasa" value="38" oninput="onTasaInput(this)" onblur="calcular()" style="padding-left:12px"/></div>
-  <div class="fld"><span class="lbl">Equivalente mensual</span>
-    <div id="tasa-mensual" style="height:44px;display:flex;align-items:center;padding:0 12px;background:#f7f7f5;border-radius:10px;border:1.5px solid var(--bdr);font-size:15px;font-weight:600;color:var(--navy)">3.17%/mes</div></div>
+<!-- TASAS: FLAT y SS independientes -->
+<div class="row2">
+  <div class="fld">
+    <span class="lbl">Tasa FLAT anual <span class="tasa-tag">editable</span></span>
+    <input type="text" id="tasa-flat" value="38" oninput="onTasaChange()" onblur="calcular()" style="text-align:center"/>
+    <div class="tasa-sub" id="tasa-flat-sub">3.17%/mes</div>
+  </div>
+  <div class="fld">
+    <span class="lbl">Tasa SS anual <span class="tasa-tag">editable</span></span>
+    <input type="text" id="tasa-ss" value="36" oninput="onTasaChange()" onblur="calcular()" style="text-align:center"/>
+    <div class="tasa-sub" id="tasa-ss-sub">3.00%/mes</div>
+  </div>
 </div>
+
 <div class="tramo-box" id="tramo-box"></div>
 <div class="warn-box" id="warn-monto"></div>
 
@@ -189,7 +194,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     </div>
   </div>
   <div class="fld" style="margin-bottom:9px">
-    <span class="lbl">Gastos legales (vehículo/maquinaria)</span>
+    <span class="lbl">Gastos legales vehículo/maquinaria</span>
     <div class="pfx-wrap"><span class="pfx">L.</span>
       <input type="text" id="gl-prend" value="0" oninput="fmtM(this)" onblur="calcular()"/></div></div>
 </div>
@@ -209,7 +214,6 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 
 <div class="rcard" id="rcard-area"></div>
 
-<!-- Desglose -->
 <div class="dcard">
   <div class="dhead" onclick="tog('det-b','det-i')"><span>Desglose de cargos</span><span id="det-i">▾</span></div>
   <div id="det-b" class="hidden">
@@ -227,7 +231,6 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
   </div>
 </div>
 
-<!-- Amortización -->
 <div class="dcard">
   <div class="dhead" onclick="tog('amort-b','amort-i')"><span>Tabla de amortización</span><span id="amort-i">▾</span></div>
   <div id="amort-b" class="hidden">
@@ -242,12 +245,11 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
   </div>
 </div>
 
-<!-- Compartir -->
 <div class="sec">🔗 Compartir</div>
 <div class="metodo-sel">
   <button class="mbtn on" id="mbtn-flat" onclick="setMetodo('flat',this)">
     <span class="mbtn-ico">📊</span>
-    <span class="mbtn-lbl">Cuota Fija</span>
+    <span class="mbtn-lbl">Cuota Fija FLAT</span>
     <span class="mbtn-val" id="mbtn-flat-val">—</span>
   </button>
   <button class="mbtn" id="mbtn-ss" onclick="setMetodo('ss',this)">
@@ -265,9 +267,8 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
   Manual de Productos CREDITUNION 05/2024<br>
   Sujeto a aprobación del Comité de Créditos
 </p>
-</div><!-- /result-sec -->
+</div>
 
-<!-- Historial -->
 <div class="hist-sec">
   <div class="divider"></div>
   <div class="sec">🕐 Historial (últimas 10)</div>
@@ -278,57 +279,53 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
   <button class="sbtn" style="color:var(--red);border-color:var(--red)" onclick="limpiarHist()">🗑 Limpiar historial</button>
 </div>
 
-</div><!-- /body -->
-
+</div>
 <script>
 // ============================================================
-// TARIFARIO CERTIFICADO — Excel 2026 + Tarifario Ene 2025 Rev.1.2
-// Fórmula: Monto base = Monto + Comisión + Buró + Caja(30×plazo) + Aval + GL
+// TARIFARIO — Tarifario Ene 2025 Rev.1.2 + Excel 2026
+// Monto base = Monto + Comisión + Buró(150) + Caja(30×plazo) + Aval + GL
 // Cuota = Capital/n + Base×tasaMensual + Seguro(base/1000×0.85)
+// Tasas FLAT y SS son independientes y editables por el asesor
 // ============================================================
 const TAR = [
-  {de:5000,   a:50000.99,   flat:4.00, ss:38.0, max:12,  gar_min:'fiduciaria', com:0.04},
-  {de:50001,  a:100000.99,  flat:3.25, ss:36.0, max:24,  gar_min:'fiduciaria', com:0.0325},
-  {de:100001, a:150000.99,  flat:3.00, ss:33.0, max:30,  gar_min:'fiduciaria', com:0.03},
-  {de:150001, a:200000.99,  flat:2.75, ss:31.0, max:36,  gar_min:'prendaria',  com:0.0275},
-  {de:200001, a:300000.99,  flat:2.50, ss:27.0, max:36,  gar_min:'prendaria',  com:0.025},
-  {de:300001, a:500000.99,  flat:2.25, ss:26.0, max:48,  gar_min:'prendaria',  com:0.0225},
-  {de:500001, a:700000.99,  flat:1.75, ss:24.0, max:48,  gar_min:'hipotecaria',com:0.0175},
-  {de:700001, a:1000000.99, flat:1.50, ss:23.0, max:60,  gar_min:'hipotecaria',com:0.015},
-  {de:1000001,a:1500000.99, flat:1.25, ss:22.0, max:60,  gar_min:'hipotecaria',com:0.0125},
-  {de:1500001,a:2000000.99, flat:1.00, ss:21.0, max:72,  gar_min:'hipotecaria',com:0.01},
-  {de:2000001,a:2500000.99, flat:1.00, ss:20.0, max:72,  gar_min:'hipotecaria',com:0.01},
-  {de:2500001,a:3000000.99, flat:0.85, ss:19.0, max:72,  gar_min:'hipotecaria',com:0.0085},
-  {de:3000001,a:3500000.99, flat:0.85, ss:18.0, max:84,  gar_min:'hipotecaria',com:0.0085},
-  {de:3500001,a:4000000.99, flat:0.85, ss:17.5, max:84,  gar_min:'hipotecaria',com:0.0085},
-  {de:4000001,a:4500000.99, flat:0.85, ss:17.0, max:84,  gar_min:'hipotecaria',com:0.0085},
-  {de:4500001,a:5000000.99, flat:0.85, ss:16.5, max:84,  gar_min:'hipotecaria',com:0.0085},
+  {de:5000,   a:50000.99,   flat:4.00, ss:38.0, max:12, gar:'fiduciaria', com:0.04},
+  {de:50001,  a:100000.99,  flat:3.25, ss:36.0, max:24, gar:'fiduciaria', com:0.0325},
+  {de:100001, a:150000.99,  flat:3.00, ss:33.0, max:30, gar:'fiduciaria', com:0.03},
+  {de:150001, a:200000.99,  flat:2.75, ss:31.0, max:36, gar:'prendaria',  com:0.0275},
+  {de:200001, a:300000.99,  flat:2.50, ss:27.0, max:36, gar:'prendaria',  com:0.025},
+  {de:300001, a:500000.99,  flat:2.25, ss:26.0, max:48, gar:'prendaria',  com:0.0225},
+  {de:500001, a:700000.99,  flat:1.75, ss:24.0, max:48, gar:'hipotecaria',com:0.0175},
+  {de:700001, a:1000000.99, flat:1.50, ss:23.0, max:60, gar:'hipotecaria',com:0.015},
+  {de:1000001,a:1500000.99, flat:1.25, ss:22.0, max:60, gar:'hipotecaria',com:0.0125},
+  {de:1500001,a:2000000.99, flat:1.00, ss:21.0, max:72, gar:'hipotecaria',com:0.01},
+  {de:2000001,a:2500000.99, flat:1.00, ss:20.0, max:72, gar:'hipotecaria',com:0.01},
+  {de:2500001,a:3000000.99, flat:0.85, ss:19.0, max:72, gar:'hipotecaria',com:0.0085},
+  {de:3000001,a:3500000.99, flat:0.85, ss:18.0, max:84, gar:'hipotecaria',com:0.0085},
+  {de:3500001,a:4000000.99, flat:0.85, ss:17.5, max:84, gar:'hipotecaria',com:0.0085},
+  {de:4000001,a:4500000.99, flat:0.85, ss:17.0, max:84, gar:'hipotecaria',com:0.0085},
+  {de:4500001,a:5000000.99, flat:0.85, ss:16.5, max:84, gar:'hipotecaria',com:0.0085},
 ];
-
 const CFG = {seg:0.85, segTope:2000000, buro:150, caja:30};
-
 const GAR_INFO = {
   fiduciaria : '🤝 Fiduciaria — Fiador solvente con ingresos verificables. Aplica hasta L150,000.',
   prendaria  : '🔑 Prendaria — Bien mueble (vehículo, maquinaria). Aplica L150,001–L500,000. Requiere avalúo.',
   hipotecaria: '🏗️ Hipotecaria — Bien inmueble inscrito en Registro. Montos >L500,000. Requiere escritura.',
   liquida    : '💵 Líquida — Depósito en efectivo o certificado. Comisión de desembolso = 0%.',
 };
+const GAR_ORDEN = ['fiduciaria','prendaria','hipotecaria'];
+const GAR_IDS   = {fiduciaria:'gar-fid',prendaria:'gar-pre',hipotecaria:'gar-hip',liquida:'gar-liq'};
+const AVAL_PRECIO = {v:1500, m:700};
 
 // Estado global
-let metodoCompartir = 'flat'; // 'flat' | 'ss'
-
-let garSel   = 'fiduciaria';
-let avalTipo = 'none';
-let avalCant = 1;
-let tabAm    = 'flat';
-let tramo    = null;
-let montoBase= 0;
-let resFlat  = {};
-let resSS    = {};
-
-const AVAL_PRECIO = {v:1500, m:700};
-const GAR_ORDEN   = ['fiduciaria','prendaria','hipotecaria'];
-const GAR_IDS     = {fiduciaria:'gar-fid',prendaria:'gar-pre',hipotecaria:'gar-hip',liquida:'gar-liq'};
+let garSel        = 'fiduciaria';
+let avalTipo      = 'none';
+let avalCant      = 1;
+let tabAm         = 'flat';
+let metodoComp    = 'flat';
+let tramo         = null;
+let montoBase     = 0;
+let resFlat       = {};
+let resSS         = {};
 
 // Helpers
 const fL  = n => 'L. '+Math.round(n).toLocaleString('es-HN');
@@ -336,16 +333,14 @@ const fL2 = n => 'L. '+(Math.round(n*100)/100).toFixed(2).replace(/\B(?=(\d{3})+
 const gV  = id => parseFloat((document.getElementById(id).value||'').replace(/[^0-9.]/g,''))||0;
 const el  = id => document.getElementById(id);
 const tog = (b,i) => { const e=el(b); e.classList.toggle('hidden'); el(i).textContent=e.classList.contains('hidden')?'▸':'▾'; };
+function fmtM(inp){ const r=inp.value.replace(/[^0-9]/g,''); inp.value=r?Number(r).toLocaleString('es-HN'):''; }
 
-function fmtM(inp){
-  const r=inp.value.replace(/[^0-9]/g,'');
-  inp.value = r ? Number(r).toLocaleString('es-HN') : '';
-}
-
-function onTasaInput(inp){
-  inp.value = inp.value.replace(/[^0-9.]/g,'');
-  const t = parseFloat(inp.value)||0;
-  el('tasa-mensual').textContent = t>0 ? (t/12).toFixed(2)+'%/mes' : '—';
+// ── Tasas ─────────────────────────────────────────────────────
+function onTasaChange(){
+  const tF = parseFloat(el('tasa-flat').value)||0;
+  const tS = parseFloat(el('tasa-ss').value)||0;
+  el('tasa-flat-sub').textContent = tF>0 ? (tF/12).toFixed(2)+'%/mes' : '—';
+  el('tasa-ss-sub').textContent   = tS>0 ? (tS/12).toFixed(2)+'%/mes' : '—';
 }
 
 function onCambio(){ actualizarTramo(); calcular(); }
@@ -354,31 +349,33 @@ function onCambio(){ actualizarTramo(); calcular(); }
 function actualizarTramo(){
   const monto = gV('monto');
   tramo = TAR.find(r=>monto>=r.de&&monto<=r.a)||null;
-  const wE = el('warn-monto');
-  if(monto>0 && !tramo){
+  const wE=el('warn-monto');
+  if(monto>0&&!tramo){
     wE.style.display='block';
-    wE.innerHTML = monto<5000 ? '⚠️ Monto mínimo: L. 5,000' : '⚠️ Monto máximo: L. 5,000,000';
+    wE.innerHTML=monto<5000?'⚠️ Monto mínimo: L. 5,000':'⚠️ Monto máximo: L. 5,000,000';
   } else { wE.style.display='none'; }
-  const tb = el('tramo-box');
+  const tb=el('tramo-box');
   if(tramo){
     tb.style.display='block';
-    tb.innerHTML = `📋 Tramo: ${fL(tramo.de)} – ${fL(tramo.a)} &nbsp;|&nbsp; `+
+    tb.innerHTML=`📋 Tramo: ${fL(tramo.de)} – ${fL(tramo.a)} &nbsp;|&nbsp; `+
       `Comisión: <strong>${(tramo.com*100).toFixed(2)}%</strong> &nbsp;|&nbsp; `+
       `Plazo máx: <strong>${tramo.max} meses</strong> &nbsp;|&nbsp; `+
-      `Garantía mín: <strong>${tramo.gar_min.charAt(0).toUpperCase()+tramo.gar_min.slice(1)}</strong>`;
-    const tActual = parseFloat(el('tasa').value)||0;
-    el('tasa-mensual').textContent = tActual>0 ? (tActual/12).toFixed(2)+'%/mes' : '—';
-    actualizarGarBtns(tramo.gar_min);
+      `Garantía mín: <strong>${tramo.gar.charAt(0).toUpperCase()+tramo.gar.slice(1)}</strong>`;
+    // Auto-llenar tasas con valores del tramo
+    el('tasa-flat').value = (tramo.flat*12).toFixed(2);
+    el('tasa-ss').value   = tramo.ss.toFixed(1);
+    onTasaChange();
+    actualizarGarBtns(tramo.gar);
   } else { tb.style.display='none'; }
 }
 
 // ── Garantía ──────────────────────────────────────────────────
 function actualizarGarBtns(garMin){
-  const minIdx = GAR_ORDEN.indexOf(garMin||'fiduciaria');
+  const minIdx=GAR_ORDEN.indexOf(garMin||'fiduciaria');
   GAR_ORDEN.forEach((g,i)=>{
     const b=el(GAR_IDS[g]);
-    if(i<minIdx){ b.classList.add('disabled'); b.classList.remove('on'); }
-    else { b.classList.remove('disabled'); }
+    if(i<minIdx){b.classList.add('disabled');b.classList.remove('on');}
+    else{b.classList.remove('disabled');}
   });
   el('gar-liq').classList.remove('disabled');
   if(GAR_ORDEN.indexOf(garSel)<minIdx){
@@ -387,19 +384,19 @@ function actualizarGarBtns(garMin){
     el(GAR_IDS[garSel]).classList.add('on');
     el('wrap-prend').classList.add('hidden');
     el('wrap-hip').classList.add('hidden');
-    avalTipo='none'; avalCant=1;
   }
-  el('info-gar').textContent = GAR_INFO[garSel];
+  el('info-gar').textContent=GAR_INFO[garSel];
 }
 
-function setGar(g, btn){
+function setGar(g,btn){
   garSel=g;
   document.querySelectorAll('.gar-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  el('wrap-prend').classList.toggle('hidden', g!=='prendaria');
-  el('wrap-hip').classList.toggle('hidden',   g!=='hipotecaria');
-  el('info-gar').textContent = GAR_INFO[g];
-  if(g!=='prendaria'){ avalTipo='none'; avalCant=1;
+  el('wrap-prend').classList.toggle('hidden',g!=='prendaria');
+  el('wrap-hip').classList.toggle('hidden',g!=='hipotecaria');
+  el('info-gar').textContent=GAR_INFO[g];
+  if(g!=='prendaria'){
+    avalTipo='none'; avalCant=1;
     document.querySelectorAll('.aval-btn').forEach(b=>b.classList.remove('on'));
     el('aval-none').classList.add('on');
     el('wrap-aval-count').classList.add('hidden');
@@ -407,40 +404,31 @@ function setGar(g, btn){
   calcular();
 }
 
-// ── Aval prendario ────────────────────────────────────────────
-function setAval(tipo, btn){
+// ── Aval ──────────────────────────────────────────────────────
+function setAval(tipo,btn){
   avalTipo=tipo;
   document.querySelectorAll('.aval-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  if(tipo==='none'){
-    el('wrap-aval-count').classList.add('hidden');
-  } else {
+  if(tipo==='none'){ el('wrap-aval-count').classList.add('hidden'); }
+  else {
     avalCant=1;
     el('wrap-aval-count').classList.remove('hidden');
-    el('aval-count-lbl').textContent = tipo==='v'?'Cantidad de vehículos':'Cantidad de maquinarias';
+    el('aval-count-lbl').textContent=tipo==='v'?'Cantidad de vehículos':'Cantidad de maquinarias';
     actualizarAval();
   }
   calcular();
 }
-
-function cambiarCant(d){
-  avalCant=Math.max(1,avalCant+d);
-  actualizarAval(); calcular();
-}
-
+function cambiarCant(d){ avalCant=Math.max(1,avalCant+d); actualizarAval(); calcular(); }
 function actualizarAval(){
   el('aval-cant').textContent=avalCant;
   const tot=avalTipo==='none'?0:AVAL_PRECIO[avalTipo]*avalCant;
   el('aval-total').textContent=fL(tot);
 }
-
-function getAvalTotal(){
-  return avalTipo==='none'?0:AVAL_PRECIO[avalTipo]*avalCant;
-}
+function getAvalTotal(){ return avalTipo==='none'?0:AVAL_PRECIO[avalTipo]*avalCant; }
 
 // ── Amortización ──────────────────────────────────────────────
-function calcAmort(mB, tM, n, segM, met){
-  let cu, rows=[], totI=0;
+function calcAmort(mB,tM,n,segM,met){
+  let cu,rows=[],totI=0;
   if(met==='flat'){
     const capP=mB/n, intP=mB*tM; cu=capP+intP;
     let s=mB;
@@ -449,27 +437,14 @@ function calcAmort(mB, tM, n, segM, met){
       rows.push({n:i,si:s,cap:capP,int:intP,seg:segM,sf}); s=sf;
     }
   } else {
-    cu = tM>0 ? mB*(tM*Math.pow(1+tM,n))/(Math.pow(1+tM,n)-1) : mB/n;
+    cu=tM>0?mB*(tM*Math.pow(1+tM,n))/(Math.pow(1+tM,n)-1):mB/n;
     let s=mB;
     for(let i=1;i<=n;i++){
-      const intP=s*tM, capP=cu-intP, sf=Math.max(0,s-capP); totI+=intP;
+      const intP=s*tM,capP=cu-intP,sf=Math.max(0,s-capP); totI+=intP;
       rows.push({n:i,si:s,cap:capP,int:intP,seg:segM,sf}); s=sf;
     }
   }
-  return {cuota:cu, cuotaTotal:cu+segM, totInt:totI, rows, n, segM};
-}
-
-
-function setMetodo(m, btn){
-  metodoCompartir = m;
-  document.querySelectorAll('.mbtn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-}
-
-function actualizarMetodoBtns(){
-  if(!resFlat.cuotaTotal) return;
-  el('mbtn-flat-val').textContent = fL2(resFlat.cuotaTotal);
-  el('mbtn-ss-val').textContent   = fL2(resSS.cuotaTotal);
+  return{cuota:cu,cuotaTotal:cu+segM,totInt:totI,rows,n,segM};
 }
 
 // ── CALCULAR ──────────────────────────────────────────────────
@@ -477,86 +452,91 @@ function calcular(){
   actualizarTramo();
   const monto  = gV('monto');
   const plazo  = parseInt(el('plazo').value)||0;
-  const tasaA  = parseFloat(el('tasa').value)||0;
-  const tasaM  = tasaA/12/100;
+  const tasaFA = parseFloat(el('tasa-flat').value)||0;
+  const tasaSA = parseFloat(el('tasa-ss').value)||0;
+  const tasaFM = tasaFA/12/100;
+  const tasaSM = tasaSA/12/100;
 
-  if(!tramo||monto<5000||tasaM<=0||plazo<1){
+  if(!tramo||monto<5000||tasaFM<=0||tasaSM<=0||plazo<1){
     el('result-sec').classList.add('hidden');
-    if(monto>=5000&&(tasaM<=0||plazo<1)){
+    if(monto>=5000&&plazo>=1&&(tasaFM<=0||tasaSM<=0)){
       el('warn-monto').style.display='block';
-      el('warn-monto').innerHTML='⚠️ Ingresa plazo y tasa anual para calcular.';
+      el('warn-monto').innerHTML='⚠️ Ingresa ambas tasas para calcular.';
     }
     return;
   }
   el('warn-monto').style.display='none';
-  el('tasa-mensual').textContent=(tasaM*100).toFixed(2)+'%/mes';
+  onTasaChange();
 
   // Monto base (Excel 2026)
-  const comPct  = garSel==='liquida'?0:tramo.com;
-  const com     = monto*comPct;
-  const prend2  = garSel==='prendaria'?getAvalTotal():0;
-  const glP     = gV('gl-prend');
-  const glH     = gV('gl-hip');
-  const gl2     = garSel==='prendaria'?glP:(garSel==='hipotecaria'?glH:0);
-  const cajaTot = CFG.caja*plazo;
-  montoBase     = monto+com+CFG.buro+cajaTot+prend2+gl2;
+  const comPct = garSel==='liquida'?0:tramo.com;
+  const com    = monto*comPct;
+  const prend2 = garSel==='prendaria'?getAvalTotal():0;
+  const glP    = gV('gl-prend');
+  const glH    = gV('gl-hip');
+  const gl2    = garSel==='prendaria'?glP:(garSel==='hipotecaria'?glH:0);
+  const cajaTot= CFG.caja*plazo;
+  montoBase    = monto+com+CFG.buro+cajaTot+prend2+gl2;
 
-  const segM    = Math.min(montoBase,CFG.segTope)/1000*CFG.seg;
+  const segM   = Math.min(montoBase,CFG.segTope)/1000*CFG.seg;
 
-  resFlat = calcAmort(montoBase,tasaM,plazo,segM,'flat');
-  resSS   = calcAmort(montoBase,tramo.ss/100/12,plazo,segM,'ss');
+  resFlat = calcAmort(montoBase,tasaFM,plazo,segM,'flat');
+  resSS   = calcAmort(montoBase,tasaSM,plazo,segM,'ss');
 
-  const totF    = montoBase+resFlat.totInt+segM*plazo;
-  const totS    = montoBase+resSS.totInt+segM*plazo;
   const ssEsMejor = resSS.cuotaTotal<resFlat.cuotaTotal;
+  const totF  = montoBase+resFlat.totInt+segM*plazo;
+  const totS  = montoBase+resSS.totInt+segM*plazo;
 
-  // ── Tarjeta azul principal ────────────────────────────────
-  el('rcard-area').innerHTML = `
+  // Tarjeta azul
+  el('rcard-area').innerHTML=`
     <div class="comp-grid">
       <div class="ccard ${!ssEsMejor?'best':''}">
-        <div class="cbadge">Cuota FLAT${!ssEsMejor?'<span class="cbest-tag">✓ Menor</span>':''}</div>
+        <div class="cbadge">FLAT${!ssEsMejor?'<span class="cbest-tag">✓ Menor</span>':''}</div>
         <div class="ccuota">${fL2(resFlat.cuotaTotal)}</div>
-        <div class="cfreq">mensual</div>
+        <div class="cfreq">mensual · ${tasaFA.toFixed(2)}% anual</div>
         <div class="crow"><span>Total intereses</span><span class="cval">${fL(resFlat.totInt)}</span></div>
         <div class="crow"><span>Total a pagar</span><span class="cval">${fL(totF)}</span></div>
-        <div class="crow"><span>Tasa mens.</span><span class="cval">${(tasaM*100).toFixed(2)}%</span></div>
+        <div class="crow"><span>Tasa mensual</span><span class="cval">${tasaFM*100>0?(tasaFM*100).toFixed(2)+'%':'—'}</span></div>
       </div>
       <div class="ccard ${ssEsMejor?'best':''}">
         <div class="cbadge">Sobre Saldo${ssEsMejor?'<span class="cbest-tag">✓ Menor</span>':''}</div>
         <div class="ccuota">${fL2(resSS.cuotaTotal)}</div>
-        <div class="cfreq">mensual</div>
+        <div class="cfreq">mensual · ${tasaSA.toFixed(1)}% anual</div>
         <div class="crow"><span>Total intereses</span><span class="cval">${fL(resSS.totInt)}</span></div>
         <div class="crow"><span>Total a pagar</span><span class="cval">${fL(totS)}</span></div>
-        <div class="crow"><span>Tasa anual</span><span class="cval">${tramo.ss.toFixed(1)}%</span></div>
+        <div class="crow"><span>Tasa mensual</span><span class="cval">${tasaSM*100>0?(tasaSM*100).toFixed(2)+'%':'—'}</span></div>
       </div>
     </div>
     <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:11px">
       <span style="opacity:.5">Monto base</span><span style="text-align:right;font-weight:600">${fL(montoBase)}</span>
       <span style="opacity:.5">Seguro/mes</span><span style="text-align:right;font-weight:600">${fL2(segM)}</span>
-      <span style="opacity:.5">Caja (capitalizada)</span><span style="text-align:right;font-weight:600">${fL(cajaTot)}</span>
+      <span style="opacity:.5">Caja capitalizada</span><span style="text-align:right;font-weight:600">${fL(cajaTot)}</span>
       <span style="opacity:.5">Neto al cliente</span><span style="text-align:right;font-weight:600">${fL(monto)}</span>
     </div>
-    <div class="rnote">Tasa ${tasaA.toFixed(2)}% anual flat · Tarifario Ene-2025 Rev.1.2 · Manual 05/2024</div>`;
+    <div class="rnote">FLAT ${tasaFA.toFixed(2)}% · SS ${tasaSA.toFixed(1)}% · Tarifario Ene-2025 Rev.1.2</div>`;
 
-  // ── Desglose completo ─────────────────────────────────────
-  el('d-cap').textContent    = fL(monto);
-  el('d-com').textContent    = fL2(com)+' ('+(comPct*100).toFixed(2)+'%)';
-  el('d-prend').textContent  = prend2>0?fL(prend2)+(avalTipo==='v'?' ('+avalCant+' veh.)':' ('+avalCant+' maq.)'):'—';
-  el('d-gl').textContent     = gl2>0?fL(gl2):'—';
-  el('d-caja').textContent   = fL(cajaTot)+' (L.30 × '+plazo+'m)';
-  el('d-buro').textContent   = 'L. 150.00';
-  el('d-base').textContent   = fL(montoBase);
-  el('d-seg-m').textContent  = fL2(segM)+(montoBase>CFG.segTope?' (tope L2M)':'');
-  el('d-seg-t').textContent  = fL2(segM*plazo);
-  el('d-gar-req').textContent= tramo.gar_min.charAt(0).toUpperCase()+tramo.gar_min.slice(1);
-  el('d-neto').textContent   = fL(monto);
+  // Desglose
+  el('d-cap').textContent   = fL(monto);
+  el('d-com').textContent   = fL2(com)+' ('+(comPct*100).toFixed(2)+'%)';
+  el('d-prend').textContent = prend2>0?fL(prend2)+(avalTipo==='v'?' ('+avalCant+' veh.)':' ('+avalCant+' maq.)'):'—';
+  el('d-gl').textContent    = gl2>0?fL(gl2):'—';
+  el('d-caja').textContent  = fL(cajaTot)+' (L.30 × '+plazo+'m)';
+  el('d-buro').textContent  = 'L. 150.00';
+  el('d-base').textContent  = fL(montoBase);
+  el('d-seg-m').textContent = fL2(segM)+(montoBase>CFG.segTope?' (tope L2M)':'');
+  el('d-seg-t').textContent = fL2(segM*plazo);
+  el('d-gar-req').textContent=tramo.gar.charAt(0).toUpperCase()+tramo.gar.slice(1);
+  el('d-neto').textContent  = fL(monto);
+
+  // Selector compartir
+  el('mbtn-flat-val').textContent = fL2(resFlat.cuotaTotal);
+  el('mbtn-ss-val').textContent   = fL2(resSS.cuotaTotal);
 
   renderAmort();
-  actualizarMetodoBtns();
   el('result-sec').classList.remove('hidden');
 }
 
-// ── Tabla amortización ────────────────────────────────────────
+// ── Amortización ──────────────────────────────────────────────
 function setTab(t){
   tabAm=t;
   el('tab-flat').classList.toggle('on',t==='flat');
@@ -581,26 +561,29 @@ function renderAmort(){
 }
 
 // ── Compartir ─────────────────────────────────────────────────
+function setMetodo(m,btn){
+  metodoComp=m;
+  document.querySelectorAll('.mbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
 function genTexto(){
-  const nom    = el('nombre').value||'Cliente';
-  const ag     = el('agencia').options[el('agencia').selectedIndex].text;
-  const tasaA  = parseFloat(el('tasa').value)||0;
-  const tasaM  = tasaA/12/100;
-  const plazo  = parseInt(el('plazo').value)||0;
-  const garT   = {fiduciaria:'Fiduciaria 🤝',prendaria:'Prendaria 🔑',hipotecaria:'Hipotecaria 🏗️',liquida:'Líquida 💵'}[garSel];
-  const esFlat = metodoCompartir==='flat';
-  const res    = esFlat ? resFlat : resSS;
-  const metNom = esFlat ? 'Cuota Fija (FLAT)' : 'Sobre Saldo';
-  const tasaTxt= esFlat
-    ? `${tasaA.toFixed(2)}% anual flat (${(tasaM*100).toFixed(2)}%/mes)`
-    : `${tramo.ss.toFixed(1)}% anual sobre saldo`;
-  const totPagar = montoBase + res.totInt + res.segM*plazo;
-  let t =`*▲CREDIT — Cotización de Crédito*\n`;
-  t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
-  t+=`👤 Cliente: ${nom}\n`;
-  t+=`🏦 Agencia: ${ag}\n`;
-  t+=`💰 Monto solicitado: ${fL(gV('monto'))}\n`;
-  t+=`📅 Plazo: ${plazo} meses\n`;
+  const nom   = el('nombre').value||'Cliente';
+  const ag    = el('agencia').options[el('agencia').selectedIndex].text;
+  const plazo = parseInt(el('plazo').value)||0;
+  const tasaFA= parseFloat(el('tasa-flat').value)||0;
+  const tasaSA= parseFloat(el('tasa-ss').value)||0;
+  const garT  = {fiduciaria:'Fiduciaria 🤝',prendaria:'Prendaria 🔑',hipotecaria:'Hipotecaria 🏗️',liquida:'Líquida 💵'}[garSel];
+  const esFlat= metodoComp==='flat';
+  const res   = esFlat?resFlat:resSS;
+  const metNom= esFlat?'Cuota Fija (FLAT)':'Sobre Saldo';
+  const tasaTxt=esFlat
+    ? `${tasaFA.toFixed(2)}% anual flat (${(tasaFA/12).toFixed(2)}%/mes)`
+    : `${tasaSA.toFixed(1)}% anual sobre saldo (${(tasaSA/12).toFixed(2)}%/mes)`;
+  const totPagar=montoBase+res.totInt+res.segM*plazo;
+  let t=`*▲CREDIT — Cotización de Crédito*\n━━━━━━━━━━━━━━━━━━━━━\n`;
+  t+=`👤 Cliente: ${nom}\n🏦 Agencia: ${ag}\n`;
+  t+=`💰 Monto: ${fL(gV('monto'))}\n📅 Plazo: ${plazo} meses\n`;
   t+=`🔒 Garantía: ${garT}\n`;
   t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
   t+=`📊 Modalidad: *${metNom}*\n`;
@@ -609,7 +592,7 @@ function genTexto(){
   t+=`💳 *Cuota mensual: ${fL2(res.cuotaTotal)}*\n`;
   t+=`   Capital + Interés: ${fL2(res.cuota)}\n`;
   t+=`   Seguro de deuda:   ${fL2(res.segM)}\n`;
-  t+=`💵 Monto base crédito: ${fL(montoBase)}\n`;
+  t+=`💵 Monto base: ${fL(montoBase)}\n`;
   t+=`💵 Total a pagar: ${fL(totPagar)}\n`;
   t+=`💵 Neto al cliente: ${fL(gV('monto'))}\n`;
   t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
@@ -627,33 +610,33 @@ function copiar(){
 
 // ── Historial ─────────────────────────────────────────────────
 function guardar(){
-  const hist=JSON.parse(localStorage.getItem('cu_hist_v6')||'[]');
+  const hist=JSON.parse(localStorage.getItem('cu_hist_v7')||'[]');
   hist.unshift({
     fecha:new Date().toLocaleDateString('es-HN'),
     nombre:el('nombre').value||'—',
     monto:gV('monto'), plazo:el('plazo').value,
-    tasa:el('tasa').value, gar:garSel,
-    cuotaF:resFlat.cuotaTotal, cuotaSS:resSS.cuotaTotal
+    tasaF:el('tasa-flat').value, tasaS:el('tasa-ss').value,
+    gar:garSel, cuotaF:resFlat.cuotaTotal, cuotaSS:resSS.cuotaTotal
   });
   if(hist.length>10) hist.pop();
-  localStorage.setItem('cu_hist_v6',JSON.stringify(hist));
+  localStorage.setItem('cu_hist_v7',JSON.stringify(hist));
   renderHist();
   el('save-lbl').textContent='✅ Guardado';
   setTimeout(()=>el('save-lbl').textContent='💾 Guardar en historial',2000);
 }
 function renderHist(){
-  const hist=JSON.parse(localStorage.getItem('cu_hist_v6')||'[]');
+  const hist=JSON.parse(localStorage.getItem('cu_hist_v7')||'[]');
   el('hist-list').innerHTML='';
   el('hist-empty').style.display=hist.length?'none':'block';
   const ico={fiduciaria:'🤝',prendaria:'🔑',hipotecaria:'🏗️',liquida:'💵'};
   hist.forEach(h=>{
     const d=document.createElement('div'); d.className='hitem';
-    d.innerHTML=`<div><div class="hl">${h.nombre} ${ico[h.gar]||''}</div><div class="hs">${h.fecha} · ${fL(h.monto)} · ${h.plazo}m · ${h.tasa}% anual</div></div><div class="hc">${fL2(h.cuotaF)}</div>`;
+    d.innerHTML=`<div><div class="hl">${h.nombre} ${ico[h.gar]||''}</div><div class="hs">${h.fecha} · ${fL(h.monto)} · ${h.plazo}m · F:${h.tasaF}%/SS:${h.tasaS}%</div></div><div class="hc">${fL2(h.cuotaF)}</div>`;
     el('hist-list').appendChild(d);
   });
 }
 function limpiarHist(){
-  if(confirm('¿Limpiar todo el historial?')){ localStorage.removeItem('cu_hist_v6'); renderHist(); }
+  if(confirm('¿Limpiar todo el historial?')){ localStorage.removeItem('cu_hist_v7'); renderHist(); }
 }
 
 // ── INIT ──────────────────────────────────────────────────────
