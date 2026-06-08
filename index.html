@@ -9,109 +9,115 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --navy:#2B3952;--blue:#435782;--green:#6AC187;
-  --bg:#f5f5f3;--card:#fff;--bdr:#e2e2e0;
-  --text:#1a1a1a;--muted:#666;--red:#C0392B;--yellow:#F4C244
+  --bg:#f2f3f5;--card:#fff;--bdr:#e0e0de;
+  --text:#1a1a1a;--muted:#666;--red:#C0392B;--yellow:#e6a817
 }
 body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);font-size:14px;-webkit-tap-highlight-color:transparent}
-.hdr{background:var(--navy);color:#fff;padding:12px 16px 10px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25)}
-.logo{font-family:'Poppins',sans-serif;font-size:17px;font-weight:700;letter-spacing:-.3px}
+
+/* HEADER */
+.hdr{background:var(--navy);color:#fff;padding:13px 16px 11px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.logo{font-family:'Poppins',sans-serif;font-size:18px;font-weight:700}
 .logo span{color:var(--green)}
-.hdr-sub{font-size:9.5px;opacity:.55;margin-top:1px}
-.ver-badge{font-size:10px;background:rgba(106,193,135,.2);color:var(--green);border-radius:4px;padding:2px 8px;font-weight:600}
-.body{padding:12px 14px 90px;max-width:520px;margin:0 auto}
-.sec{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin:16px 0 7px;display:flex;align-items:center;gap:5px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.hdr-sub{font-size:9.5px;opacity:.5;margin-top:1px}
+.ver{font-size:10px;background:rgba(106,193,135,.18);color:var(--green);border-radius:4px;padding:2px 9px;font-weight:600}
+
+/* LAYOUT */
+.body{padding:14px 14px 80px;max-width:500px;margin:0 auto}
+.sec{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin:18px 0 8px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
 .fld{display:flex;flex-direction:column;gap:4px}
 .lbl{font-size:11px;color:var(--muted);font-weight:500}
-.lbl .tag{font-size:9px;background:#E6F1FB;color:#0C447C;border-radius:3px;padding:1px 5px;font-weight:600;margin-left:4px;vertical-align:middle}
-select,input[type=text]{width:100%;height:42px;border:1.5px solid var(--bdr);border-radius:9px;background:var(--card);color:var(--text);font-size:14px;font-family:'Montserrat',sans-serif;padding:0 11px;outline:none;transition:.15s;-webkit-appearance:none}
+
+/* INPUTS */
+select,input[type=text]{width:100%;height:44px;border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--text);font-size:15px;font-family:'Montserrat',sans-serif;padding:0 12px;outline:none;transition:.15s;-webkit-appearance:none;appearance:none}
 select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,87,130,.1)}
 .pfx-wrap{position:relative}
-.pfx-wrap input{padding-left:32px}
-.pfx{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted);pointer-events:none;font-weight:500}
-/* Tipo credito tabs */
-.tipo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:10px}
-.tipo-btn{height:52px;border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--muted);font-size:11.5px;font-family:'Montserrat',sans-serif;cursor:pointer;transition:.15s;font-weight:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;line-height:1.2;padding:4px}
-.tipo-btn .ico{font-size:16px}
-.tipo-btn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-.tipo-btn:active{transform:scale(.97)}
-/* Garantia selector visual */
-.gar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
-.gar-btn{height:60px;border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--muted);font-size:10.5px;font-family:'Montserrat',sans-serif;cursor:pointer;transition:.15s;font-weight:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;line-height:1.2;text-align:center;padding:4px}
-.gar-btn .ico{font-size:18px}
+.pfx-wrap input{padding-left:34px}
+.pfx{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted);pointer-events:none;font-weight:600}
+
+/* INFO BOXES */
+.info-box{background:#E8F4FD;border:1px solid #90C8F0;border-radius:9px;padding:9px 12px;font-size:11.5px;color:#0C447C;margin-bottom:9px;line-height:1.55}
+.warn-box{background:#FDEEEC;border:1px solid var(--red);border-radius:9px;padding:9px 12px;font-size:12px;color:#922b21;margin-bottom:9px;display:none;line-height:1.5}
+.tramo-box{background:#EAF3DE;border:1px solid #8DC870;border-radius:9px;padding:9px 12px;font-size:11.5px;color:#1e4d0a;margin-bottom:9px;display:none;line-height:1.55}
+
+/* GARANTIA BUTTONS */
+.gar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:9px}
+.gar-btn{height:64px;border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--muted);font-size:11px;font-family:'Montserrat',sans-serif;cursor:pointer;transition:.15s;font-weight:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:5px;line-height:1.25}
+.gar-btn .ico{font-size:20px}
 .gar-btn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-.gar-btn.disabled{opacity:.35;cursor:not-allowed}
-.gar-btn:not(.disabled):active{transform:scale(.97)}
-.gar-info{background:#E6F1FB;border:1px solid #85B7EB;border-radius:8px;padding:8px 11px;font-size:11px;color:#0C447C;margin-bottom:8px;line-height:1.5}
-/* Freq */
-.freq-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
-.fbtn{height:36px;border:1.5px solid var(--bdr);border-radius:8px;background:var(--card);color:var(--muted);font-size:12px;font-family:'Montserrat',sans-serif;cursor:pointer;transition:.15s;font-weight:500}
-.fbtn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-.fbtn:disabled{opacity:.3;cursor:default}
-/* Checks */
-.checks{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
-.chk{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);cursor:pointer}
-.chk input{width:16px;height:16px;accent-color:var(--navy);flex-shrink:0;cursor:pointer}
-.fiel-box{background:#EAF3DE;border:1px solid #a8d891;border-radius:8px;padding:9px 12px;margin-bottom:9px;display:none}
-.fiel-box .chk{color:#27500A;font-size:12px;font-weight:500}
-/* Semáforo */
-.semaforo{padding:9px 12px;border-radius:8px;font-size:12px;font-weight:500;margin-bottom:8px;display:none;line-height:1.5}
+.gar-btn.disabled{opacity:.3;cursor:not-allowed;pointer-events:none}
+.gar-btn:not(.disabled):not(.on):active{background:#f0f0ee}
+
+/* TASA */
+.tasa-wrap{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px;align-items:end}
+.tasa-info{font-size:11px;color:var(--muted);margin-top:3px}
+.tasa-tag{display:inline-block;font-size:9.5px;background:#FEF9EC;color:#7a5200;border:1px solid var(--yellow);border-radius:3px;padding:1px 6px;font-weight:600;margin-left:5px}
+
+/* CAPACIDAD */
+.semaforo{padding:10px 12px;border-radius:9px;font-size:12px;font-weight:500;margin-bottom:9px;display:none;line-height:1.5}
 .semaforo.ok{background:#EAF7EF;color:#1a6e3a;border:1px solid var(--green)}
 .semaforo.warn{background:#FEF9EC;color:#7a5200;border:1px solid var(--yellow)}
 .semaforo.danger{background:#FDEEEC;color:#922b21;border:1px solid var(--red)}
-.warn-box{background:#FDEEEC;border:1px solid var(--red);border-radius:8px;padding:8px 12px;font-size:12px;color:#922b21;margin-bottom:8px;display:none;line-height:1.5}
-/* Btn calcular */
-.calc-btn{width:100%;height:50px;background:var(--green);color:#0d3320;border:none;border-radius:11px;font-size:15px;font-weight:600;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s;letter-spacing:-.2px}
-.calc-btn:active{transform:scale(.98)}
-/* Resultado */
-.rcard{background:var(--navy);border-radius:13px;padding:15px;color:#fff;margin-bottom:11px}
-.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:3px}
-.ccard{background:rgba(255,255,255,.08);border-radius:10px;padding:12px;border:1.5px solid rgba(255,255,255,.1)}
-.ccard.best{background:rgba(106,193,135,.18);border-color:var(--green)}
-.cbadge{font-size:9px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;opacity:.6;margin-bottom:3px}
-.cbest-tag{font-size:9px;background:var(--green);color:#0d3320;border-radius:3px;padding:1px 5px;font-weight:700;margin-left:4px}
-.ccuota{font-size:21px;font-weight:700;color:var(--green);line-height:1.1;margin-bottom:1px}
-.cfreq{font-size:10px;opacity:.45;margin-bottom:7px}
-.crow{display:flex;justify-content:space-between;padding:2.5px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:11px}
-.crow:last-child{border:none}
-.cval{font-weight:500}
-.rnote{font-size:9.5px;opacity:.3;text-align:center;margin-top:9px;line-height:1.5}
-/* Desglose */
+
+/* BTN CALCULAR */
+.calc-btn{width:100%;height:52px;background:var(--green);color:#0d3320;border:none;border-radius:12px;font-size:16px;font-weight:700;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:15px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s;letter-spacing:-.3px}
+.calc-btn:active{transform:scale(.98);background:#58b077}
+
+/* RESULTADO */
+.rcard{background:var(--navy);border-radius:14px;padding:16px;color:#fff;margin-bottom:11px}
+.rtitle{font-size:10px;opacity:.5;text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px}
+.rcuota{font-size:38px;font-weight:700;color:var(--green);line-height:1;margin-bottom:2px;letter-spacing:-1px}
+.rfreq{font-size:12px;opacity:.45;margin-bottom:14px}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ritem{background:rgba(255,255,255,.08);border-radius:9px;padding:10px 12px;border:1px solid rgba(255,255,255,.08)}
+.rlbl{font-size:9.5px;opacity:.5;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.rval{font-size:14px;font-weight:600}
+.rdivider{height:1px;background:rgba(255,255,255,.1);margin:12px 0}
+.rdetalle{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.rdet-item{font-size:11px;opacity:.6}
+.rdet-val{font-size:11px;font-weight:500;text-align:right}
+.rnote{font-size:9.5px;opacity:.28;text-align:center;margin-top:12px;line-height:1.5}
+
+/* DESGLOSE */
 .dcard{background:var(--card);border-radius:10px;border:1px solid var(--bdr);overflow:hidden;margin-bottom:9px}
-.dhead{padding:10px 13px;border-bottom:1px solid var(--bdr);font-size:12px;font-weight:500;color:var(--muted);display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;-webkit-user-select:none}
-.drow{display:flex;justify-content:space-between;align-items:center;padding:7px 13px;border-bottom:1px solid #f0f0ee;font-size:12.5px}
+.dhead{padding:11px 13px;border-bottom:1px solid var(--bdr);font-size:12px;font-weight:500;color:var(--muted);display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;-webkit-user-select:none}
+.drow{display:flex;justify-content:space-between;align-items:center;padding:8px 13px;border-bottom:1px solid #f0f0ee;font-size:12.5px;gap:8px}
 .drow:last-child{border:none}
-.dl{color:var(--muted);font-size:12px}
-.dv{font-weight:500}
-.dv.navy{color:var(--navy)}.dv.green{color:#1a6e3a}.dv.red{color:var(--red)}
-.drow.total{background:#f7f7f5}.drow.total .dv{color:var(--navy);font-weight:600}
-.drow.alerta{background:#FEF9EC}
-/* Amort */
-.atabs{display:flex;gap:6px;padding:8px 13px;border-bottom:1px solid var(--bdr)}
-.atab{flex:1;height:30px;border:1px solid var(--bdr);border-radius:6px;background:var(--card);color:var(--muted);font-size:11px;font-family:'Montserrat',sans-serif;cursor:pointer;font-weight:500;transition:.15s}
+.dl{color:var(--muted);font-size:12px;flex:1}
+.dv{font-weight:500;white-space:nowrap}
+.dv.navy{color:var(--navy);font-weight:600}
+.dv.green{color:#1a6e3a;font-weight:600}
+.dv.red{color:var(--red)}
+.drow.tot{background:#f7f7f5}
+
+/* AMORT */
+.atab-wrap{display:flex;gap:6px;padding:9px 13px;border-bottom:1px solid var(--bdr)}
+.atab{flex:1;height:32px;border:1px solid var(--bdr);border-radius:7px;background:var(--card);color:var(--muted);font-size:11px;font-family:'Montserrat',sans-serif;cursor:pointer;font-weight:500;transition:.15s}
 .atab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 .ascroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.atbl{width:100%;font-size:10px;border-collapse:collapse;min-width:360px}
-.atbl th{background:#f7f7f5;padding:5px 6px;text-align:right;font-weight:600;color:var(--muted);border-bottom:1px solid var(--bdr);white-space:nowrap}
+.atbl{width:100%;font-size:10px;border-collapse:collapse;min-width:340px}
+.atbl th{background:#f7f7f5;padding:5px 6px;text-align:right;font-weight:600;color:var(--muted);border-bottom:1px solid var(--bdr);white-space:nowrap;font-size:9.5px}
 .atbl th:first-child{text-align:center}
-.atbl td{padding:4.5px 6px;text-align:right;border-bottom:1px solid #f0f0ee;font-size:10px}
-.atbl td:first-child{text-align:center;color:var(--muted)}
+.atbl td{padding:4.5px 6px;text-align:right;border-bottom:1px solid #f5f5f5}
+.atbl td:first-child{text-align:center;color:var(--muted);font-size:9.5px}
 .atbl .tot td{font-weight:600;background:#f0f0ee;border-top:1px solid var(--bdr)}
-/* Compartir */
-.wa-btn{width:100%;height:46px;background:#25D366;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;font-family:'Montserrat',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:7px;transition:.15s}
+
+/* COMPARTIR */
+.wa-btn{width:100%;height:48px;background:#25D366;color:#fff;border:none;border-radius:11px;font-size:14px;font-weight:600;font-family:'Montserrat',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;transition:.15s}
 .wa-btn:active{transform:scale(.98)}
-.sbtn{width:100%;height:38px;background:var(--card);color:var(--muted);border:1px solid var(--bdr);border-radius:8px;font-size:12.5px;font-family:'Montserrat',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s;margin-bottom:6px}
-.sbtn:active{background:#f7f7f5}
-/* Historial */
+.sbtn{width:100%;height:40px;background:var(--card);color:var(--muted);border:1px solid var(--bdr);border-radius:9px;font-size:12.5px;font-family:'Montserrat',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s;margin-bottom:7px}
+.sbtn:active{background:#f5f5f5}
+
+/* HISTORIAL */
 .hitem{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-bottom:1px solid #f0f0ee;font-size:12px}
 .hitem:last-child{border:none}
 .hl{font-weight:500}.hs{font-size:10px;color:var(--muted);margin-top:1px}
 .hc{font-weight:600;color:var(--navy);white-space:nowrap;margin-left:8px}
 .hempty{padding:14px 13px;font-size:12px;color:var(--muted);text-align:center}
 .hidden{display:none}
-.saving{font-size:11px;color:var(--muted);text-align:center;padding:4px;display:none}
-.divider{height:1px;background:var(--bdr);margin:14px 0}
-@media print{.hdr,.calc-btn,.wa-btn,.sbtn,.freq-row,.checks,.hist-sec,.fiel-box,.gar-grid{display:none!important}.body{padding:0}}
+.divider{height:1px;background:var(--bdr);margin:16px 0}
+
+@media print{.hdr,.calc-btn,.wa-btn,.sbtn,.hist-sec{display:none!important}.body{padding:0}}
 </style>
 </head>
 <body>
@@ -121,12 +127,12 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     <div class="logo">▲<span>CREDIT</span></div>
     <div class="hdr-sub">Calculadora de Campo · Asesores</div>
   </div>
-  <span class="ver-badge">v5.0</span>
+  <span class="ver">v6.0</span>
 </div>
 
 <div class="body">
 
-<!-- DATOS -->
+<!-- DATOS BÁSICOS -->
 <div class="sec">👤 Datos del caso</div>
 <div class="row2">
   <div class="fld">
@@ -136,31 +142,23 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
   <div class="fld">
     <span class="lbl">Agencia</span>
     <select id="agencia">
-      <option value="central">Oficina Central Tegucigalpa</option>
-      <option value="talanga">Agencia Talanga</option>
-      <option value="danli">Agencia Danlí</option>
-      <option value="comayagua">Agencia Comayagua</option>
+      <option value="central">Central Tegucigalpa</option>
+      <option value="talanga">Talanga</option>
+      <option value="danli">Danlí</option>
+      <option value="comayagua">Comayagua</option>
     </select>
   </div>
 </div>
 
-<!-- TIPO DE CRÉDITO -->
-<div class="sec">💳 Tipo de crédito</div>
-<div class="tipo-grid">
-  <button class="tipo-btn on" onclick="setTipo('comercio',this)"><span class="ico">🏪</span>Comercio</button>
-  <button class="tipo-btn" onclick="setTipo('inversion',this)"><span class="ico">📈</span>Inversión</button>
-  <button class="tipo-btn" onclick="setTipo('vivienda',this)"><span class="ico">🏠</span>Vivienda</button>
-  <button class="tipo-btn" onclick="setTipo('personal',this)"><span class="ico">👤</span>Personal</button>
-</div>
+<!-- MONTO, PLAZO Y TASA -->
+<div class="sec">💵 Crédito</div>
 
-<!-- MONTO Y PLAZO -->
-<div class="sec">💵 Monto y plazo</div>
 <div class="row2">
   <div class="fld">
     <span class="lbl">Monto solicitado</span>
     <div class="pfx-wrap">
       <span class="pfx">L.</span>
-      <input type="text" id="monto" value="50,000" oninput="fmtM(this)" onblur="onMontoBlur()"/>
+      <input type="text" id="monto" value="50,000" oninput="fmtM(this)" onblur="onCambio()"/>
     </div>
   </div>
   <div class="fld">
@@ -168,16 +166,29 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     <select id="plazo" onchange="calcular()"></select>
   </div>
 </div>
-<div class="warn-box" id="warn-monto"></div>
 
-<!-- INFO RANGO -->
-<div class="gar-info" id="info-rango">
-  Selecciona el monto para ver el tramo aplicable.
+<!-- TASA EDITABLE -->
+<div class="tasa-wrap">
+  <div class="fld">
+    <span class="lbl">
+      Tasa mensual flat
+      <span class="tasa-tag">editable</span>
+    </span>
+    <div class="pfx-wrap">
+      <input type="text" id="tasa" placeholder="ej. 3.25" oninput="onTasaInput(this)" onblur="calcular()" style="padding-left:12px"/>
+    </div>
+  </div>
+  <div class="fld">
+    <span class="lbl">Equivalente anual</span>
+    <div id="tasa-anual" style="height:44px;display:flex;align-items:center;padding:0 12px;background:#f7f7f5;border-radius:10px;border:1.5px solid var(--bdr);font-size:15px;font-weight:600;color:var(--navy)">—</div>
+  </div>
 </div>
+<div class="tramo-box" id="tramo-box"></div>
+<div class="warn-box" id="warn-monto"></div>
 
 <!-- GARANTÍA -->
 <div class="sec">🔒 Tipo de garantía</div>
-<div class="gar-grid" id="gar-grid">
+<div class="gar-grid">
   <button class="gar-btn on" id="gar-fid" onclick="setGar('fiduciaria',this)">
     <span class="ico">🤝</span>Fiduciaria
   </button>
@@ -188,128 +199,130 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     <span class="ico">🏗️</span>Hipotecaria
   </button>
 </div>
-<div class="gar-info" id="info-gar"></div>
+<div class="info-box" id="info-gar">🤝 Garantía Fiduciaria — Fiador solvente con ingresos verificables. Aplica para montos hasta L150,000.</div>
 
-<!-- Cargos garantía prendaria -->
-<div id="wrap-prend" style="display:none">
+<!-- Prendaria: tipo de aval -->
+<div id="wrap-prend" class="hidden">
   <div class="row2">
     <div class="fld">
       <span class="lbl">Aval prendario</span>
       <select id="sel-prend" onchange="calcular()">
-        <option value="0">Ninguno</option>
+        <option value="0">Sin cargo adicional</option>
         <option value="700">Maquinaria / equipo (L700)</option>
         <option value="1500">Vehículo (L1,500)</option>
       </select>
     </div>
     <div class="fld">
-      <span class="lbl">Gastos legales veh./maq.</span>
-      <div class="pfx-wrap"><span class="pfx">L.</span>
-        <input type="text" id="gl-veh" value="0" oninput="fmtM(this)" onblur="calcular()"/>
+      <span class="lbl">Gastos legales</span>
+      <div class="pfx-wrap">
+        <span class="pfx">L.</span>
+        <input type="text" id="gl-prend" value="0" oninput="fmtM(this)" onblur="calcular()"/>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Gastos hipoteca -->
-<div id="wrap-hip" style="display:none">
-  <div class="fld" style="margin-bottom:8px">
+<!-- Hipotecaria: gastos -->
+<div id="wrap-hip" class="hidden">
+  <div class="fld" style="margin-bottom:9px">
     <span class="lbl">Gastos legales hipoteca</span>
-    <div class="pfx-wrap"><span class="pfx">L.</span>
+    <div class="pfx-wrap">
+      <span class="pfx">L.</span>
       <input type="text" id="gl-hip" value="0" oninput="fmtM(this)" onblur="calcular()"/>
     </div>
   </div>
 </div>
 
-<!-- CLIENTE FIEL -->
-<div class="fiel-box" id="fiel-box">
-  <label class="chk">
-    <input type="checkbox" id="chk-fiel" onchange="calcular()">
-    <span>Cliente fiel — 5+ ciclos, categoría A/AA (−2% flat / −3.5% SS anual)</span>
-  </label>
-</div>
-
 <!-- CAPACIDAD DE PAGO -->
-<div class="sec">📊 Capacidad de pago <span class="lbl tag">política</span></div>
-<div class="gar-info" id="info-cap">Comercio/Vivienda/Inversión: máx. 30% del ingreso neto. Personal: máx. 50%.</div>
+<div class="sec">📊 Capacidad de pago</div>
+<div class="info-box" id="info-cap">Límite máx. 30% del ingreso neto mensual para créditos comerciales. (Manual 05/2024)</div>
 <div class="row2">
   <div class="fld">
     <span class="lbl">Ingreso mensual neto</span>
-    <div class="pfx-wrap"><span class="pfx">L.</span>
+    <div class="pfx-wrap">
+      <span class="pfx">L.</span>
       <input type="text" id="ingreso" placeholder="0" oninput="fmtM(this)" onblur="calcular()"/>
     </div>
   </div>
   <div class="fld">
     <span class="lbl">Cuota máx. permitida</span>
-    <div id="cuota-max" style="height:42px;display:flex;align-items:center;padding:0 11px;background:#f7f7f5;border-radius:9px;border:1.5px solid var(--bdr);font-size:14px;font-weight:500;color:var(--muted)">—</div>
+    <div id="cuota-max" style="height:44px;display:flex;align-items:center;padding:0 12px;background:#f7f7f5;border-radius:10px;border:1.5px solid var(--bdr);font-size:15px;font-weight:600;color:var(--muted)">—</div>
   </div>
 </div>
 <div class="semaforo" id="semaforo"></div>
 
-<!-- FRECUENCIA -->
-<div class="sec">📅 Frecuencia de pago</div>
-<div class="freq-row">
-  <button class="fbtn on" onclick="setFreq('mensual',this)">Mensual</button>
-  <button class="fbtn" onclick="setFreq('quincenal',this)">Quincenal</button>
-  <button class="fbtn" id="fbtn-sem" onclick="setFreq('semanal',this)">Semanal</button>
-</div>
-
-<!-- CARGOS -->
-<div class="sec">🧾 Cargos adicionales</div>
-<div class="checks">
-  <label class="chk"><input type="checkbox" id="chk-seg" checked onchange="calcular()">
-    <span>Seguro de deuda (L0.85/millar/mes, tope L2,000,000)</span></label>
-  <label class="chk"><input type="checkbox" id="chk-buro" onchange="calcular()">
-    <span>Buró de crédito Equifax + TransUnion (L150 único)</span></label>
-  <label class="chk" id="row-caja"><input type="checkbox" id="chk-caja" onchange="calcular()">
-    <span>Caja empresarial / Colecturía (L30/cuota)</span></label>
-  <label class="chk"><input type="checkbox" id="chk-pant" onchange="calcular()">
-    <span>Pago anticipado antes del 50% del plazo (+3% sobre capital)</span></label>
-</div>
-
-<button class="calc-btn" onclick="calcular()">⚙ Calcular cuota</button>
+<button class="calc-btn" onclick="calcular()">⚙ Calcular</button>
 
 <!-- RESULTADO -->
 <div id="result-sec" class="hidden">
 
+<!-- CUOTA PRINCIPAL -->
 <div class="rcard">
-  <div id="comp-area"></div>
+  <div class="rtitle">Cuota mensual</div>
+  <div class="rcuota" id="r-cuota">—</div>
+  <div class="rfreq">pago mensual</div>
+
+  <div class="rgrid">
+    <div class="ritem">
+      <div class="rlbl">Total intereses</div>
+      <div class="rval" id="r-int">—</div>
+    </div>
+    <div class="ritem">
+      <div class="rlbl">Total a pagar</div>
+      <div class="rval" id="r-total">—</div>
+    </div>
+    <div class="ritem">
+      <div class="rlbl">Monto base</div>
+      <div class="rval" id="r-base">—</div>
+    </div>
+    <div class="ritem">
+      <div class="rlbl">Neto al cliente</div>
+      <div class="rval" id="r-neto">—</div>
+    </div>
+  </div>
+
+  <div class="rdivider"></div>
+  <div class="rdetalle" id="r-desglose-mini"></div>
   <div class="rnote" id="rnote"></div>
 </div>
 
-<!-- DESGLOSE -->
+<!-- DESGLOSE COMPLETO -->
 <div class="dcard">
   <div class="dhead" onclick="tog('det-b','det-i')">
-    <span>Desglose de cargos</span><span id="det-i">▾</span>
+    <span>Desglose completo</span><span id="det-i">▾</span>
   </div>
-  <div id="det-b">
+  <div id="det-b" class="hidden">
     <div class="drow"><span class="dl">Capital solicitado</span><span class="dv" id="d-cap"></span></div>
-    <div class="drow"><span class="dl">Comisión de desembolso</span><span class="dv" id="d-com"></span></div>
+    <div class="drow"><span class="dl">Comisión desembolso</span><span class="dv" id="d-com"></span></div>
     <div class="drow"><span class="dl">Aval prendario</span><span class="dv" id="d-prend"></span></div>
     <div class="drow"><span class="dl">Gastos legales</span><span class="dv" id="d-gl"></span></div>
-    <div class="drow total"><span class="dl">Monto base del crédito</span><span class="dv navy" id="d-base"></span></div>
-    <div class="drow"><span class="dl">Seguro de deuda (total plazo)</span><span class="dv" id="d-seg"></span></div>
-    <div class="drow"><span class="dl">Buró de crédito</span><span class="dv" id="d-buro"></span></div>
-    <div class="drow"><span class="dl">Caja empresarial (total plazo)</span><span class="dv" id="d-caja"></span></div>
-    <div class="drow"><span class="dl">Recargo pago anticipado</span><span class="dv red" id="d-pant"></span></div>
-    <div class="drow total"><span class="dl">Neto que recibe el cliente</span><span class="dv green" id="d-neto"></span></div>
-    <div class="drow"><span class="dl">Garantía mínima requerida</span><span class="dv" id="d-gar-req"></span></div>
-    <div class="drow"><span class="dl">Plazo máximo permitido</span><span class="dv" id="d-pmax"></span></div>
+    <div class="drow tot"><span class="dl">Monto base del crédito</span><span class="dv navy" id="d-base2"></span></div>
+    <div class="drow"><span class="dl">Seguro de deuda mensual</span><span class="dv" id="d-seg-m"></span></div>
+    <div class="drow"><span class="dl">Seguro de deuda (total plazo)</span><span class="dv" id="d-seg-t"></span></div>
+    <div class="drow"><span class="dl">Buró de crédito (único)</span><span class="dv" id="d-buro"></span></div>
+    <div class="drow"><span class="dl">Caja empresarial (por cuota)</span><span class="dv" id="d-caja-m"></span></div>
+    <div class="drow"><span class="dl">Caja empresarial (total plazo)</span><span class="dv" id="d-caja-t"></span></div>
+    <div class="drow"><span class="dl">Garantía mínima requerida</span><span class="dv green" id="d-gar-req"></span></div>
+    <div class="drow"><span class="dl">Plazo máximo tarifario</span><span class="dv" id="d-pmax"></span></div>
+    <div class="drow tot"><span class="dl">Neto que recibe el cliente</span><span class="dv green" id="d-neto2"></span></div>
   </div>
 </div>
 
 <!-- TABLA AMORTIZACIÓN -->
 <div class="dcard">
-  <div class="dhead" onclick="togAmort()">
+  <div class="dhead" onclick="tog('amort-b','amort-i')">
     <span>Tabla de amortización</span><span id="amort-i">▾</span>
   </div>
   <div id="amort-b" class="hidden">
-    <div class="atabs" id="atabs">
-      <button class="atab on" id="tab-flat" onclick="setTab('flat')">FLAT</button>
+    <div class="atab-wrap">
+      <button class="atab on" id="tab-flat" onclick="setTab('flat')">Cuota Fija (FLAT)</button>
       <button class="atab" id="tab-ss" onclick="setTab('ss')">Sobre Saldo</button>
     </div>
     <div class="ascroll">
       <table class="atbl">
-        <thead><tr><th>#</th><th>Saldo ini.</th><th>Capital</th><th>Interés</th><th>Seguro</th><th>Cuota</th><th>Saldo fin.</th></tr></thead>
+        <thead>
+          <tr><th>#</th><th>Saldo ini.</th><th>Capital</th><th>Interés</th><th>Seguro</th><th>Cuota</th><th>Saldo fin.</th></tr>
+        </thead>
         <tbody id="atbody"></tbody>
       </table>
     </div>
@@ -317,15 +330,14 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 </div>
 
 <!-- COMPARTIR -->
-<div class="sec">🔗 Compartir cotización</div>
+<div class="sec">🔗 Compartir</div>
 <button class="wa-btn" onclick="enviarWA()">📲 Enviar por WhatsApp</button>
-<button class="sbtn" onclick="copiar()"><span id="copy-lbl">📋 Copiar resumen</span></button>
-<button class="sbtn" onclick="window.print()">🖨 Imprimir / PDF</button>
+<button class="sbtn" onclick="copiar()"><span id="copy-lbl">📋 Copiar resumen de texto</span></button>
 <button class="sbtn" onclick="guardar()"><span id="save-lbl">💾 Guardar en historial</span></button>
-<div class="saving" id="saving">Guardando...</div>
 
-<p style="font-size:10px;color:#bbb;line-height:1.6;margin-top:8px;padding:0 2px;text-align:center">
-  Cálculo referencial · Tarifario Enero 2025 Rev.1.2 · Manual 05/2024<br>
+<p style="font-size:10px;color:#bbb;line-height:1.6;margin-top:10px;padding:0 2px;text-align:center">
+  Cálculo referencial · Tarifario Enero 2025 Rev.1.2<br>
+  Manual de Productos CREDITUNION 05/2024<br>
   Sujeto a aprobación del Comité de Créditos
 </p>
 
@@ -346,276 +358,280 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 
 <script>
 // ============================================================
-// TARIFARIO CERTIFICADO — Tarifario Enero 2025 Rev.1.2
-// Manual de Productos CREDITUNION 05/2024
-// Comercio / Inversión / Vivienda comparten el mismo tarifario
-// Personal tiene sus propios tramos
-// Garantías: Fiduciaria / Prendaria / Hipotecaria según monto
+// TARIFARIO CERTIFICADO — Enero 2025 Rev.1.2
+// Comercio / Inversión / Vivienda / Personal — mismo tarifario
+// Comisión desembolso = misma % para todos los productos
+// Seguro + Buró + Caja se cobran siempre (no opcionales)
+// Solo pago mensual (Judy: no manejamos quincenal/semanal)
+// Tasa editable por el asesor (puede diferir del tarifario)
 // ============================================================
-const TAR = {
-  config:{
-    seguro_millar_mensual: 0.85,
-    seguro_tope_monto: 2000000,
-    buro_credito: 150,
-    caja_por_cuota: 30,
-    pago_ant_recargo: 0.03,
-    fiel_flat_pct: 2.0,
-    fiel_ss_pct: 3.5,
-    // Capacidad de pago por tipo
-    cap_comercio: 30, cap_inversion: 30, cap_vivienda: 30, cap_personal: 50,
-  },
-  // Comercio, Inversión, Vivienda usan el mismo tarifario
-  // Garantía mínima según monto: <L150K→Fiduciaria, L150K-L500K→Prendaria, >L500K→Hipotecaria
-  comercio:[
-    {de:5000,   a:50000,   ss:38.0, flat:4.00, max:12,  gar_min:'fiduciaria', com:0.04},
-    {de:50001,  a:100000,  ss:36.0, flat:3.25, max:24,  gar_min:'fiduciaria', com:0.0325},
-    {de:100001, a:150000,  ss:33.0, flat:3.00, max:30,  gar_min:'fiduciaria', com:0.03},
-    {de:150001, a:200000,  ss:31.0, flat:2.75, max:36,  gar_min:'prendaria',  com:0.0275},
-    {de:200001, a:300000,  ss:27.0, flat:2.50, max:36,  gar_min:'prendaria',  com:0.025},
-    {de:300001, a:500000,  ss:26.0, flat:2.25, max:48,  gar_min:'prendaria',  com:0.0225},
-    {de:500001, a:700000,  ss:24.0, flat:1.75, max:48,  gar_min:'hipotecaria',com:0.0175},
-    {de:700001, a:1000000, ss:23.0, flat:1.50, max:60,  gar_min:'hipotecaria',com:0.015},
-    {de:1000001,a:1500000, ss:22.0, flat:1.25, max:60,  gar_min:'hipotecaria',com:0.0125},
-    {de:1500001,a:2000000, ss:21.0, flat:1.00, max:72,  gar_min:'hipotecaria',com:0.01},
-    {de:2000001,a:2500000, ss:20.0, flat:1.00, max:72,  gar_min:'hipotecaria',com:0.01},
-    {de:2500001,a:3000000, ss:19.0, flat:0.85, max:72,  gar_min:'hipotecaria',com:0.0085},
-    {de:3000001,a:3500000, ss:18.0, flat:0.85, max:84,  gar_min:'hipotecaria',com:0.0085},
-    {de:3500001,a:4000000, ss:17.5, flat:0.85, max:84,  gar_min:'hipotecaria',com:0.0085},
-    {de:4000001,a:4500000, ss:17.0, flat:0.85, max:84,  gar_min:'hipotecaria',com:0.0085},
-    {de:4500001,a:5000000, ss:16.5, flat:0.85, max:84,  gar_min:'hipotecaria',com:0.0085},
-  ],
-  personal:[
-    {de:5000,  a:50000,  ss:38.0, flat:4.00, max:12, gar_min:'fiduciaria', com:0.04},
-    {de:50001, a:120000, ss:36.0, flat:3.00, max:24, gar_min:'prendaria',  com:0.03},
-  ],
-};
-// Inversion y vivienda = mismo tarifario que comercio
-TAR.inversion = TAR.comercio;
-TAR.vivienda  = TAR.comercio;
+const TAR_TRAMOS = [
+  {de:5000,   a:50000,   flat:4.00, ss:38.0, max:12, gar_min:'fiduciaria', com:0.04},
+  {de:50001,  a:100000,  flat:3.25, ss:36.0, max:24, gar_min:'fiduciaria', com:0.0325},
+  {de:100001, a:150000,  flat:3.00, ss:33.0, max:30, gar_min:'fiduciaria', com:0.03},
+  {de:150001, a:200000,  flat:2.75, ss:31.0, max:36, gar_min:'prendaria',  com:0.0275},
+  {de:200001, a:300000,  flat:2.50, ss:27.0, max:36, gar_min:'prendaria',  com:0.025},
+  {de:300001, a:500000,  flat:2.25, ss:26.0, max:48, gar_min:'prendaria',  com:0.0225},
+  {de:500001, a:700000,  flat:1.75, ss:24.0, max:48, gar_min:'hipotecaria',com:0.0175},
+  {de:700001, a:1000000, flat:1.50, ss:23.0, max:60, gar_min:'hipotecaria',com:0.015},
+  {de:1000001,a:1500000, flat:1.25, ss:22.0, max:60, gar_min:'hipotecaria',com:0.0125},
+  {de:1500001,a:2000000, flat:1.00, ss:21.0, max:72, gar_min:'hipotecaria',com:0.01},
+  {de:2000001,a:2500000, flat:1.00, ss:20.0, max:72, gar_min:'hipotecaria',com:0.01},
+  {de:2500001,a:3000000, flat:0.85, ss:19.0, max:72, gar_min:'hipotecaria',com:0.0085},
+  {de:3000001,a:3500000, flat:0.85, ss:18.0, max:84, gar_min:'hipotecaria',com:0.0085},
+  {de:3500001,a:4000000, flat:0.85, ss:17.5, max:84, gar_min:'hipotecaria',com:0.0085},
+  {de:4000001,a:4500000, flat:0.85, ss:17.0, max:84, gar_min:'hipotecaria',com:0.0085},
+  {de:4500001,a:5000000, flat:0.85, ss:16.5, max:84, gar_min:'hipotecaria',com:0.0085},
+];
 
-// Textos de garantía por tipo y monto
+const CFG = {
+  seguro_millar : 0.85,   // L/millar/mes
+  seguro_tope   : 2000000,
+  buro          : 150,    // siempre
+  caja          : 30,     // siempre, por cuota
+  cap_pago_pct  : 0.30,   // 30% ingreso neto
+};
+
 const GAR_INFO = {
-  fiduciaria: '🤝 Garantía Fiduciaria — Un fiador solvente con ingresos verificables. Aplica para montos hasta L150,000 en Comercio/Inversión/Vivienda.',
-  prendaria:  '🔑 Garantía Prendaria — Bien mueble (vehículo, maquinaria, menaje) valorado mínimo al 100% del monto. Aplica L150,001–L500,000. Requiere avalúo y registro.',
-  hipotecaria:'🏗️ Garantía Hipotecaria — Bien inmueble (casa, terreno, local) inscrito en Registro de la Propiedad. Aplica para montos mayores a L500,000. Requiere escritura y avalúo.',
+  fiduciaria : '🤝 Fiduciaria — Fiador solvente con ingresos verificables. Aplica hasta L150,000.',
+  prendaria  : '🔑 Prendaria — Bien mueble (vehículo, maquinaria, menaje). Aplica L150,001–L500,000. Requiere avalúo.',
+  hipotecaria: '🏗️ Hipotecaria — Bien inmueble inscrito en Registro de la Propiedad. Montos mayores a L500,000. Requiere escritura y avalúo.',
 };
 
-// ── Estado ──────────────────────────────────────────────────
-let tipo    = 'comercio';
+// Estado
 let garSel  = 'fiduciaria';
-let freq    = 'mensual';
 let tabAm   = 'flat';
-let tarifa  = null;
-let montoBase=0;
-let resFlat = {};
-let resSS   = {};
+let tramo   = null;
+let montoBase = 0;
+let resFlat = {}, resSS = {};
 
-// ── helpers ──────────────────────────────────────────────────
-const fL  = n => 'L. ' + Math.round(n).toLocaleString('es-HN');
-const fL2 = n => 'L. ' + (Math.round(n*100)/100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
-const gV  = id => parseFloat((document.getElementById(id).value||'0').replace(/[^0-9.]/g,''))||0;
+// Helpers
+const fL  = n => 'L. '+Math.round(n).toLocaleString('es-HN');
+const fL2 = n => 'L. '+(Math.round(n*100)/100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+const gV  = id => parseFloat((document.getElementById(id).value||'').replace(/[^0-9.]/g,''))||0;
 const el  = id => document.getElementById(id);
 const tog = (b,i) => { const e=el(b); e.classList.toggle('hidden'); el(i).textContent=e.classList.contains('hidden')?'▸':'▾'; };
 
 function fmtM(inp){
-  let r=inp.value.replace(/[^0-9]/g,'');
+  const r = inp.value.replace(/[^0-9]/g,'');
   inp.value = r ? Number(r).toLocaleString('es-HN') : '';
 }
-function onMontoBlur(){ updateGarButtons(); updatePlazos(); calcular(); }
 
-// ── Tipo de crédito ──────────────────────────────────────────
-function setTipo(t, btn){
-  tipo = t;
-  document.querySelectorAll('.tipo-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  // Personal: sin semanal
-  el('fbtn-sem').disabled = (t==='personal');
-  if(t==='personal' && freq==='semanal'){ freq='mensual'; document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on')); document.querySelector('.fbtn').classList.add('on'); }
-  // Fiel solo para comercio/inversion/vivienda
-  el('fiel-box').style.display = t==='personal'?'none':'block';
-  // Info capacidad
-  const cap = TAR.config['cap_'+t]||30;
-  el('info-cap').textContent = `${t==='personal'?'Personal':'Comercio/Inversión/Vivienda'}: máx. ${cap}% del ingreso neto mensual (Manual 05/2024).`;
-  updateGarButtons();
+function onTasaInput(inp){
+  // Permite solo números y punto
+  inp.value = inp.value.replace(/[^0-9.]/g,'');
+  const t = parseFloat(inp.value)||0;
+  el('tasa-anual').textContent = t>0 ? (t*12).toFixed(2)+'%' : '—';
+}
+
+function onCambio(){
+  actualizarTramo();
   updatePlazos();
   calcular();
 }
 
-// ── Garantía ─────────────────────────────────────────────────
+// ── Tramo tarifario ──────────────────────────────────────────
+function actualizarTramo(){
+  const monto = gV('monto');
+  tramo = TAR_TRAMOS.find(r=>monto>=r.de&&monto<=r.a)||null;
+
+  const wE = el('warn-monto');
+  if(monto>0 && !tramo){
+    wE.style.display='block';
+    wE.innerHTML = monto<5000
+      ? '⚠️ Monto mínimo: L. 5,000'
+      : '⚠️ Monto máximo: L. 5,000,000';
+  } else { wE.style.display='none'; }
+
+  const tb = el('tramo-box');
+  if(tramo){
+    tb.style.display='block';
+    tb.innerHTML = `📋 Tramo: ${fL(tramo.de)} – ${fL(tramo.a)} &nbsp;|&nbsp; `+
+      `Flat ref: <strong>${tramo.flat.toFixed(2)}%/mes</strong> &nbsp;|&nbsp; `+
+      `SS ref: <strong>${tramo.ss.toFixed(1)}% anual</strong> &nbsp;|&nbsp; `+
+      `Comisión: <strong>${(tramo.com*100).toFixed(2)}%</strong> &nbsp;|&nbsp; `+
+      `Plazo máx: <strong>${tramo.max} meses</strong> &nbsp;|&nbsp; `+
+      `Garantía mín: <strong>${tramo.gar_min.charAt(0).toUpperCase()+tramo.gar_min.slice(1)}</strong>`;
+
+    // Auto-llenar tasa si está vacía
+    if(!el('tasa').value){
+      el('tasa').value = tramo.flat.toFixed(2);
+      el('tasa-anual').textContent = (tramo.flat*12).toFixed(2)+'%';
+    }
+
+    // Actualizar garantías
+    updateGarButtons(tramo.gar_min);
+  } else {
+    tb.style.display='none';
+  }
+}
+
+// ── Garantías ────────────────────────────────────────────────
+const GAR_ORDEN = ['fiduciaria','prendaria','hipotecaria'];
+const GAR_IDS   = {fiduciaria:'gar-fid', prendaria:'gar-pre', hipotecaria:'gar-hip'};
+
+function updateGarButtons(garMin){
+  const minIdx = GAR_ORDEN.indexOf(garMin||'fiduciaria');
+  GAR_ORDEN.forEach((g,i)=>{
+    const b = el(GAR_IDS[g]);
+    if(i < minIdx){ b.classList.add('disabled'); b.classList.remove('on'); }
+    else { b.classList.remove('disabled'); }
+  });
+  // Si la seleccionada ya no aplica → ir a la mínima
+  if(GAR_ORDEN.indexOf(garSel) < minIdx){
+    garSel = garMin;
+    document.querySelectorAll('.gar-btn').forEach(b=>b.classList.remove('on'));
+    el(GAR_IDS[garSel]).classList.add('on');
+    el('wrap-prend').classList.add('hidden');
+    el('wrap-hip').classList.add('hidden');
+  }
+  el('info-gar').textContent = GAR_INFO[garSel];
+}
+
 function setGar(g, btn){
-  if(btn.classList.contains('disabled')) return;
   garSel = g;
   document.querySelectorAll('.gar-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  el('wrap-prend').style.display = (g==='prendaria') ? 'block' : 'none';
-  el('wrap-hip').style.display   = (g==='hipotecaria') ? 'block' : 'none';
-  el('info-gar').textContent = GAR_INFO[g]||'';
+  el('wrap-prend').classList.toggle('hidden', g!=='prendaria');
+  el('wrap-hip').classList.toggle('hidden',   g!=='hipotecaria');
+  el('info-gar').textContent = GAR_INFO[g];
   calcular();
-}
-
-function updateGarButtons(){
-  const monto = gV('monto');
-  const t = TAR[tipo]||TAR.comercio;
-  const tramo = t.find(r=>monto>=r.de&&monto<=r.a);
-  const garMin = tramo ? tramo.gar_min : 'fiduciaria';
-
-  // Habilitar/deshabilitar botones según garantía mínima
-  const orden = ['fiduciaria','prendaria','hipotecaria'];
-  const minIdx = orden.indexOf(garMin);
-
-  ['gar-fid','gar-pre','gar-hip'].forEach((id,i)=>{
-    const b = el(id);
-    if(i < minIdx){
-      b.classList.add('disabled');
-      b.classList.remove('on');
-    } else {
-      b.classList.remove('disabled');
-    }
-  });
-
-  // Si la garantía seleccionada ya no es válida, auto-seleccionar la mínima
-  if(orden.indexOf(garSel) < minIdx){
-    garSel = garMin;
-    document.querySelectorAll('.gar-btn').forEach(b=>b.classList.remove('on'));
-    el(garSel==='fiduciaria'?'gar-fid':garSel==='prendaria'?'gar-pre':'gar-hip').classList.add('on');
-  }
-
-  el('wrap-prend').style.display = garSel==='prendaria'?'block':'none';
-  el('wrap-hip').style.display   = garSel==='hipotecaria'?'block':'none';
-  el('info-gar').textContent = GAR_INFO[garSel]||'';
-
-  // Info rango tarifario
-  if(tramo){
-    el('info-rango').textContent = `Tramo: L${(tramo.de/1000).toFixed(0)}K – L${(tramo.a/1000).toFixed(0)}K · Flat ${tramo.flat.toFixed(2)}%/mes · SS ${tramo.ss.toFixed(1)}% anual · Comisión ${(tramo.com*100).toFixed(2)}% · Plazo máx. ${tramo.max} meses · Garantía mín.: ${tramo.gar_min.charAt(0).toUpperCase()+tramo.gar_min.slice(1)}`;
-  } else {
-    el('info-rango').textContent = 'Ingresa el monto para ver el tramo aplicable.';
-  }
 }
 
 // ── Plazos ───────────────────────────────────────────────────
 function updatePlazos(){
-  const monto=gV('monto'), t=TAR[tipo]||TAR.comercio;
-  const tramo=t.find(r=>monto>=r.de&&monto<=r.a);
-  const maxM=tramo?tramo.max:84;
-  const sel=el('plazo'), prev=parseInt(sel.value)||12;
-  sel.innerHTML='';
-  [1,2,3,4,5,6,9,12,18,24,30,36,42,48,54,60,72,84].filter(m=>m<=maxM).forEach(m=>{
-    const o=document.createElement('option');
-    o.value=m; o.textContent=m+(m===1?' mes':' meses');
-    if(m===prev||(!sel.options.length)) o.selected=true;
-    sel.appendChild(o);
-  });
+  const maxM = tramo ? tramo.max : 84;
+  const sel = el('plazo'), prev = parseInt(sel.value)||12;
+  sel.innerHTML = '';
+  [1,2,3,4,5,6,9,12,18,24,30,36,42,48,54,60,72,84]
+    .filter(m=>m<=maxM)
+    .forEach(m=>{
+      const o=document.createElement('option');
+      o.value=m; o.textContent=m+(m===1?' mes':' meses');
+      if(m===prev) o.selected=true;
+      sel.appendChild(o);
+    });
 }
 
-// ── Frecuencia ───────────────────────────────────────────────
-function setFreq(f,btn){
-  freq=f;
-  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  calcular();
-}
-function nCuotas(p){ return freq==='quincenal'?p*2:freq==='semanal'?Math.round(p*52/12):p; }
-function tasaPer(tm){ return freq==='quincenal'?tm/2:freq==='semanal'?tm*12/52:tm; }
-
-// ── Cálculo de amortización ───────────────────────────────────
-function calcAmort(mB,tM,pl,segM,cajP,met){
-  const n=nCuotas(pl);
-  const segPer=segM*(12/(n/pl*12));
-  let cu,rows=[],totI=0;
+// ── Amortización ─────────────────────────────────────────────
+function calcAmort(mB, tM, pl, segM, cajP, met){
+  const n = pl; // solo mensual
+  const segPer = segM;
+  let cu, rows=[], totI=0;
   if(met==='flat'){
-    const tP=tM*(12/(n/pl*12)), capP=mB/n, intP=mB*tP;
-    cu=capP+intP;
+    const capP = mB/n, intP = mB*tM;
+    cu = capP+intP;
     let s=mB;
     for(let i=1;i<=n;i++){
       const sf=Math.max(0,s-capP); totI+=intP;
       rows.push({n:i,si:s,cap:capP,int:intP,seg:segPer,caj:cajP,sf}); s=sf;
     }
   } else {
-    const r=tasaPer(tM);
-    cu=r>0?mB*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1):mB/n;
+    cu = tM>0 ? mB*(tM*Math.pow(1+tM,n))/(Math.pow(1+tM,n)-1) : mB/n;
     let s=mB;
     for(let i=1;i<=n;i++){
-      const intP=s*r, capP=cu-intP, sf=Math.max(0,s-capP); totI+=intP;
+      const intP=s*tM, capP=cu-intP, sf=Math.max(0,s-capP); totI+=intP;
       rows.push({n:i,si:s,cap:capP,int:intP,seg:segPer,caj:cajP,sf}); s=sf;
     }
   }
-  return{cuota:cu,cuotaTotal:cu+segPer+cajP,totInt:totI,rows,n,segP:segPer,cajP};
+  return {cuota:cu, cuotaTotal:cu+segPer+cajP, totInt:totI, rows, n, segP:segPer, cajP};
 }
 
-// ── CALCULAR PRINCIPAL ────────────────────────────────────────
+// ── CALCULAR ─────────────────────────────────────────────────
 function calcular(){
+  actualizarTramo();
+
   const monto  = gV('monto');
   const plazo  = parseInt(el('plazo').value)||12;
-  const conSeg = el('chk-seg').checked;
-  const conBuro= el('chk-buro').checked;
-  const conCaja= el('chk-caja').checked;
-  const conPant= el('chk-pant').checked;
-  const conFiel= el('chk-fiel')&&el('chk-fiel').checked;
+  const tasaM  = (parseFloat(el('tasa').value)||0)/100; // tasa mensual flat ingresada
   const ingreso= gV('ingreso');
   const prend  = parseInt(el('sel-prend')?el('sel-prend').value:0)||0;
-  const glVeh  = gV('gl-veh');
-  const glHip  = gV('gl-hip');
+  const glP    = gV('gl-prend');
+  const glH    = gV('gl-hip');
 
-  updateGarButtons();
-  updatePlazos();
-
-  const tabla = TAR[tipo]||TAR.comercio;
-  const minM  = 5000;
-  const maxM  = tabla[tabla.length-1].a;
-  tarifa = tabla.find(r=>monto>=r.de&&monto<=r.a);
-
-  const wE = el('warn-monto');
-  if(!tarifa||monto<minM){
-    wE.style.display='block';
-    wE.innerHTML = monto<minM
-      ? `⚠️ Monto mínimo: ${fL(minM)}`
-      : `⚠️ Monto máximo: ${fL(maxM)}`;
-    el('result-sec').classList.add('hidden'); return;
+  if(!tramo||monto<5000||tasaM<=0){
+    el('result-sec').classList.add('hidden');
+    if(monto>=5000&&tasaM<=0) {
+      el('warn-monto').style.display='block';
+      el('warn-monto').innerHTML='⚠️ Ingresa la tasa mensual para calcular.';
+    }
+    return;
   }
-  wE.style.display='none';
+  el('warn-monto').style.display='none';
 
-  // Tasas con descuento fiel
-  const dF  = conFiel?(TAR.config.fiel_flat_pct/100):0;
-  const dSS = conFiel?(TAR.config.fiel_ss_pct/100/12):0;
-  const flatM = Math.max(0, tarifa.flat/100 - dF);
-  const ssM   = Math.max(0, tarifa.ss/100/12 - dSS);
+  // Tasa anual display
+  el('tasa-anual').textContent = (tasaM*100*12).toFixed(2)+'%';
 
-  // Monto base capitalizado
-  const com    = monto*tarifa.com;
-  const glTotal= (garSel==='prendaria'?glVeh:0)+(garSel==='hipotecaria'?glHip:0);
-  const prend2 = garSel==='prendaria'?prend:0;
-  montoBase    = monto+com+prend2+glTotal;
+  // Monto base
+  const com    = monto*tramo.com;
+  const prend2 = garSel==='prendaria' ? prend : 0;
+  const gl2    = garSel==='prendaria' ? glP : (garSel==='hipotecaria' ? glH : 0);
+  montoBase    = monto + com + prend2 + gl2;
 
-  // Seguro con tope
-  const segBase= Math.min(montoBase, TAR.config.seguro_tope_monto);
-  const segM   = conSeg ? segBase/1000*TAR.config.seguro_millar_mensual : 0;
-  const cajP   = conCaja? TAR.config.caja_por_cuota : 0;
+  // Cargos fijos siempre (Judy: se cobran sí o sí)
+  const segBase= Math.min(montoBase, CFG.seguro_tope);
+  const segM   = segBase/1000*CFG.seguro_millar;  // por mes
+  const cajP   = CFG.caja;                         // por cuota/mes
 
-  resFlat = calcAmort(montoBase,flatM,plazo,segM,cajP,'flat');
-  resSS   = calcAmort(montoBase,ssM>0?ssM:flatM,plazo,segM,cajP,'ss');
+  resFlat = calcAmort(montoBase, tasaM, plazo, segM, cajP, 'flat');
+  // SS usa tasa nominal / 12 convertida al equivalente del flat ingresado × factor SS del tramo
+  const tasaSS = tramo.ss/100/12;
+  resSS   = calcAmort(montoBase, tasaSS, plazo, segM, cajP, 'ss');
 
-  const buroC  = conBuro?TAR.config.buro_credito:0;
-  const pAnt   = conPant?montoBase*TAR.config.pago_ant_recargo:0;
-  const neto   = monto - buroC;
+  const neto   = monto - CFG.buro; // buró se descuenta del desembolso
+  const totF   = montoBase + resFlat.totInt + segM*plazo + cajP*plazo + CFG.buro;
 
-  // Semáforo capacidad de pago
+  // ── Resultado principal (FLAT — cuota fija, que es lo que SOTEICA usa por defecto) ──
+  el('r-cuota').textContent  = fL2(resFlat.cuotaTotal);
+  el('r-int').textContent    = fL(resFlat.totInt);
+  el('r-total').textContent  = fL(totF);
+  el('r-base').textContent   = fL(montoBase);
+  el('r-neto').textContent   = fL(neto);
+
+  // Mini desglose en tarjeta
+  el('r-desglose-mini').innerHTML = `
+    <span class="rdet-item">Interés mensual</span><span class="rdet-val">${fL2(montoBase*tasaM)}</span>
+    <span class="rdet-item">Capital mensual</span><span class="rdet-val">${fL2(montoBase/plazo)}</span>
+    <span class="rdet-item">Seguro deuda</span><span class="rdet-val">${fL2(segM)}</span>
+    <span class="rdet-item">Caja empresarial</span><span class="rdet-val">${fL2(cajP)}</span>
+    <span class="rdet-item">Buró (único)</span><span class="rdet-val">L. 150.00</span>
+    <span class="rdet-item">Comisión desembolso</span><span class="rdet-val">${fL2(com)}</span>
+  `;
+
+  el('rnote').textContent = `Tasa ${(tasaM*100).toFixed(2)}%/mes flat · ${(tasaM*1200).toFixed(2)}% anual · Tarifario Ene-2025 Rev.1.2`;
+
+  // Desglose completo
+  el('d-cap').textContent    = fL(monto);
+  el('d-com').textContent    = fL2(com)+' ('+(tramo.com*100).toFixed(2)+'%)';
+  el('d-prend').textContent  = prend2>0 ? fL(prend2) : '—';
+  el('d-gl').textContent     = gl2>0 ? fL(gl2) : '—';
+  el('d-base2').textContent  = fL(montoBase);
+  el('d-seg-m').textContent  = fL2(segM)+(montoBase>CFG.seguro_tope?' (tope L2M)':'');
+  el('d-seg-t').textContent  = fL2(segM*plazo);
+  el('d-buro').textContent   = 'L. 150.00';
+  el('d-caja-m').textContent = fL2(cajP);
+  el('d-caja-t').textContent = fL2(cajP*plazo);
+  el('d-gar-req').textContent= tramo.gar_min.charAt(0).toUpperCase()+tramo.gar_min.slice(1);
+  el('d-pmax').textContent   = tramo.max+' meses';
+  el('d-neto2').textContent  = fL(neto);
+
+  // Semáforo capacidad de pago (30% fijo)
   if(ingreso>0){
-    const capPct = (TAR.config['cap_'+tipo]||30)/100;
-    const cuotaMax = ingreso*capPct;
-    const cuotaRef = Math.min(resFlat.cuotaTotal,resSS.cuotaTotal);
-    const pctR = Math.round(cuotaRef/ingreso*100);
+    const cuotaMax = ingreso*CFG.cap_pago_pct;
+    const cuotaRef = resFlat.cuotaTotal;
+    const pctR     = Math.round(cuotaRef/ingreso*100);
     el('cuota-max').textContent = fL2(cuotaMax);
     el('cuota-max').style.color = 'var(--navy)';
     const sem = el('semaforo'); sem.className='semaforo';
     if(cuotaRef<=cuotaMax*0.85){
       sem.classList.add('ok');
-      sem.innerHTML=`✅ Califica — cuota representa el ${pctR}% del ingreso (límite ${Math.round(capPct*100)}%)`;
+      sem.innerHTML=`✅ Califica — cuota representa el ${pctR}% del ingreso (límite 30%)`;
     } else if(cuotaRef<=cuotaMax){
       sem.classList.add('warn');
-      sem.innerHTML=`⚠️ Al límite — cuota es el ${pctR}% del ingreso. Analizar con cautela.`;
+      sem.innerHTML=`⚠️ Al límite — cuota es el ${pctR}% del ingreso. Revisar con cuidado.`;
     } else {
       sem.classList.add('danger');
-      sem.innerHTML=`❌ No califica — cuota supera el ${Math.round(capPct*100)}% del ingreso (${pctR}%). Reducir monto o ampliar plazo.`;
+      sem.innerHTML=`❌ No califica — cuota supera el 30% del ingreso (${pctR}%). Reducir monto o ampliar plazo.`;
     }
     sem.style.display='block';
   } else {
@@ -624,57 +640,11 @@ function calcular(){
     el('semaforo').style.display='none';
   }
 
-  // Desglose
-  const buro2 = conBuro?150:0;
-  const totF = montoBase+resFlat.totInt+resFlat.segP*resFlat.n+resFlat.cajP*resFlat.n+buro2;
-  const totS = montoBase+resSS.totInt  +resSS.segP  *resSS.n  +resSS.cajP  *resSS.n  +buro2;
-
-  el('d-cap').textContent     = fL(monto);
-  el('d-com').textContent     = fL2(com)+' ('+Math.round(tarifa.com*100)+'% del capital)';
-  el('d-prend').textContent   = prend2>0?fL(prend2):'—';
-  el('d-gl').textContent      = glTotal>0?fL(glTotal):'—';
-  el('d-base').textContent    = fL(montoBase);
-  el('d-seg').textContent     = conSeg?fL(segM*plazo)+(montoBase>TAR.config.seguro_tope_monto?' (tope L2M)':''):'—';
-  el('d-buro').textContent    = conBuro?'L. 150.00':'—';
-  el('d-caja').textContent    = conCaja?fL(cajP*resFlat.n):'—';
-  el('d-pant').textContent    = conPant?fL(pAnt)+' (3% sobre capital)':'—';
-  el('d-neto').textContent    = fL(neto);
-  el('d-gar-req').textContent = tarifa.gar_min.charAt(0).toUpperCase()+tarifa.gar_min.slice(1);
-  el('d-pmax').textContent    = tarifa.max+' meses';
-
-  // Comp FLAT vs SS
-  const ssEsMejor = resSS.cuotaTotal<resFlat.cuotaTotal;
-  const fd=conFiel?' (−2%)':'', sd=conFiel?' (−3.5% SS)':'';
-  el('comp-area').innerHTML=`
-    <div class="comp-grid">
-      <div class="ccard ${!ssEsMejor?'best':''}">
-        <div class="cbadge">Tasa FLAT${fd}${!ssEsMejor?'<span class="cbest-tag">✓ Mejor</span>':''}</div>
-        <div class="ccuota">${fL2(resFlat.cuotaTotal)}</div>
-        <div class="cfreq">${freq}</div>
-        <div class="crow"><span>Total intereses</span><span class="cval">${fL(resFlat.totInt)}</span></div>
-        <div class="crow"><span>Total a pagar</span><span class="cval">${fL(totF)}</span></div>
-        <div class="crow"><span>Tasa mens.</span><span class="cval">${(tarifa.flat-(conFiel?2:0)).toFixed(2)}%</span></div>
-      </div>
-      <div class="ccard ${ssEsMejor?'best':''}">
-        <div class="cbadge">Sobre Saldo${sd}${ssEsMejor?'<span class="cbest-tag">✓ Mejor</span>':''}</div>
-        <div class="ccuota">${fL2(resSS.cuotaTotal)}</div>
-        <div class="cfreq">${freq}</div>
-        <div class="crow"><span>Total intereses</span><span class="cval">${fL(resSS.totInt)}</span></div>
-        <div class="crow"><span>Total a pagar</span><span class="cval">${fL(totS)}</span></div>
-        <div class="crow"><span>Tasa anual</span><span class="cval">${(tarifa.ss-(conFiel?3.5:0)).toFixed(1)}%</span></div>
-      </div>
-    </div>`;
-  el('rnote').textContent='Tarifario Ene-2025 Rev.1.2 · Manual 05/2024'+(conFiel?' · Desc. cliente fiel aplicado':'');
-
   renderAmort();
   el('result-sec').classList.remove('hidden');
 }
 
-// ── Amortización ──────────────────────────────────────────────
-function togAmort(){
-  const b=el('amort-b'); b.classList.toggle('hidden');
-  el('amort-i').textContent=b.classList.contains('hidden')?'▸':'▾';
-}
+// ── Tabla amortización ────────────────────────────────────────
 function setTab(t){
   tabAm=t;
   el('tab-flat').classList.toggle('on',t==='flat');
@@ -682,8 +652,8 @@ function setTab(t){
   renderAmort();
 }
 function renderAmort(){
-  const res=tabAm==='flat'?resFlat:resSS, tb=el('atbody');
-  tb.innerHTML='';
+  const res=tabAm==='flat'?resFlat:resSS;
+  const tb=el('atbody'); tb.innerHTML='';
   let tC=0,tI=0,tS=0,tT=0;
   (res.rows||[]).forEach(r=>{
     const ct=r.cap+r.int+r.seg+r.caj; tC+=r.cap;tI+=r.int;tS+=r.seg;tT+=ct;
@@ -700,79 +670,81 @@ function renderAmort(){
 
 // ── Compartir ─────────────────────────────────────────────────
 function genTexto(){
-  const nom=el('nombre').value||'Cliente';
-  const ag =el('agencia').options[el('agencia').selectedIndex].text;
-  const tp =el('tipo-btn on')?el('tipo-btn on').textContent:tipo;
-  const tipoTxt={'comercio':'Comercio','inversion':'Inversión','vivienda':'Vivienda','personal':'Personal'}[tipo]||tipo;
-  const pl =el('plazo').value;
-  const mo =gV('monto');
-  const fiel=el('chk-fiel')&&el('chk-fiel').checked;
-  const garTxt={'fiduciaria':'Fiduciaria','prendaria':'Prendaria','hipotecaria':'Hipotecaria'}[garSel];
-  const buro2=el('chk-buro').checked?150:0;
+  const nom = el('nombre').value||'Cliente';
+  const ag  = el('agencia').options[el('agencia').selectedIndex].text;
+  const mo  = gV('monto');
+  const pl  = el('plazo').value;
+  const ts  = el('tasa').value;
+  const garT= {fiduciaria:'Fiduciaria 🤝',prendaria:'Prendaria 🔑',hipotecaria:'Hipotecaria 🏗️'}[garSel];
+  const buro2=CFG.buro;
   const totF=montoBase+resFlat.totInt+resFlat.segP*resFlat.n+resFlat.cajP*resFlat.n+buro2;
-  const totS=montoBase+resSS.totInt+resSS.segP*resSS.n+resSS.cajP*resSS.n+buro2;
-  const ssM=resSS.cuotaTotal<resFlat.cuotaTotal;
-  let t=`*▲CREDIT — Cotización*\n━━━━━━━━━━━━━━━━━━━━━\n`;
-  t+=`👤 Cliente: ${nom}\n🏦 Agencia: ${ag}\n📋 Producto: ${tipoTxt}\n`;
-  t+=`💰 Monto: ${fL(mo)}\n📅 Plazo: ${pl} meses\n🔒 Garantía: ${garTxt}\n`;
-  if(fiel) t+=`⭐ Descuento cliente fiel aplicado\n`;
+  let t =`*▲CREDIT — Cotización de Crédito*\n`;
   t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
-  t+=`*Opción 1 — Tasa FLAT*\nCuota ${freq}: *${fL2(resFlat.cuotaTotal)}*\nTotal a pagar: ${fL(totF)}\n\n`;
-  t+=`*Opción 2 — Sobre Saldo*\nCuota ${freq}: *${fL2(resSS.cuotaTotal)}*\nTotal a pagar: ${fL(totS)}\n`;
+  t+=`👤 Cliente: ${nom}\n`;
+  t+=`🏦 Agencia: ${ag}\n`;
+  t+=`💰 Monto: ${fL(mo)}\n`;
+  t+=`📅 Plazo: ${pl} meses\n`;
+  t+=`📊 Tasa: ${ts}% mensual flat (${(parseFloat(ts)*12).toFixed(2)}% anual)\n`;
+  t+=`🔒 Garantía: ${garT}\n`;
   t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
-  t+=`_✅ Mejor opción: ${ssM?'Sobre Saldo':'FLAT'}_\n`;
-  t+=`_Referencial · ${new Date().toLocaleDateString('es-HN')} · Sujeto a aprobación del comité._`;
+  t+=`*Cuota mensual: ${fL2(resFlat.cuotaTotal)}*\n`;
+  t+=`  Capital + Interés: ${fL2(resFlat.cuota)}\n`;
+  t+=`  Seguro de deuda: ${fL2(resFlat.segP)}\n`;
+  t+=`  Caja empresarial: ${fL2(resFlat.cajP)}\n`;
+  t+=`Monto base: ${fL(montoBase)}\n`;
+  t+=`Total a pagar: ${fL(totF)}\n`;
+  t+=`Neto al cliente: ${fL(mo-buro2)}\n`;
+  t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
+  t+=`_Cálculo referencial · ${new Date().toLocaleDateString('es-HN')}_\n`;
+  t+=`_Sujeto a aprobación del Comité de Créditos_`;
   return t;
 }
 function enviarWA(){ window.open('https://wa.me/?text='+encodeURIComponent(genTexto()),'_blank'); }
 function copiar(){
   navigator.clipboard.writeText(genTexto()).then(()=>{
     el('copy-lbl').textContent='✅ ¡Copiado!';
-    setTimeout(()=>el('copy-lbl').textContent='📋 Copiar resumen',2000);
+    setTimeout(()=>el('copy-lbl').textContent='📋 Copiar resumen de texto',2000);
   });
 }
 
-// ── Historial local ───────────────────────────────────────────
+// ── Historial ─────────────────────────────────────────────────
 function guardar(){
-  const hist=JSON.parse(localStorage.getItem('cu_hist_v5')||'[]');
-  const tipoTxt={'comercio':'Comercio','inversion':'Inversión','vivienda':'Vivienda','personal':'Personal'}[tipo]||tipo;
+  const hist=JSON.parse(localStorage.getItem('cu_hist_v6')||'[]');
   hist.unshift({
-    fecha:new Date().toLocaleDateString('es-HN'),
-    nombre:el('nombre').value||'—',
-    tipo:tipoTxt,
-    monto:gV('monto'),
-    plazo:el('plazo').value,
-    garantia:garSel,
-    cuotaF:resFlat.cuotaTotal,
-    cuotaSS:resSS.cuotaTotal,
-    freq
+    fecha : new Date().toLocaleDateString('es-HN'),
+    nombre: el('nombre').value||'—',
+    monto : gV('monto'),
+    plazo : el('plazo').value,
+    tasa  : el('tasa').value,
+    gar   : garSel,
+    cuota : resFlat.cuotaTotal,
   });
   if(hist.length>10) hist.pop();
-  localStorage.setItem('cu_hist_v5',JSON.stringify(hist));
+  localStorage.setItem('cu_hist_v6',JSON.stringify(hist));
   renderHist();
   el('save-lbl').textContent='✅ Guardado';
   setTimeout(()=>el('save-lbl').textContent='💾 Guardar en historial',2000);
 }
 function renderHist(){
-  const hist=JSON.parse(localStorage.getItem('cu_hist_v5')||'[]');
+  const hist=JSON.parse(localStorage.getItem('cu_hist_v6')||'[]');
   el('hist-list').innerHTML='';
   el('hist-empty').style.display=hist.length?'none':'block';
+  const garIco={fiduciaria:'🤝',prendaria:'🔑',hipotecaria:'🏗️'};
   hist.forEach(h=>{
     const d=document.createElement('div'); d.className='hitem';
-    const garIco={'fiduciaria':'🤝','prendaria':'🔑','hipotecaria':'🏗️'}[h.garantia]||'';
-    d.innerHTML=`<div><div class="hl">${h.nombre} · ${h.tipo} ${garIco}</div><div class="hs">${h.fecha} · ${fL(h.monto)} · ${h.plazo}m · ${h.freq}</div></div><div class="hc">${fL2(h.cuotaF)}</div>`;
+    d.innerHTML=`<div><div class="hl">${h.nombre} ${garIco[h.gar]||''}</div><div class="hs">${h.fecha} · ${fL(h.monto)} · ${h.plazo}m · ${h.tasa}%/mes</div></div><div class="hc">${fL2(h.cuota)}</div>`;
     el('hist-list').appendChild(d);
   });
 }
 function limpiarHist(){
   if(confirm('¿Limpiar todo el historial?')){
-    localStorage.removeItem('cu_hist_v5'); renderHist();
+    localStorage.removeItem('cu_hist_v6'); renderHist();
   }
 }
 
 // ── INIT ──────────────────────────────────────────────────────
-setTipo('comercio',document.querySelector('.tipo-btn'));
-el('info-gar').textContent = GAR_INFO['fiduciaria'];
+updatePlazos();
+actualizarTramo();
 renderHist();
 </script>
 </body>
