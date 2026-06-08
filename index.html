@@ -46,7 +46,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 .aval-total-box{margin-left:auto;text-align:right}
 .aval-total-val{font-size:15px;font-weight:700;color:var(--navy);display:block;margin-top:2px}
 /* Tasa */
-.tasa-wrap{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px;align-items:end}
+.tasa-sub{font-size:11px;color:var(--blue);font-weight:600;text-align:center;margin-top:3px;padding:3px 0;background:#E8F4FD;border-radius:6px}
 .tasa-tag{display:inline-block;font-size:9.5px;background:#FEF9EC;color:#7a5200;border:1px solid var(--yellow);border-radius:3px;padding:1px 6px;font-weight:600;margin-left:5px}
 /* Calcular */
 .calc-btn{width:100%;height:52px;background:var(--green);color:#0d3320;border:none;border-radius:12px;font-size:16px;font-weight:700;font-family:'Montserrat',sans-serif;cursor:pointer;margin-bottom:15px;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s}
@@ -115,7 +115,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 
 <div class="hdr">
   <div><div class="logo">▲<span>CREDIT</span></div><div class="hdr-sub">Calculadora de Campo · Asesores</div></div>
-  <span class="ver">v7.0</span>
+  <span class="ver">v7.1</span>
 </div>
 
 <div class="body">
@@ -143,11 +143,17 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
       oninput="this.value=this.value.replace(/[^0-9]/g,'')" onblur="calcular()" style="text-align:center"/></div>
 </div>
 
-<div class="tasa-wrap">
-  <div class="fld"><span class="lbl">Tasa anual flat <span class="tasa-tag">editable</span></span>
-    <input type="text" id="tasa" value="38" oninput="onTasaInput(this)" onblur="calcular()" style="padding-left:12px"/></div>
-  <div class="fld"><span class="lbl">Equivalente mensual</span>
-    <div id="tasa-mensual" style="height:44px;display:flex;align-items:center;padding:0 12px;background:#f7f7f5;border-radius:10px;border:1.5px solid var(--bdr);font-size:15px;font-weight:600;color:var(--navy)">3.17%/mes</div></div>
+<div class="row2">
+  <div class="fld">
+    <span class="lbl">Tasa FLAT anual <span class="tasa-tag">editable</span></span>
+    <input type="text" id="tasa-flat" value="38" oninput="onTasaChange()" onblur="calcular()" style="text-align:center"/>
+    <div class="tasa-sub" id="tasa-flat-mensual">3.17%/mes</div>
+  </div>
+  <div class="fld">
+    <span class="lbl">Tasa SS anual <span class="tasa-tag">editable</span></span>
+    <input type="text" id="tasa-ss" value="36" oninput="onTasaChange()" onblur="calcular()" style="text-align:center"/>
+    <div class="tasa-sub" id="tasa-ss-mensual">3.00%/mes</div>
+  </div>
 </div>
 <div class="tramo-box" id="tramo-box"></div>
 <div class="warn-box" id="warn-monto"></div>
@@ -342,10 +348,11 @@ function fmtM(inp){
   inp.value = r ? Number(r).toLocaleString('es-HN') : '';
 }
 
-function onTasaInput(inp){
-  inp.value = inp.value.replace(/[^0-9.]/g,'');
-  const t = parseFloat(inp.value)||0;
-  el('tasa-mensual').textContent = t>0 ? (t/12).toFixed(2)+'%/mes' : '—';
+function onTasaChange(){
+  const tF = parseFloat(el('tasa-flat').value)||0;
+  const tS = parseFloat(el('tasa-ss').value)||0;
+  el('tasa-flat-mensual').textContent = tF>0 ? (tF/12).toFixed(2)+'%/mes' : '—';
+  el('tasa-ss-mensual').textContent   = tS>0 ? (tS/12).toFixed(2)+'%/mes' : '—';
 }
 
 function onCambio(){ actualizarTramo(); calcular(); }
@@ -366,8 +373,10 @@ function actualizarTramo(){
       `Comisión: <strong>${(tramo.com*100).toFixed(2)}%</strong> &nbsp;|&nbsp; `+
       `Plazo máx: <strong>${tramo.max} meses</strong> &nbsp;|&nbsp; `+
       `Garantía mín: <strong>${tramo.gar_min.charAt(0).toUpperCase()+tramo.gar_min.slice(1)}</strong>`;
-    const tActual = parseFloat(el('tasa').value)||0;
-    el('tasa-mensual').textContent = tActual>0 ? (tActual/12).toFixed(2)+'%/mes' : '—';
+    // Auto-llenar tasas con valores del tramo
+    el('tasa-flat').value = (tramo.flat*12).toFixed(2);
+    el('tasa-ss').value   = tramo.ss.toFixed(1);
+    onTasaChange();
     actualizarGarBtns(tramo.gar_min);
   } else { tb.style.display='none'; }
 }
@@ -477,19 +486,21 @@ function calcular(){
   actualizarTramo();
   const monto  = gV('monto');
   const plazo  = parseInt(el('plazo').value)||0;
-  const tasaA  = parseFloat(el('tasa').value)||0;
-  const tasaM  = tasaA/12/100;
+  const tasaFA = parseFloat(el('tasa-flat').value)||0;  // FLAT anual
+  const tasaSA = parseFloat(el('tasa-ss').value)||0;    // SS anual
+  const tasaM  = tasaFA/12/100;                          // FLAT mensual
+  const tasaSM = tasaSA/12/100;                          // SS mensual
 
-  if(!tramo||monto<5000||tasaM<=0||plazo<1){
+  if(!tramo||monto<5000||tasaM<=0||tasaSM<=0||plazo<1){
     el('result-sec').classList.add('hidden');
     if(monto>=5000&&(tasaM<=0||plazo<1)){
       el('warn-monto').style.display='block';
-      el('warn-monto').innerHTML='⚠️ Ingresa plazo y tasa anual para calcular.';
+      el('warn-monto').innerHTML='⚠️ Ingresa plazo y ambas tasas para calcular.';
     }
     return;
   }
   el('warn-monto').style.display='none';
-  el('tasa-mensual').textContent=(tasaM*100).toFixed(2)+'%/mes';
+  onTasaChange(); // actualizar displays de tasa
 
   // Monto base (Excel 2026)
   const comPct  = garSel==='liquida'?0:tramo.com;
@@ -504,7 +515,7 @@ function calcular(){
   const segM    = Math.min(montoBase,CFG.segTope)/1000*CFG.seg;
 
   resFlat = calcAmort(montoBase,tasaM,plazo,segM,'flat');
-  resSS   = calcAmort(montoBase,tramo.ss/100/12,plazo,segM,'ss');
+  resSS   = calcAmort(montoBase,tasaSM,plazo,segM,'ss');
 
   const totF    = montoBase+resFlat.totInt+segM*plazo;
   const totS    = montoBase+resSS.totInt+segM*plazo;
@@ -527,7 +538,7 @@ function calcular(){
         <div class="cfreq">mensual</div>
         <div class="crow"><span>Total intereses</span><span class="cval">${fL(resSS.totInt)}</span></div>
         <div class="crow"><span>Total a pagar</span><span class="cval">${fL(totS)}</span></div>
-        <div class="crow"><span>Tasa anual</span><span class="cval">${tramo.ss.toFixed(1)}%</span></div>
+        <div class="crow"><span>Tasa anual SS</span><span class="cval">${tasaSA.toFixed(1)}%</span></div>
       </div>
     </div>
     <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:11px">
@@ -584,16 +595,20 @@ function renderAmort(){
 function genTexto(){
   const nom    = el('nombre').value||'Cliente';
   const ag     = el('agencia').options[el('agencia').selectedIndex].text;
-  const tasaA  = parseFloat(el('tasa').value)||0;
-  const tasaM  = tasaA/12/100;
+  const tasaFA = parseFloat(el('tasa-flat').value)||0;  // FLAT anual
+  const tasaSA = parseFloat(el('tasa-ss').value)||0;    // SS anual
+  const tasaM  = tasaFA/12/100;                          // FLAT mensual
+  const tasaSM = tasaSA/12/100;                          // SS mensual
   const plazo  = parseInt(el('plazo').value)||0;
   const garT   = {fiduciaria:'Fiduciaria 🤝',prendaria:'Prendaria 🔑',hipotecaria:'Hipotecaria 🏗️',liquida:'Líquida 💵'}[garSel];
   const esFlat = metodoCompartir==='flat';
   const res    = esFlat ? resFlat : resSS;
   const metNom = esFlat ? 'Cuota Fija (FLAT)' : 'Sobre Saldo';
+  const tasaFA2 = parseFloat(el('tasa-flat').value)||0;
+  const tasaSA2 = parseFloat(el('tasa-ss').value)||0;
   const tasaTxt= esFlat
-    ? `${tasaA.toFixed(2)}% anual flat (${(tasaM*100).toFixed(2)}%/mes)`
-    : `${tramo.ss.toFixed(1)}% anual sobre saldo`;
+    ? `${tasaFA2.toFixed(2)}% anual flat (${(tasaFA2/12).toFixed(2)}%/mes)`
+    : `${tasaSA2.toFixed(1)}% anual sobre saldo (${(tasaSA2/12).toFixed(2)}%/mes)`;
   const totPagar = montoBase + res.totInt + res.segM*plazo;
   let t =`*▲CREDIT — Cotización de Crédito*\n`;
   t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
@@ -632,7 +647,7 @@ function guardar(){
     fecha:new Date().toLocaleDateString('es-HN'),
     nombre:el('nombre').value||'—',
     monto:gV('monto'), plazo:el('plazo').value,
-    tasa:el('tasa').value, gar:garSel,
+    tasa:el('tasa-flat').value+'/'+el('tasa-ss').value, gar:garSel,
     cuotaF:resFlat.cuotaTotal, cuotaSS:resSS.cuotaTotal
   });
   if(hist.length>10) hist.pop();
