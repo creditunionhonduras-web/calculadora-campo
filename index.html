@@ -521,20 +521,7 @@ function setGar(g, btn){
   calcular();
 }
 
-// ── Plazos ───────────────────────────────────────────────────
-function updatePlazos(){
-  const maxM = tramo ? tramo.max : 84;
-  const sel = el('plazo'), prev = parseInt(sel.value)||12;
-  sel.innerHTML = '';
-  [1,2,3,4,5,6,9,12,18,24,30,36,42,48,54,60,72,84]
-    .filter(m=>m<=maxM)
-    .forEach(m=>{
-      const o=document.createElement('option');
-      o.value=m; o.textContent=m+(m===1?' mes':' meses');
-      if(m===prev) o.selected=true;
-      sel.appendChild(o);
-    });
-}
+// updatePlazos eliminada — plazo es ahora input libre
 
 // ── Amortización ─────────────────────────────────────────────
 function calcAmort(mB, tM, pl, segM, cajP, met){
@@ -607,7 +594,6 @@ function calcular(){
   const plazo  = parseInt(el('plazo').value)||12;
   const tasaA  = parseFloat(el('tasa').value)||0;       // tasa anual flat ingresada
   const tasaM  = tasaA / 12 / 100;                          // conversión a mensual
-  const ingreso= gV('ingreso');
   const glP    = gV('gl-prend');
   const glH    = gV('gl-hip');
 
