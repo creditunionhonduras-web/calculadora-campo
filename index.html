@@ -127,7 +127,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     <div class="logo">▲<span>CREDIT</span></div>
     <div class="hdr-sub">Calculadora de Campo · Asesores</div>
   </div>
-  <span class="ver">v6.4</span>
+  <span class="ver">v6.5</span>
 </div>
 
 <div class="body">
@@ -162,8 +162,8 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     </div>
   </div>
   <div class="fld">
-    <span class="lbl">Plazo</span>
-    <select id="plazo" onchange="calcular()"></select>
+    <span class="lbl">Plazo (meses)</span>
+    <input type="text" id="plazo" value="12" placeholder="ej. 24" oninput="this.value=this.value.replace(/[^0-9]/g,'')" onblur="calcular()" style="text-align:center"/>
   </div>
 </div>
 
@@ -175,7 +175,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
       <span class="tasa-tag">editable</span>
     </span>
     <div class="pfx-wrap">
-      <input type="text" id="tasa" placeholder="ej. 39.00" oninput="onTasaInput(this)" onblur="calcular()" style="padding-left:12px"/>
+      <input type="text" id="tasa" value="38" oninput="onTasaInput(this)" onblur="calcular()" style="padding-left:12px"/>
     </div>
   </div>
   <div class="fld">
@@ -236,23 +236,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
   </div>
 </div>
 
-<!-- CAPACIDAD DE PAGO -->
-<div class="sec">📊 Capacidad de pago</div>
-<div class="info-box" id="info-cap">Límite máx. 30% del ingreso neto mensual para créditos comerciales. (Manual 05/2024)</div>
-<div class="row2">
-  <div class="fld">
-    <span class="lbl">Ingreso mensual neto</span>
-    <div class="pfx-wrap">
-      <span class="pfx">L.</span>
-      <input type="text" id="ingreso" placeholder="0" oninput="fmtM(this)" onblur="calcular()"/>
-    </div>
-  </div>
-  <div class="fld">
-    <span class="lbl">Cuota máx. permitida</span>
-    <div id="cuota-max" style="height:44px;display:flex;align-items:center;padding:0 12px;background:#f7f7f5;border-radius:10px;border:1.5px solid var(--bdr);font-size:15px;font-weight:600;color:var(--muted)">—</div>
-  </div>
-</div>
-<div class="semaforo" id="semaforo"></div>
+
 
 <button class="calc-btn" onclick="calcular()">⚙ Calcular</button>
 
@@ -425,12 +409,11 @@ function onTasaInput(inp){
   // Permite solo números y punto
   inp.value = inp.value.replace(/[^0-9.]/g,'');
   const t = parseFloat(inp.value)||0;
-  el('tasa-mensual').textContent = t>0 ? (t/12).toFixed(4)+'%/mes' : '—';
+  el('tasa-mensual').textContent = t>0 ? (t/12).toFixed(2)+'%/mes' : '—';
 }
 
 function onCambio(){
   actualizarTramo();
-  updatePlazos();
   calcular();
 }
 
@@ -451,17 +434,13 @@ function actualizarTramo(){
   if(tramo){
     tb.style.display='block';
     tb.innerHTML = `📋 Tramo: ${fL(tramo.de)} – ${fL(tramo.a)} &nbsp;|&nbsp; `+
-      `Flat ref: <strong>${(tramo.flat*12).toFixed(2)}% anual</strong> (${tramo.flat.toFixed(4)}%/mes) &nbsp;|&nbsp; `+
-      `SS ref: <strong>${tramo.ss.toFixed(1)}% anual</strong> &nbsp;|&nbsp; `+
       `Comisión: <strong>${(tramo.com*100).toFixed(2)}%</strong> &nbsp;|&nbsp; `+
       `Plazo máx: <strong>${tramo.max} meses</strong> &nbsp;|&nbsp; `+
       `Garantía mín: <strong>${tramo.gar_min.charAt(0).toUpperCase()+tramo.gar_min.slice(1)}</strong>`;
 
-    // Auto-llenar tasa si está vacía
-    if(!el('tasa').value){
-      el('tasa').value = (tramo.flat*12).toFixed(2);
-      el('tasa-mensual').textContent = tramo.flat.toFixed(4)+'%/mes';
-    }
+    // Mostrar siempre el mensual según la tasa actual
+    const tActual = parseFloat(el('tasa').value)||0;
+    el('tasa-mensual').textContent = tActual>0 ? (tActual/12).toFixed(2)+'%/mes' : '—';
 
     // Actualizar garantías
     updateGarButtons(tramo.gar_min);
@@ -570,7 +549,7 @@ function calcular(){
   el('warn-monto').style.display='none';
 
   // Tasa anual display
-  el('tasa-mensual').textContent = (tasaM*100).toFixed(4)+'%/mes';
+  el('tasa-mensual').textContent = (tasaM*100).toFixed(2)+'%/mes';
 
   // Garantía líquida: comisión desembolso = 0 (Excel: Porcentaje Comisión = 0)
   const comPct = garSel==='liquida' ? 0 : tramo.com;
@@ -578,7 +557,7 @@ function calcular(){
   // Monto base — igual que Excel SOTEICA:
   // Monto Crédito = Monto Solicitado + Comisión + Buró + Gastos Legales + Aval Prendario
   const com    = monto*comPct;
-  const prend2 = garSel==='prendaria' ? prend : 0;
+  const prend2 = garSel==='prendaria' ? (parseInt(el('sel-prend').value)||0) : 0;
   const gl2    = garSel==='prendaria' ? glP : (garSel==='hipotecaria' ? glH : 0);
   const cajaTot = CFG.caja * plazo;                        // caja capitalizada: 30 × plazo
   montoBase    = monto + com + CFG.buro + cajaTot + prend2 + gl2; // Excel 2026: caja capitalizada
@@ -608,12 +587,12 @@ function calcular(){
     <span class="rdet-item">Interés mensual</span><span class="rdet-val">${fL2(montoBase*tasaM)}</span>
     <span class="rdet-item">Capital mensual</span><span class="rdet-val">${fL2(montoBase/plazo)}</span>
     <span class="rdet-item">Seguro deuda</span><span class="rdet-val">${fL2(segM)}</span>
-    <span class="rdet-item">Caja empresarial</span><span class="rdet-val">${fL2(CFG.caja)}×${plazo}m = ${fL2(cajaTot)} (en capital)</span>
+    <span class="rdet-item">Caja empresarial</span><span class="rdet-val">${fL2(cajaTot)}</span>
     <span class="rdet-item">Buró (capitalizado)</span><span class="rdet-val">L. 150.00</span>
     <span class="rdet-item">Comisión desembolso</span><span class="rdet-val">${fL2(com)}</span>
   `;
 
-  el('rnote').textContent = `Tasa ${tasaA.toFixed(2)}% anual flat (${(tasaM*100).toFixed(4)}%/mes) · Tarifario Ene-2025 Rev.1.2`;
+  el('rnote').textContent = `Tasa ${tasaA.toFixed(2)}% anual flat (${(tasaM*100).toFixed(2)}%/mes) · Tarifario Ene-2025 Rev.1.2`;
 
   // Desglose completo
   el('d-cap').textContent    = fL(monto);
@@ -624,36 +603,13 @@ function calcular(){
   el('d-seg-m').textContent  = fL2(segM)+(montoBase>CFG.seguro_tope?' (tope L2M)':'');
   el('d-seg-t').textContent  = fL2(segM*plazo);
   el('d-buro').textContent   = 'L. 150.00 (capitalizado en monto base)';
-  el('d-caja-m').textContent = fL2(CFG.caja)+'/cuota × '+plazo+' meses (capitalizada)';
+  el('d-caja-m').textContent = fL2(cajaTot)+' (capitalizada al monto)';
   el('d-caja-t').textContent = fL2(cajaTot);
   el('d-gar-req').textContent= tramo.gar_min.charAt(0).toUpperCase()+tramo.gar_min.slice(1);
   el('d-pmax').textContent   = tramo.max+' meses';
   el('d-neto2').textContent  = fL(neto)+' (monto solicitado íntegro)';
 
-  // Semáforo capacidad de pago (30% fijo)
-  if(ingreso>0){
-    const cuotaMax = ingreso*CFG.cap_pago_pct;
-    const cuotaRef = resFlat.cuotaTotal;
-    const pctR     = Math.round(cuotaRef/ingreso*100);
-    el('cuota-max').textContent = fL2(cuotaMax);
-    el('cuota-max').style.color = 'var(--navy)';
-    const sem = el('semaforo'); sem.className='semaforo';
-    if(cuotaRef<=cuotaMax*0.85){
-      sem.classList.add('ok');
-      sem.innerHTML=`✅ Califica — cuota representa el ${pctR}% del ingreso (límite 30%)`;
-    } else if(cuotaRef<=cuotaMax){
-      sem.classList.add('warn');
-      sem.innerHTML=`⚠️ Al límite — cuota es el ${pctR}% del ingreso. Revisar con cuidado.`;
-    } else {
-      sem.classList.add('danger');
-      sem.innerHTML=`❌ No califica — cuota supera el 30% del ingreso (${pctR}%). Reducir monto o ampliar plazo.`;
-    }
-    sem.style.display='block';
-  } else {
-    el('cuota-max').textContent='—';
-    el('cuota-max').style.color='var(--muted)';
-    el('semaforo').style.display='none';
-  }
+
 
   renderAmort();
   el('result-sec').classList.remove('hidden');
@@ -758,7 +714,6 @@ function limpiarHist(){
 }
 
 // ── INIT ──────────────────────────────────────────────────────
-updatePlazos();
 actualizarTramo();
 renderHist();
 </script>
