@@ -127,7 +127,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     <div class="logo">▲<span>CREDIT</span></div>
     <div class="hdr-sub">Calculadora de Campo · Asesores</div>
   </div>
-  <span class="ver">v6.0</span>
+  <span class="ver">v6.1</span>
 </div>
 
 <div class="body">
@@ -562,24 +562,25 @@ function calcular(){
   // Tasa anual display
   el('tasa-anual').textContent = (tasaM*100*12).toFixed(2)+'%';
 
-  // Monto base
+  // Monto base — igual que Excel SOTEICA:
+  // Monto Crédito = Monto Solicitado + Comisión + Buró + Gastos Legales + Aval Prendario
   const com    = monto*tramo.com;
   const prend2 = garSel==='prendaria' ? prend : 0;
   const gl2    = garSel==='prendaria' ? glP : (garSel==='hipotecaria' ? glH : 0);
-  montoBase    = monto + com + prend2 + gl2;
+  montoBase    = monto + com + CFG.buro + prend2 + gl2; // buró VA DENTRO del monto base
 
-  // Cargos fijos siempre (Judy: se cobran sí o sí)
+  // Seguro se calcula sobre el monto base completo (con buró incluido)
   const segBase= Math.min(montoBase, CFG.seguro_tope);
-  const segM   = segBase/1000*CFG.seguro_millar;  // por mes
-  const cajP   = CFG.caja;                         // por cuota/mes
+  const segM   = segBase/1000*CFG.seguro_millar;
+  const cajP   = CFG.caja;
 
   resFlat = calcAmort(montoBase, tasaM, plazo, segM, cajP, 'flat');
-  // SS usa tasa nominal / 12 convertida al equivalente del flat ingresado × factor SS del tramo
   const tasaSS = tramo.ss/100/12;
   resSS   = calcAmort(montoBase, tasaSS, plazo, segM, cajP, 'ss');
 
-  const neto   = monto - CFG.buro; // buró se descuenta del desembolso
-  const totF   = montoBase + resFlat.totInt + segM*plazo + cajP*plazo + CFG.buro;
+  // Neto al cliente = monto solicitado (el buró ya está capitalizado en el crédito)
+  const neto   = monto;
+  const totF   = montoBase + resFlat.totInt + segM*plazo + cajP*plazo;
 
   // ── Resultado principal (FLAT — cuota fija, que es lo que SOTEICA usa por defecto) ──
   el('r-cuota').textContent  = fL2(resFlat.cuotaTotal);
@@ -594,7 +595,7 @@ function calcular(){
     <span class="rdet-item">Capital mensual</span><span class="rdet-val">${fL2(montoBase/plazo)}</span>
     <span class="rdet-item">Seguro deuda</span><span class="rdet-val">${fL2(segM)}</span>
     <span class="rdet-item">Caja empresarial</span><span class="rdet-val">${fL2(cajP)}</span>
-    <span class="rdet-item">Buró (único)</span><span class="rdet-val">L. 150.00</span>
+    <span class="rdet-item">Buró (capitalizado)</span><span class="rdet-val">L. 150.00</span>
     <span class="rdet-item">Comisión desembolso</span><span class="rdet-val">${fL2(com)}</span>
   `;
 
@@ -605,15 +606,15 @@ function calcular(){
   el('d-com').textContent    = fL2(com)+' ('+(tramo.com*100).toFixed(2)+'%)';
   el('d-prend').textContent  = prend2>0 ? fL(prend2) : '—';
   el('d-gl').textContent     = gl2>0 ? fL(gl2) : '—';
-  el('d-base2').textContent  = fL(montoBase);
+  el('d-base2').textContent  = fL(montoBase)+' (incluye buró L.150)';
   el('d-seg-m').textContent  = fL2(segM)+(montoBase>CFG.seguro_tope?' (tope L2M)':'');
   el('d-seg-t').textContent  = fL2(segM*plazo);
-  el('d-buro').textContent   = 'L. 150.00';
+  el('d-buro').textContent   = 'L. 150.00 (capitalizado en monto base)';
   el('d-caja-m').textContent = fL2(cajP);
   el('d-caja-t').textContent = fL2(cajP*plazo);
   el('d-gar-req').textContent= tramo.gar_min.charAt(0).toUpperCase()+tramo.gar_min.slice(1);
   el('d-pmax').textContent   = tramo.max+' meses';
-  el('d-neto2').textContent  = fL(neto);
+  el('d-neto2').textContent  = fL(neto)+' (monto solicitado íntegro)';
 
   // Semáforo capacidad de pago (30% fijo)
   if(ingreso>0){
