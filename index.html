@@ -84,6 +84,17 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 .atbl td{padding:4.5px 6px;text-align:right;border-bottom:1px solid #f5f5f5}
 .atbl td:first-child{text-align:center;color:var(--muted)}
 .atbl .tot td{font-weight:600;background:#f0f0ee;border-top:1px solid var(--bdr)}
+
+/* Selector método compartir */
+.metodo-sel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.mbtn{border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--muted);font-family:'Montserrat',sans-serif;cursor:pointer;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.15s;width:100%}
+.mbtn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.mbtn:active{transform:scale(.98)}
+.mbtn-ico{font-size:18px}
+.mbtn-lbl{font-size:11px;font-weight:600}
+.mbtn-val{font-size:13px;font-weight:700;color:var(--green)}
+.mbtn.on .mbtn-val{color:var(--green)}
+
 /* Compartir */
 .wa-btn{width:100%;height:48px;background:#25D366;color:#fff;border:none;border-radius:11px;font-size:14px;font-weight:600;font-family:'Montserrat',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:7px;transition:.15s}
 .wa-btn:active{transform:scale(.98)}
@@ -104,7 +115,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 
 <div class="hdr">
   <div><div class="logo">▲<span>CREDIT</span></div><div class="hdr-sub">Calculadora de Campo · Asesores</div></div>
-  <span class="ver">v6.9</span>
+  <span class="ver">v7.0</span>
 </div>
 
 <div class="body">
@@ -233,6 +244,18 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 
 <!-- Compartir -->
 <div class="sec">🔗 Compartir</div>
+<div class="metodo-sel">
+  <button class="mbtn on" id="mbtn-flat" onclick="setMetodo('flat',this)">
+    <span class="mbtn-ico">📊</span>
+    <span class="mbtn-lbl">Cuota Fija</span>
+    <span class="mbtn-val" id="mbtn-flat-val">—</span>
+  </button>
+  <button class="mbtn" id="mbtn-ss" onclick="setMetodo('ss',this)">
+    <span class="mbtn-ico">📉</span>
+    <span class="mbtn-lbl">Sobre Saldo</span>
+    <span class="mbtn-val" id="mbtn-ss-val">—</span>
+  </button>
+</div>
 <button class="wa-btn" onclick="enviarWA()">📲 Enviar por WhatsApp</button>
 <button class="sbtn" onclick="copiar()"><span id="copy-lbl">📋 Copiar resumen</span></button>
 <button class="sbtn" onclick="guardar()"><span id="save-lbl">💾 Guardar en historial</span></button>
@@ -292,6 +315,8 @@ const GAR_INFO = {
 };
 
 // Estado global
+let metodoCompartir = 'flat'; // 'flat' | 'ss'
+
 let garSel   = 'fiduciaria';
 let avalTipo = 'none';
 let avalCant = 1;
@@ -434,6 +459,19 @@ function calcAmort(mB, tM, n, segM, met){
   return {cuota:cu, cuotaTotal:cu+segM, totInt:totI, rows, n, segM};
 }
 
+
+function setMetodo(m, btn){
+  metodoCompartir = m;
+  document.querySelectorAll('.mbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+function actualizarMetodoBtns(){
+  if(!resFlat.cuotaTotal) return;
+  el('mbtn-flat-val').textContent = fL2(resFlat.cuotaTotal);
+  el('mbtn-ss-val').textContent   = fL2(resSS.cuotaTotal);
+}
+
 // ── CALCULAR ──────────────────────────────────────────────────
 function calcular(){
   actualizarTramo();
@@ -514,6 +552,7 @@ function calcular(){
   el('d-neto').textContent   = fL(monto);
 
   renderAmort();
+  actualizarMetodoBtns();
   el('result-sec').classList.remove('hidden');
 }
 
@@ -543,25 +582,39 @@ function renderAmort(){
 
 // ── Compartir ─────────────────────────────────────────────────
 function genTexto(){
-  const nom=el('nombre').value||'Cliente';
-  const ag=el('agencia').options[el('agencia').selectedIndex].text;
-  const tasaA=parseFloat(el('tasa').value)||0;
-  const tasaM=tasaA/12/100;
-  const plazo=parseInt(el('plazo').value)||0;
-  const garT={fiduciaria:'Fiduciaria 🤝',prendaria:'Prendaria 🔑',hipotecaria:'Hipotecaria 🏗️',liquida:'Líquida 💵'}[garSel];
-  const totF=montoBase+resFlat.totInt+resFlat.segM*plazo;
-  let t=`*▲CREDIT — Cotización de Crédito*\n━━━━━━━━━━━━━━━━━━━━━\n`;
-  t+=`👤 Cliente: ${nom}\n🏦 Agencia: ${ag}\n`;
-  t+=`💰 Monto: ${fL(gV('monto'))}\n📅 Plazo: ${plazo} meses\n`;
-  t+=`📊 Tasa: ${tasaA.toFixed(2)}% anual flat (${(tasaM*100).toFixed(2)}%/mes)\n`;
+  const nom    = el('nombre').value||'Cliente';
+  const ag     = el('agencia').options[el('agencia').selectedIndex].text;
+  const tasaA  = parseFloat(el('tasa').value)||0;
+  const tasaM  = tasaA/12/100;
+  const plazo  = parseInt(el('plazo').value)||0;
+  const garT   = {fiduciaria:'Fiduciaria 🤝',prendaria:'Prendaria 🔑',hipotecaria:'Hipotecaria 🏗️',liquida:'Líquida 💵'}[garSel];
+  const esFlat = metodoCompartir==='flat';
+  const res    = esFlat ? resFlat : resSS;
+  const metNom = esFlat ? 'Cuota Fija (FLAT)' : 'Sobre Saldo';
+  const tasaTxt= esFlat
+    ? `${tasaA.toFixed(2)}% anual flat (${(tasaM*100).toFixed(2)}%/mes)`
+    : `${tramo.ss.toFixed(1)}% anual sobre saldo`;
+  const totPagar = montoBase + res.totInt + res.segM*plazo;
+  let t =`*▲CREDIT — Cotización de Crédito*\n`;
+  t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
+  t+=`👤 Cliente: ${nom}\n`;
+  t+=`🏦 Agencia: ${ag}\n`;
+  t+=`💰 Monto solicitado: ${fL(gV('monto'))}\n`;
+  t+=`📅 Plazo: ${plazo} meses\n`;
   t+=`🔒 Garantía: ${garT}\n`;
   t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
-  t+=`*Cuota FLAT: ${fL2(resFlat.cuotaTotal)}*\n`;
-  t+=`*Cuota SS:   ${fL2(resSS.cuotaTotal)}*\n`;
-  t+=`Monto base: ${fL(montoBase)}\n`;
-  t+=`Total a pagar (FLAT): ${fL(totF)}\n`;
+  t+=`📊 Modalidad: *${metNom}*\n`;
+  t+=`📈 Tasa: ${tasaTxt}\n`;
   t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
-  t+=`_Referencial · ${new Date().toLocaleDateString('es-HN')} · Sujeto a aprobación del comité._`;
+  t+=`💳 *Cuota mensual: ${fL2(res.cuotaTotal)}*\n`;
+  t+=`   Capital + Interés: ${fL2(res.cuota)}\n`;
+  t+=`   Seguro de deuda:   ${fL2(res.segM)}\n`;
+  t+=`💵 Monto base crédito: ${fL(montoBase)}\n`;
+  t+=`💵 Total a pagar: ${fL(totPagar)}\n`;
+  t+=`💵 Neto al cliente: ${fL(gV('monto'))}\n`;
+  t+=`━━━━━━━━━━━━━━━━━━━━━\n`;
+  t+=`_Cálculo referencial · ${new Date().toLocaleDateString('es-HN')}_\n`;
+  t+=`_Sujeto a aprobación del Comité de Créditos_`;
   return t;
 }
 function enviarWA(){ window.open('https://wa.me/?text='+encodeURIComponent(genTexto()),'_blank'); }
