@@ -144,12 +144,12 @@ input[type=text][style*="center"]{text-align:center}
 <div class="row2">
   <div class="fld">
     <span class="lbl">Tasa FLAT anual <span class="tasa-tag">editable</span></span>
-    <input type="text" id="tasa-flat" value="38" oninput="onTasaChange()" onblur="calcular()" style="text-align:center"/>
+    <input type="text" id="tasa-flat" value="38" oninput="this.dataset.autoFill='manual';this.value=this.value.replace(/[^0-9.]/g,'');onTasaChange()" onblur="calcular()" style="text-align:center"/>
     <div class="tasa-sub" id="tasa-flat-sub">3.17%/mes</div>
   </div>
   <div class="fld">
     <span class="lbl">Tasa SS anual <span class="tasa-tag">editable</span></span>
-    <input type="text" id="tasa-ss" value="36" oninput="onTasaChange()" onblur="calcular()" style="text-align:center"/>
+    <input type="text" id="tasa-ss" value="36" oninput="this.dataset.autoFill='manual';this.value=this.value.replace(/[^0-9.]/g,'');onTasaChange()" onblur="calcular()" style="text-align:center"/>
     <div class="tasa-sub" id="tasa-ss-sub">3.00%/mes</div>
   </div>
 </div>
@@ -343,7 +343,13 @@ function onTasaChange(){
   el('tasa-ss-sub').textContent   = tS>0 ? (tS/12).toFixed(2)+'%/mes' : '—';
 }
 
-function onCambio(){ actualizarTramo(); calcular(); }
+function onCambio(){
+  // Al cambiar monto, permitir auto-llenado de tasas con el nuevo tramo
+  el('tasa-flat').dataset.autoFill = '';
+  el('tasa-ss').dataset.autoFill   = '';
+  actualizarTramo();
+  calcular();
+}
 
 // ── Tramo ─────────────────────────────────────────────────────
 function actualizarTramo(){
@@ -361,9 +367,13 @@ function actualizarTramo(){
       `Comisión: <strong>${(tramo.com*100).toFixed(2)}%</strong> &nbsp;|&nbsp; `+
       `Plazo máx: <strong>${tramo.max} meses</strong> &nbsp;|&nbsp; `+
       `Garantía mín: <strong>${tramo.gar.charAt(0).toUpperCase()+tramo.gar.slice(1)}</strong>`;
-    // Auto-llenar tasas con valores del tramo
-    el('tasa-flat').value = (tramo.flat*12).toFixed(2);
-    el('tasa-ss').value   = tramo.ss.toFixed(1);
+    // Auto-llenar tasas SOLO si están vacías (no sobreescribir edición del asesor)
+    if(!el('tasa-flat').value || el('tasa-flat').dataset.autoFill !== 'manual'){
+      el('tasa-flat').value = (tramo.flat*12).toFixed(2);
+    }
+    if(!el('tasa-ss').value || el('tasa-ss').dataset.autoFill !== 'manual'){
+      el('tasa-ss').value = tramo.ss.toFixed(1);
+    }
     onTasaChange();
     actualizarGarBtns(tramo.gar);
   } else { tb.style.display='none'; }
