@@ -117,6 +117,22 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 .hidden{display:none}
 .divider{height:1px;background:var(--bdr);margin:16px 0}
 
+
+/* AVAL PRENDARIO */
+.aval-tipo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:9px}
+.aval-btn{height:62px;border:1.5px solid var(--bdr);border-radius:10px;background:var(--card);color:var(--muted);font-family:'Montserrat',sans-serif;cursor:pointer;transition:.15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:18px;padding:4px}
+.aval-btn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.aval-btn:active{transform:scale(.97)}
+.aval-lbl{font-size:11px;font-weight:600;line-height:1}
+.aval-sub{font-size:9.5px;opacity:.65;line-height:1}
+.aval-count-row{display:flex;align-items:center;gap:10px;background:#f7f7f5;border-radius:10px;padding:10px 13px;margin-bottom:8px}
+.aval-counter{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.cnt-btn{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--bdr);background:var(--card);font-size:20px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--navy);line-height:1;font-family:'Montserrat',sans-serif}
+.cnt-btn:active{background:var(--navy);color:#fff}
+.cnt-val{font-size:22px;font-weight:700;color:var(--navy);min-width:28px;text-align:center}
+.aval-total-box{margin-left:auto;text-align:right}
+.aval-total-val{font-size:15px;font-weight:700;color:var(--navy);display:block;margin-top:2px}
+
 @media print{.hdr,.calc-btn,.wa-btn,.sbtn,.hist-sec{display:none!important}.body{padding:0}}
 </style>
 </head>
@@ -127,7 +143,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
     <div class="logo">▲<span>CREDIT</span></div>
     <div class="hdr-sub">Calculadora de Campo · Asesores</div>
   </div>
-  <span class="ver">v6.5</span>
+  <span class="ver">v6.6</span>
 </div>
 
 <div class="body">
@@ -204,23 +220,41 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(67,8
 </div>
 <div class="info-box" id="info-gar">🤝 Garantía Fiduciaria — Fiador solvente con ingresos verificables. Aplica para montos hasta L150,000.</div>
 
-<!-- Prendaria: tipo de aval -->
+<!-- Prendaria: tipo y cantidad -->
 <div id="wrap-prend" class="hidden">
-  <div class="row2">
-    <div class="fld">
-      <span class="lbl">Aval prendario</span>
-      <select id="sel-prend" onchange="calcular()">
-        <option value="0">Sin cargo adicional</option>
-        <option value="700">Maquinaria / equipo (L700)</option>
-        <option value="1500">Vehículo (L1,500)</option>
-      </select>
-    </div>
-    <div class="fld">
-      <span class="lbl">Gastos legales</span>
-      <div class="pfx-wrap">
-        <span class="pfx">L.</span>
-        <input type="text" id="gl-prend" value="0" oninput="fmtM(this)" onblur="calcular()"/>
+  <!-- Selector V / M -->
+  <div class="aval-tipo-row">
+    <button class="aval-btn" id="aval-none" onclick="setAval('none',this)">
+      <span>—</span><span class="aval-lbl">Sin aval</span>
+    </button>
+    <button class="aval-btn" id="aval-v" onclick="setAval('v',this)">
+      <span>🚗</span><span class="aval-lbl">Vehículo</span><span class="aval-sub">L.1,500 c/u</span>
+    </button>
+    <button class="aval-btn" id="aval-m" onclick="setAval('m',this)">
+      <span>⚙️</span><span class="aval-lbl">Maquinaria</span><span class="aval-sub">L.700 c/u</span>
+    </button>
+  </div>
+  <!-- Contador unidades -->
+  <div id="wrap-aval-count" class="hidden">
+    <div class="aval-count-row">
+      <span class="lbl" id="aval-count-lbl">Cantidad de vehículos</span>
+      <div class="aval-counter">
+        <button class="cnt-btn" onclick="cambiarCant(-1)">−</button>
+        <span id="aval-cant" class="cnt-val">1</span>
+        <button class="cnt-btn" onclick="cambiarCant(1)">+</button>
       </div>
+      <div class="aval-total-box">
+        <span class="lbl">Cargo total</span>
+        <span id="aval-total" class="aval-total-val">L. 1,500</span>
+      </div>
+    </div>
+  </div>
+  <!-- Gastos legales -->
+  <div class="fld" style="margin-top:8px">
+    <span class="lbl">Gastos legales vehículo/maquinaria</span>
+    <div class="pfx-wrap">
+      <span class="pfx">L.</span>
+      <input type="text" id="gl-prend" value="0" oninput="fmtM(this)" onblur="calcular()"/>
     </div>
   </div>
 </div>
@@ -482,6 +516,7 @@ function setGar(g, btn){
   el('wrap-prend').classList.toggle('hidden', g!=='prendaria');
   el('wrap-hip').classList.toggle('hidden',   g!=='hipotecaria');
   if(g==='liquida'||g==='fiduciaria'){ el('wrap-prend').classList.add('hidden'); el('wrap-hip').classList.add('hidden'); }
+  if(g!=='prendaria'){ avalTipo='none'; avalCant=1; }
   el('info-gar').textContent = GAR_INFO[g];
   calcular();
 }
@@ -525,6 +560,45 @@ function calcAmort(mB, tM, pl, segM, cajP, met){
   return {cuota:cu, cuotaTotal:cu+segPer+cajP, totInt:totI, rows, n, segP:segPer, cajP};
 }
 
+
+// ── Aval prendario ───────────────────────────────────────────
+let avalTipo = 'none';  // 'none' | 'v' | 'm'
+let avalCant = 1;
+const AVAL_PRECIO = {v: 1500, m: 700};
+
+function setAval(tipo, btn){
+  avalTipo = tipo;
+  document.querySelectorAll('.aval-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const wrap = el('wrap-aval-count');
+  if(tipo === 'none'){
+    wrap.classList.add('hidden');
+  } else {
+    avalCant = 1;
+    wrap.classList.remove('hidden');
+    el('aval-count-lbl').textContent = tipo==='v' ? 'Cantidad de vehículos' : 'Cantidad de maquinarias';
+    actualizarAval();
+  }
+  calcular();
+}
+
+function cambiarCant(delta){
+  avalCant = Math.max(1, avalCant + delta);
+  actualizarAval();
+  calcular();
+}
+
+function actualizarAval(){
+  el('aval-cant').textContent = avalCant;
+  const total = avalTipo==='none' ? 0 : AVAL_PRECIO[avalTipo] * avalCant;
+  el('aval-total').textContent = 'L. '+total.toLocaleString('es-HN');
+}
+
+function getAvalTotal(){
+  if(avalTipo==='none') return 0;
+  return AVAL_PRECIO[avalTipo] * avalCant;
+}
+
 // ── CALCULAR ─────────────────────────────────────────────────
 function calcular(){
   actualizarTramo();
@@ -534,7 +608,6 @@ function calcular(){
   const tasaA  = parseFloat(el('tasa').value)||0;       // tasa anual flat ingresada
   const tasaM  = tasaA / 12 / 100;                          // conversión a mensual
   const ingreso= gV('ingreso');
-  const prend  = parseInt(el('sel-prend')?el('sel-prend').value:0)||0;
   const glP    = gV('gl-prend');
   const glH    = gV('gl-hip');
 
@@ -557,7 +630,7 @@ function calcular(){
   // Monto base — igual que Excel SOTEICA:
   // Monto Crédito = Monto Solicitado + Comisión + Buró + Gastos Legales + Aval Prendario
   const com    = monto*comPct;
-  const prend2 = garSel==='prendaria' ? (parseInt(el('sel-prend').value)||0) : 0;
+  const prend2 = garSel==='prendaria' ? getAvalTotal() : 0;
   const gl2    = garSel==='prendaria' ? glP : (garSel==='hipotecaria' ? glH : 0);
   const cajaTot = CFG.caja * plazo;                        // caja capitalizada: 30 × plazo
   montoBase    = monto + com + CFG.buro + cajaTot + prend2 + gl2; // Excel 2026: caja capitalizada
@@ -597,7 +670,7 @@ function calcular(){
   // Desglose completo
   el('d-cap').textContent    = fL(monto);
   el('d-com').textContent    = fL2(com)+' ('+(tramo.com*100).toFixed(2)+'%)';
-  el('d-prend').textContent  = prend2>0 ? fL(prend2) : '—';
+  el('d-prend').textContent  = prend2>0 ? fL(prend2)+(avalTipo==='v'?' ('+avalCant+' veh.)':' ('+avalCant+' maq.)') : '—';
   el('d-gl').textContent     = gl2>0 ? fL(gl2) : '—';
   el('d-base2').textContent  = fL(montoBase)+' (incluye buró + caja capitalizada)';
   el('d-seg-m').textContent  = fL2(segM)+(montoBase>CFG.seguro_tope?' (tope L2M)':'');
@@ -716,6 +789,7 @@ function limpiarHist(){
 // ── INIT ──────────────────────────────────────────────────────
 actualizarTramo();
 renderHist();
+el('aval-none').classList.add('on');
 </script>
 </body>
 </html>
