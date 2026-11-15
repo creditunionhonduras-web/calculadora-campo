@@ -164,7 +164,7 @@ body.shake .wrap{animation:shake .45s}
     <g id="arm"><path d="M88 102 q16-18 18-44" stroke="#2a3142" stroke-width="13" fill="none" stroke-linecap="round"/>
       <circle cx="106" cy="56" r="8" fill="#c79a7a"/><rect x="102" y="30" width="7" height="24" rx="3.5" fill="#c79a7a"/></g>
   </svg>
-  <p class="ah">¡AH, AH, AH!</p>
+  <p class="ah">¡JO, JO, JO!</p>
   <p class="ahsub">El Ciber-Grinch te engañó</p>
   <p class="ahtap">Toca para ver por qué</p>
 </div>
@@ -255,10 +255,10 @@ function sfx(k){if(!ac)return;try{const t=ac.currentTime+.02;
  if(k==="end")[[67,0],[72,.12],[76,.24],[79,.36],[84,.5]].forEach(([n,d])=>tone(n,t+d,d===.5?.6:.14,"square",.09,master));
  if(k==="ahah"){
   [0,.34,.68].forEach((d,j)=>{const o=ac.createOscillator(),g=ac.createGain(),f1=ac.createBiquadFilter(),f2=ac.createBiquadFilter(),lfo=ac.createOscillator(),lg=ac.createGain(),s=t+d;
-   o.type="sawtooth";o.frequency.setValueAtTime(230-j*6,s);o.frequency.exponentialRampToValueAtTime(170,s+.26);
-   lfo.frequency.value=7;lg.gain.value=6;lfo.connect(lg);lg.connect(o.frequency);
-   f1.type="bandpass";f1.frequency.value=760;f1.Q.value=5;f2.type="bandpass";f2.frequency.value=1180;f2.Q.value=6;
-   g.gain.setValueAtTime(0,s);g.gain.linearRampToValueAtTime(.55,s+.03);g.gain.exponentialRampToValueAtTime(.0001,s+.28);
+   o.type="sawtooth";o.frequency.setValueAtTime(150-j*8,s);o.frequency.exponentialRampToValueAtTime(105-j*6,s+.26);
+   lfo.frequency.value=6;lg.gain.value=4;lfo.connect(lg);lg.connect(o.frequency);
+   f1.type="bandpass";f1.frequency.value=480;f1.Q.value=4;f2.type="bandpass";f2.frequency.value=860;f2.Q.value=5;
+   g.gain.setValueAtTime(0,s);g.gain.linearRampToValueAtTime(.8,s+.03);g.gain.exponentialRampToValueAtTime(.0001,s+.28);
    o.connect(f1);o.connect(f2);f1.connect(g);f2.connect(g);g.connect(master);o.start(s);lfo.start(s);o.stop(s+.32);lfo.stop(s+.32)});
   tone(40,t+1.02,.5,"square",.08,master,-2)}
  if(k==="tap")tone(84,t,.05,"square",.04,master)}catch(e){}}
