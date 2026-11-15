@@ -226,6 +226,13 @@ $("snd").addEventListener("click",()=>{initAudio();startMusic();setMute(!muted)}
 setMute(muted);
 
 function start(){initAudio();startMusic();sfx("tap");order=shuffle(CASES.slice()).slice(0,ROUND);i=0;pts=0;$("intro").classList.add("hide");$("end").classList.add("hide");$("game").classList.remove("hide");show()}
+/* posición y color de los botones al azar en cada caso */
+function btns(c){
+  const lab=[c.t==="cred"?"Aprobar":"Es seguro","¡Es el Grinch!"];
+  const col=Math.random()<.5?["ok","bad"]:["bad","ok"];
+  const pos=Math.random()<.5?[0,1]:[1,0];
+  return pos.map(a=>`<button class="${col[a]}" data-a="${a}">${lab[a]}</button>`).join("");
+}
 function show(){
   locked=false;const c=order[i],tg=T[c.t];
   $("score").textContent=`Caso ${i+1}/${order.length} · ${pts} pts`;
@@ -234,7 +241,7 @@ function show(){
   $("card").innerHTML=`<span class="tag"><i style="background:${tg[1]}"></i>${tg[0]}</span>
    <p class="from">${c.from}</p><p class="msg">${c.msg}</p>${facts}
    <p class="ask">${c.t==="cred"?"¿Lo aprobarías o hay señal de alerta?":"¿Es seguro o es el Grinch?"}</p>
-   <div class="btns"><button class="ok" data-a="0">${c.t==="cred"?"Aprobar":"Es seguro"}</button><button class="bad" data-a="1">¡Es el Grinch!</button></div>
+   <div class="btns">${btns(c)}</div>
    <div class="fb" id="fb"></div>`;
   $("card").querySelectorAll(".btns button").forEach(b=>b.addEventListener("click",()=>answer(+b.dataset.a)));
   $("card").scrollIntoView({behavior:"smooth",block:"start"});
