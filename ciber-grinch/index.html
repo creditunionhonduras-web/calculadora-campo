@@ -72,6 +72,15 @@ button:focus-visible{outline:3px solid var(--green);outline-offset:3px}
 .legend .tag{background:rgba(255,255,255,.12);color:#fff}
 .note{color:#b9c2d3;font-size:13px;text-align:center;margin-top:18px}
 .hide{display:none}
+#qrwarn{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(18,24,38,.92);overflow-y:auto}
+#qrwarn.off{display:none}
+.qrcard{max-width:500px;width:100%;margin:auto}
+.qrcard h2{font:900 clamp(24px,6.5vw,30px)/1.1 Poppins,sans-serif;margin:12px 0 8px;text-wrap:balance}
+.qrcard p{margin:0 0 10px;font-size:15px}
+.host{font:700 clamp(15px,4.4vw,18px)/1.3 ui-monospace,Menlo,Consolas,monospace;background:var(--line);border-radius:10px;padding:12px 14px;word-break:break-all;margin:4px 0 10px}
+.verdict{border-left:4px solid #E8A33D;padding:4px 0 4px 12px}
+.verdict.official{border-color:var(--green)}
+.qrcard .rules{margin:6px 0 16px}
 #gotcha{position:fixed;inset:0;z-index:50;display:none;place-items:center;align-content:center;gap:6px;background:radial-gradient(circle at 50% 38%,#6a1414,#120607 72%);color:#fff;text-align:center;padding:24px;cursor:pointer}
 #gotcha.show{display:grid;animation:gin .15s ease-out}
 #gotcha::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(transparent 0 3px,rgba(0,0,0,.28) 3px 4px)}
@@ -148,6 +157,21 @@ body.shake .wrap{animation:shake .45s}
   </section>
 </div>
 
+<div id="qrwarn" role="dialog" aria-modal="true" aria-labelledby="qrt">
+  <div class="card qrcard">
+    <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true"><rect x="4" y="4" width="56" height="56" rx="12" fill="#E0524F"/><path d="M32 16v20" stroke="#fff" stroke-width="6" stroke-linecap="round"/><circle cx="32" cy="46" r="4" fill="#fff"/></svg>
+    <h2 id="qrt">¡Alto! Acabas de escanear un QR</h2>
+    <p>Un código QR puede llevarte a una página falsa igual a la real. Antes de seguir, mira a dónde te trajo:</p>
+    <div class="host" id="qhost">…</div>
+    <p class="verdict" id="qverd"></p>
+    <ul class="rules">
+      <li><b>Revisa la dirección</b> antes de escribir cualquier dato. Debe ser de un sitio oficial que conozcas.</li>
+      <li><b>Desconfía</b> de QR pegados encima de otros, en volantes sueltos o enviados por desconocidos.</li>
+      <li><b>Nunca pongas</b> claves, PIN ni datos de tarjeta en una página que abriste con un QR.</li>
+    </ul>
+    <button class="main" id="qok">Entendido, a jugar</button>
+  </div>
+</div>
 <div id="gotcha" role="alertdialog" aria-live="assertive" aria-label="Respuesta incorrecta">
   <svg viewBox="0 0 140 150" aria-hidden="true">
     <ellipse cx="70" cy="144" rx="44" ry="5" fill="#000" opacity=".5"/>
@@ -270,6 +294,14 @@ $("snd").addEventListener("click",()=>{initAudio();startMusic();setMute(!muted)}
 setMute(muted);
 
 function start(){initAudio();startMusic();sfx("tap");order=shuffle(CASES.slice()).slice(0,ROUND);i=0;pts=0;$("intro").classList.add("hide");$("end").classList.add("hide");$("game").classList.remove("hide");show()}
+/* alerta inicial sobre QR */
+{const h=location.hostname||"(archivo local)",off=/(^|\.)creditunionhn\.com$/i.test(h),v=$("qverd");
+ $("qhost").textContent=h;
+ if(off){v.classList.add("official");v.innerHTML="<b>Termina en creditunionhn.com</b>: es un sitio oficial de CREDIT. Así debe verse siempre."}
+ else v.innerHTML="<b>Esta dirección la publicó el área de TI de CREDIT</b> para este juego, así que esta vez es segura. En la vida real, si no reconoces la dirección, no sigas.";
+ $("qok").addEventListener("click",()=>{$("qrwarn").classList.add("off");$("start").focus({preventScroll:true})});
+ $("qok").focus({preventScroll:true})}
+
 /* pantalla de burla al fallar */
 let gT=null;
 function closeGotcha(){clearTimeout(gT);$("gotcha").classList.remove("show");document.body.classList.remove("shake");const n=$("next");if(n)n.focus({preventScroll:true})}
