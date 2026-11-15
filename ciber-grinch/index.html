@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atrapa al Ciber-Grinch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: festive office game, playful but clear; CREDIT institutional
+   IDEA: a decorated office door / gift tag that you flip case by case
+   PICTURE: night-navy scene, snow, a shield-ornament hanging from a wreath
+   COLOUR and TYPE: CREDIT navy #2B3952 ground, blue #435782, green #6AC187 accent, holiday red for alerts; Poppins 900 + Montserrat
+   LAYOUT: one centred card column (max 560px), header scene, progress, case card, two big answer buttons */
+:root{color-scheme:light dark;--navy:#2B3952;--blue:#435782;--green:#6AC187;--gray:#C2C1C1;--red:#E0524F;
+--bg:light-dark(#2B3952,#1b2436);--card:light-dark(#ffffff,#26324a);--ink:light-dark(#1f2a3d,#eef1f6);--muted:light-dark(#5b6678,#aab3c3);--line:light-dark(#e4e7ec,#34425e)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Montserrat,system-ui,sans-serif;overflow-x:clip;min-height:100vh}
+#snow{position:fixed;inset:0;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:18px 16px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;color:#fff;gap:12px}
+.brand{font:900 20px/1 Poppins,sans-serif;letter-spacing:.5px}
+.brand b{color:var(--green)}
+.tr{display:flex;align-items:center;gap:8px}
+.snd{min-height:44px;width:44px;padding:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:grid;place-items:center}
+.score{font:600 14px Montserrat;background:rgba(255,255,255,.12);padding:6px 12px;border-radius:99px;white-space:nowrap}
+.scene{margin:10px 0 4px}
+.scene svg{width:100%;height:auto;display:block}
+h1{font:900 clamp(30px,8vw,44px)/1.05 Poppins,sans-serif;color:#fff;margin:6px 0 8px;text-wrap:balance}
+.lead{color:#dfe5ef;margin:0 0 20px}
+.card{background:var(--card);border-radius:20px;padding:22px 20px;box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.tag{display:inline-flex;align-items:center;gap:6px;font:700 13px Montserrat;padding:4px 10px;border-radius:99px;background:var(--line);color:var(--ink)}
+.tag i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.from{font-size:13px;color:var(--muted);margin:12px 0 4px}
+.msg{font-size:17px;margin:0 0 6px}
+.msg .lnk{color:var(--blue);text-decoration:underline;word-break:break-all;font-weight:600}
+:root[data-theme=dark] .msg .lnk{color:#8fb0ff}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .msg .lnk{color:#8fb0ff}}
+.facts{list-style:none;padding:0;margin:10px 0 0;border-top:1px solid var(--line)}
+.facts li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+.facts li span{color:var(--muted)}.facts li b{text-align:right;font-variant-numeric:tabular-nums}
+.ask{font:700 15px Montserrat;margin:16px 0 0}
+.btns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:14px}
+button{font:700 16px Montserrat,sans-serif;border:0;border-radius:14px;min-height:56px;padding:12px;cursor:pointer;transition:transform .12s}
+button:active{transform:scale(.97)}
+button:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.ok{background:var(--green);color:#10331f}
+.bad{background:var(--red);color:#fff}
+.main{background:var(--green);color:#10331f;width:100%;font-size:17px}
+.ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);width:100%;margin-top:10px}
+.prog{height:8px;background:rgba(255,255,255,.15);border-radius:99px;margin:14px 0 16px;overflow:hidden}
+.prog div{height:100%;background:var(--green);border-radius:99px;transition:width .4s}
+.fb{margin-top:16px;border-radius:14px;padding:14px 16px;display:none}
+.fb.show{display:block;animation:pop .3s ease}
+.fb.win{background:rgba(106,193,135,.16);border:2px solid var(--green)}
+.fb.lose{background:rgba(224,82,79,.12);border:2px solid var(--red)}
+.fb h3{font:800 18px Poppins;margin:0 0 4px}
+.fb p{margin:0 0 6px;font-size:15px}
+.fb .clue{font-size:14px;color:var(--muted)}
+.fb button{margin-top:10px}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.rank{text-align:center}
+.rank .big{font:900 clamp(44px,14vw,72px)/1 Poppins;color:var(--blue);margin:8px 0}
+:root[data-theme=dark] .rank .big{color:var(--green)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .rank .big{color:var(--green)}}
+.rank h2{font:900 26px/1.1 Poppins;margin:6px 0 4px}
+.rules{text-align:left;margin:18px 0 0;padding:0;list-style:none}
+.rules li{padding:10px 0 10px 34px;border-top:1px solid var(--line);position:relative;font-size:15px}
+.rules li::before{content:"";position:absolute;left:4px;top:13px;width:18px;height:18px;border-radius:50%;background:var(--green)}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.legend .tag{background:rgba(255,255,255,.12);color:#fff}
+.note{color:#b9c2d3;font-size:13px;text-align:center;margin-top:18px}
+.hide{display:none}
+@media(prefers-reduced-motion:reduce){#snow{display:none}.fb.show{animation:none}.prog div{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="snow"></canvas>
+<div class="wrap">
+  <div class="top"><div class="brand">CREDIT<b>.</b></div><div class="tr"><div class="score" id="score">Seguridad de la información</div>
+    <button class="snd" id="snd" aria-label="Silenciar música" aria-pressed="false"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path id="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path id="xm" d="M16 9l6 6M22 9l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"/></svg></button></div></div>
+
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 520 170">
+      <defs>
+        <radialGradient id="orn" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#9be3b2"/><stop offset=".55" stop-color="#6AC187"/><stop offset="1" stop-color="#3f8a5c"/></radialGradient>
+        <linearGradient id="wr" x1="0" x2="1"><stop offset="0" stop-color="#3f8a5c"/><stop offset="1" stop-color="#6AC187"/></linearGradient>
+      </defs>
+      <path d="M0 18 Q130 50 260 22 T520 18" fill="none" stroke="url(#wr)" stroke-width="14" stroke-linecap="round"/>
+      <g fill="#E0524F"><circle cx="70" cy="34" r="6"/><circle cx="170" cy="36" r="6"/><circle cx="350" cy="30" r="6"/><circle cx="450" cy="24" r="6"/></g>
+      <g fill="#fff" opacity=".9"><circle cx="120" cy="38" r="4"/><circle cx="300" cy="26" r="4"/><circle cx="400" cy="30" r="4"/></g>
+      <line x1="260" y1="24" x2="260" y2="58" stroke="#C2C1C1" stroke-width="2"/>
+      <rect x="250" y="54" width="20" height="10" rx="3" fill="#C2C1C1"/>
+      <ellipse cx="262" cy="160" rx="60" ry="6" fill="#000" opacity=".2"/>
+      <circle cx="260" cy="108" r="46" fill="url(#orn)"/>
+      <path d="M260 80 l24 9 v18 c0 16-11 26-24 31 c-13-5-24-15-24-31 v-18z" fill="#2B3952"/>
+      <rect x="250" y="104" width="20" height="16" rx="3" fill="#fff"/>
+      <path d="M254 104 v-6 a6 6 0 0 1 12 0 v6" fill="none" stroke="#fff" stroke-width="3"/>
+      <circle cx="260" cy="112" r="2.5" fill="#2B3952"/>
+      <path d="M238 90 q8-10 18-8" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".55"/>
+      <g fill="#435782"><path d="M70 150 l14-40 l14 40z"/><path d="M430 150 l14-46 l14 46z"/></g>
+      <g fill="#6AC187" opacity=".55"><path d="M60 156 l24-56 l24 56z"/><path d="M420 156 l24-62 l24 62z"/></g>
+    </svg>
+  </div>
+
+  <!-- INICIO -->
+  <section id="intro">
+    <h1>Atrapa al Ciber-Grinch</h1>
+    <p class="lead">El Grinch se coló en la oficina disfrazado de correo, de link en redes y hasta de solicitud de crédito. Lee cada caso y decide: ¿todo en orden o es el Grinch?</p>
+    <div class="legend">
+      <span class="tag"><i style="background:#6AC187"></i>Crédito</span>
+      <span class="tag"><i style="background:#8fb0ff"></i>Redes sociales</span>
+      <span class="tag"><i style="background:#E0524F"></i>Ciberdelito</span>
+      <span class="tag"><i style="background:#C2C1C1"></i>Correo y oficina</span>
+    </div>
+    <button class="main" id="start">Empezar · 12 casos</button>
+    <p class="note">Sube el volumen: el juego tiene música · Casos ficticios con fines educativos · Área de TI, CREDIT</p>
+  </section>
+
+  <!-- JUEGO -->
+  <section id="game" class="hide">
+    <div class="prog"><div id="bar" style="width:0"></div></div>
+    <div class="card" id="card"></div>
+  </section>
+
+  <!-- FINAL -->
+  <section id="end" class="hide">
+    <div class="card rank" id="result"></div>
+    <button class="ghost" id="again">Jugar de nuevo</button>
+    <p class="note">¿Recibiste algo sospechoso? Repórtalo a TI antes de hacer clic.</p>
+  </section>
+</div>
+
+<script>
+{
+const T={cred:["Crédito","#6AC187"],red:["Redes sociales","#8fb0ff"],cib:["Ciberdelito","#E0524F"],ofi:["Correo y oficina","#C2C1C1"]};
+const CASES=[
+ {t:"cred",from:"Solicitud en comité · Agencia",msg:"Cliente solicita un préstamo para ampliar su negocio.",facts:[["Monto solicitado","L 450,000"],["Garantía ofrecida","Motocicleta 2015"],["Valor estimado garantía","L 60,000"],["Plazo","48 meses"]],g:1,
+  why:"La garantía es débil para ese monto: cubre apenas el 13% del préstamo.",clue:"Siempre compara monto contra valor real y facilidad de recuperar la garantía."},
+ {t:"cred",from:"Solicitud en comité · Consulta de buró",msg:"Cliente nuevo solicita crédito personal. Dice que sus ingresos subieron este año.",facts:[["Monto solicitado","L 300,000"],["Mayor crédito en buró","L 25,000"],["Antigüedad laboral","5 meses"],["Constancia de ingresos","Sin firma ni sello"]],g:1,
+  why:"Ese monto es muy alto: nunca ha manejado algo parecido según su buró (12 veces su máximo).",clue:"Un salto brusco de monto + documentos débiles = analizar más a fondo antes de aprobar."},
+ {t:"cred",from:"Solicitud en comité · Agencia",msg:"Clienta con 4 años en CREDIT solicita préstamo para mejoras de vivienda.",facts:[["Monto solicitado","L 40,000"],["Historial de pagos","Al día, sin mora"],["Cuota vs. ingreso","22%"],["Garantía","Fiduciaria, aval verificado"]],g:0,
+  why:"Todo en orden: monto coherente con su historial, capacidad de pago sana y garantía verificada.",clue:"No todo es sospechoso: reconocer un buen crédito también es parte del trabajo."},
+ {t:"cred",from:"WhatsApp de un solicitante · Viernes 4:50 p.m.",msg:"«Necesito que el desembolso salga HOY a la cuenta de mi primo, la mía está bloqueada. Le mando las fotos de la identidad por aquí, no puedo llegar a firmar.»",g:1,
+  why:"Desembolso a un tercero, prisa y documentos solo por foto: señales clásicas de suplantación o fraude.",clue:"El desembolso va a nombre del cliente, con firma presencial y documentos originales verificados."},
+ {t:"red",from:"Publicación en Facebook · Página «Credit Union Bonos Hn»",msg:"🎁 ¡CREDIT regala un bono navideño de L 5,000 a sus clientes! Llena tus datos y tu PIN en <span class='lnk'>bit.ly/credit-bono-2026</span> antes de medianoche.",g:1,
+  why:"Página falsa que imita a CREDIT, link acortado y te pide el PIN. Ninguna institución pide claves.",clue:"Verifica en el sitio oficial creditunionhn.com o llamando a la agencia."},
+ {t:"red",from:"Mensaje directo en Instagram · Cuenta desconocida",msg:"😱 Mira quién visitó tu perfil esta semana. Inicia sesión aquí para verlo: <span class='lnk'>instagram-visitas.com/login</span>",g:1,
+  why:"Instagram no muestra quién visita tu perfil. Es una página falsa para robar tu usuario y contraseña.",clue:"Revisa el dominio real antes de escribir tu contraseña. Activa la verificación en dos pasos."},
+ {t:"red",from:"WhatsApp · Número nuevo con foto del gerente",msg:"«Hola, soy yo, cambié de número. Estoy en reunión, necesito que compres 5 tarjetas de regalo de L 1,000 para los clientes. Mándame los códigos, después te reembolso.»",g:1,
+  why:"Suplantación de identidad: número nuevo, urgencia, secreto y tarjetas de regalo.",clue:"Confirma siempre llamando al número que ya tenías guardado."},
+ {t:"cib",from:"Correo · soporte-sistema@actualizacion-core.net",msg:"Su usuario del sistema core será bloqueado hoy. Para evitarlo responda este correo con su usuario y contraseña actual.",g:1,
+  why:"Phishing: dominio externo, amenaza de bloqueo y te pide la contraseña.",clue:"TI nunca te pedirá tu contraseña, ni por correo ni por teléfono."},
+ {t:"cib",from:"Llamada · «Departamento de seguridad del banco»",msg:"«Detectamos un cargo raro en su tarjeta. Le acaba de llegar un código por SMS, dígamelo para cancelar la compra.»",g:1,
+  why:"Ese código autoriza transacciones. Quien lo pide por teléfono es el estafador.",clue:"Cuelga y llama tú al número que aparece detrás de tu tarjeta."},
+ {t:"cib",from:"Parqueo de la oficina",msg:"Encuentras una memoria USB con una etiqueta que dice «Fotos posada navideña 2026».",g:1,
+  why:"Las USB «olvidadas» son una trampa para instalar malware al conectarlas.",clue:"No la conectes: entrégala a TI."},
+ {t:"ofi",from:"Correo interno · Área de TI",msg:"El sábado actualizaremos los equipos. No necesitas hacer nada. Recuerda: TI nunca te pedirá tu contraseña.",g:0,
+  why:"Correo legítimo: viene de TI, informa sin pedir datos ni clics.",clue:"Un mensaje que no pide claves, pagos ni urgencia suele ser seguro. Si dudas, confirma con TI."},
+ {t:"ofi",from:"Escritorio de un compañero · Hora de almuerzo",msg:"La computadora quedó desbloqueada con el sistema de préstamos abierto y un post-it en el monitor: «clave: Navidad2026».",g:1,
+  why:"Equipo sin bloquear y contraseña a la vista: cualquiera puede operar con su usuario.",clue:"Win + L al levantarte, y las claves nunca en papel."}
+];
+const RANKS=[[0,"Elfo en entrenamiento","El Grinch se llevó varios regalos. ¡Repasa las reglas y vuelve a intentarlo!"],[6,"Guardián del Polo Norte","Buen ojo. Unos cuantos casos más y nadie te engaña."],[9,"Ciber-Santa CREDIT","¡Nivel experto! Protegiste la oficina y la cartera."]];
+const $=id=>document.getElementById(id);
+let order=[],i=0,pts=0,locked=false;
+const shuffle=a=>{for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+
+/* ===== Audio generado (Web Audio) ===== */
+const AC=window.AudioContext||window.webkitAudioContext;
+let ac=null,master=null,mus=null,nbuf=null,muted=false,timer=null,idx=0,loopStart=0;
+try{muted=localStorage.getItem("cg-mute")==="1"}catch(e){}
+const BEAT=.34,LOOP=64,F=n=>440*Math.pow(2,(n-69)/12);
+/* Jingle Bells (dominio público, 1857) en estilo 8-bit */
+const MEL=[[64,1],[64,1],[64,2],[64,1],[64,1],[64,2],[64,1],[67,1],[60,1.5],[62,.5],[64,4],[65,1],[65,1],[65,1.5],[65,.5],[65,1],[64,1],[64,1],[64,.5],[64,.5],[64,1],[62,1],[62,1],[64,1],[62,2],[67,2],
+ [64,1],[64,1],[64,2],[64,1],[64,1],[64,2],[64,1],[67,1],[60,1.5],[62,.5],[64,4],[65,1],[65,1],[65,1.5],[65,.5],[65,1],[64,1],[64,1],[64,.5],[64,.5],[67,1],[67,1],[65,1],[62,1],[60,4]];
+const BASS=[48,48,48,48,41,48,43,43,48,48,48,48,41,48,43,48];
+const EV=[];{let b=0;MEL.forEach(([n,d])=>{EV.push({b,n:n+12,d,w:"square",v:.045});b+=d});
+ BASS.forEach((n,k)=>[0,2].forEach(o=>EV.push({b:k*4+o,n,d:1.5,w:"triangle",v:.11})));
+ for(let k=0;k<LOOP;k++)EV.push({b:k,bell:1,v:k%2?.018:.03});EV.sort((a,c)=>a.b-c.b)}
+function tone(n,t,dur,w,v,dest,slide){const o=ac.createOscillator(),g=ac.createGain();o.type=w;o.frequency.setValueAtTime(F(n),t);
+ if(slide)o.frequency.exponentialRampToValueAtTime(F(n+slide),t+dur);
+ g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+ o.connect(g);g.connect(dest);o.start(t);o.stop(t+dur+.05)}
+function bell(t,v){const s=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();s.buffer=nbuf;f.type="highpass";f.frequency.value=7000;
+ g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+.12);s.connect(f);f.connect(g);g.connect(mus);s.start(t);s.stop(t+.15)}
+function initAudio(){try{if(!AC)return;if(!ac){ac=new AC();master=ac.createGain();master.gain.value=muted?0:1;master.connect(ac.destination);
+ mus=ac.createGain();mus.gain.value=.8;mus.connect(master);
+ nbuf=ac.createBuffer(1,ac.sampleRate*.2,ac.sampleRate);const d=nbuf.getChannelData(0);for(let k=0;k<d.length;k++)d[k]=Math.random()*2-1}
+ if(ac.state==="suspended")ac.resume()}catch(e){ac=null}}
+function tick(){try{while(true){const e=EV[idx],t=loopStart+e.b*BEAT;if(t>ac.currentTime+.4)break;
+ if(e.bell)bell(t,e.v);else tone(e.n,t,e.d*BEAT*.9,e.w,e.v,mus);
+ if(++idx>=EV.length){idx=0;loopStart+=LOOP*BEAT}}}catch(e){}}
+function startMusic(){if(!ac||timer)return;idx=0;loopStart=ac.currentTime+.15;timer=setInterval(tick,90)}
+function sfx(k){if(!ac)return;try{const t=ac.currentTime+.02;
+ if(k==="ok")[72,76,79,84].forEach((n,j)=>tone(n,t+j*.07,.16,"square",.09,master));
+ if(k==="bad"){tone(55,t,.22,"sawtooth",.07,master,-1);tone(51,t+.24,.4,"sawtooth",.07,master,-3)}
+ if(k==="end")[[67,0],[72,.12],[76,.24],[79,.36],[84,.5]].forEach(([n,d])=>tone(n,t+d,d===.5?.6:.14,"square",.09,master));
+ if(k==="tap")tone(84,t,.05,"square",.04,master)}catch(e){}}
+function setMute(m){muted=m;try{localStorage.setItem("cg-mute",m?"1":"0")}catch(e){}
+ if(master)master.gain.setTargetAtTime(m?0:1,ac.currentTime,.05);
+ $("wave").style.display=m?"none":"";$("xm").style.display=m?"":"none";
+ $("snd").setAttribute("aria-pressed",m);$("snd").setAttribute("aria-label",m?"Activar música":"Silenciar música")}
+$("snd").addEventListener("click",()=>{initAudio();startMusic();setMute(!muted)});
+setMute(muted);
+
+function start(){initAudio();startMusic();sfx("tap");order=shuffle(CASES.slice());i=0;pts=0;$("intro").classList.add("hide");$("end").classList.add("hide");$("game").classList.remove("hide");show()}
+function show(){
+  locked=false;const c=order[i],tg=T[c.t];
+  $("score").textContent=`Caso ${i+1}/${order.length} · ${pts} pts`;
+  $("bar").style.width=(i/order.length*100)+"%";
+  const facts=c.facts?`<ul class="facts">${c.facts.map(f=>`<li><span>${f[0]}</span><b>${f[1]}</b></li>`).join("")}</ul>`:"";
+  $("card").innerHTML=`<span class="tag"><i style="background:${tg[1]}"></i>${tg[0]}</span>
+   <p class="from">${c.from}</p><p class="msg">${c.msg}</p>${facts}
+   <p class="ask">${c.t==="cred"?"¿Lo aprobarías o hay señal de alerta?":"¿Es seguro o es el Grinch?"}</p>
+   <div class="btns"><button class="ok" data-a="0">${c.t==="cred"?"Aprobar":"Es seguro"}</button><button class="bad" data-a="1">¡Es el Grinch!</button></div>
+   <div class="fb" id="fb"></div>`;
+  $("card").querySelectorAll(".btns button").forEach(b=>b.addEventListener("click",()=>answer(+b.dataset.a)));
+  $("card").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function answer(a){
+  if(locked)return;locked=true;const c=order[i],win=a===c.g;if(win)pts++;sfx(win?"ok":"bad");
+  $("card").querySelectorAll(".btns button").forEach(b=>{b.disabled=true;b.style.opacity=(+b.dataset.a===c.g)?1:.35});
+  const fb=$("fb");fb.className="fb show "+(win?"win":"lose");
+  fb.innerHTML=`<h3>${win?(c.g?"¡Atrapaste al Grinch!":"¡Correcto, todo en orden!"):(c.g?"El Grinch se te escapó":"Falsa alarma")}</h3>
+   <p>${c.why}</p><p class="clue">${c.clue}</p>
+   <button class="main" id="next">${i<order.length-1?"Siguiente caso":"Ver mi resultado"}</button>`;
+  $("score").textContent=`Caso ${i+1}/${order.length} · ${pts} pts`;
+  $("next").addEventListener("click",()=>{i++;i<order.length?show():end()});
+  $("next").focus({preventScroll:true});
+}
+function end(){
+  sfx("end");$("bar").style.width="100%";$("game").classList.add("hide");$("end").classList.remove("hide");
+  const r=RANKS.filter(x=>pts>=x[0]).pop();
+  $("score").textContent=`${pts}/${order.length} pts`;
+  $("result").innerHTML=`<p class="from">Tu rango</p><h2>${r[1]}</h2><div class="big">${pts}/${order.length}</div><p>${r[2]}</p>
+   <ul class="rules">
+    <li><b>Nadie legítimo pide tu contraseña, PIN o código SMS.</b> Ni TI, ni el banco, ni el gerente.</li>
+    <li><b>Mira el link antes de tocarlo.</b> Links acortados, dominios raros y urgencia son señales del Grinch.</li>
+    <li><b>En crédito, el monto debe tener sentido</b> con la garantía, la capacidad de pago y el historial en buró.</li>
+    <li><b>¿Dudas? Verifica por otro canal</b> y reporta a TI.</li>
+   </ul>`;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("start").addEventListener("click",start);
+$("again").addEventListener("click",start);
+
+/* nieve */
+const cv=$("snow"),cx=cv.getContext("2d");let fl=[];
+const size=()=>{cv.width=innerWidth;cv.height=innerHeight;fl=Array.from({length:Math.min(90,Math.floor(innerWidth/8))},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*2.4+.8,s:Math.random()*.6+.3,d:Math.random()*.6-.3}))};
+size();addEventListener("resize",size);
+const motion=!matchMedia("(prefers-reduced-motion: reduce)").matches;
+(function loop(){cx.clearRect(0,0,cv.width,cv.height);cx.fillStyle="rgba(255,255,255,.75)";
+ for(const f of fl){cx.beginPath();cx.arc(f.x,f.y,f.r,0,7);cx.fill();if(motion){f.y+=f.s;f.x+=f.d;if(f.y>cv.height){f.y=-4;f.x=Math.random()*cv.width}}}
+ if(motion)requestAnimationFrame(loop)})();
+}
+</script>
+</body>
+</html>
