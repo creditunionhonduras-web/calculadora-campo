@@ -114,7 +114,7 @@ button:focus-visible{outline:3px solid var(--green);outline-offset:3px}
       <span class="tag"><i style="background:#E0524F"></i>Ciberdelito</span>
       <span class="tag"><i style="background:#C2C1C1"></i>Correo y oficina</span>
     </div>
-    <button class="main" id="start">Empezar · 12 casos</button>
+    <button class="main" id="start">Empezar · 12 casos al azar</button>
     <p class="note">Sube el volumen: el juego tiene música · Casos ficticios con fines educativos · Área de TI, CREDIT</p>
   </section>
 
@@ -127,7 +127,7 @@ button:focus-visible{outline:3px solid var(--green);outline-offset:3px}
   <!-- FINAL -->
   <section id="end" class="hide">
     <div class="card rank" id="result"></div>
-    <button class="ghost" id="again">Jugar de nuevo</button>
+    <button class="ghost" id="again">Jugar de nuevo · casos nuevos</button>
     <p class="note">¿Recibiste algo sospechoso? Repórtalo a TI antes de hacer clic.</p>
   </section>
 </div>
@@ -159,8 +159,29 @@ const CASES=[
  {t:"ofi",from:"Correo interno · Área de TI",msg:"El sábado actualizaremos los equipos. No necesitas hacer nada. Recuerda: TI nunca te pedirá tu contraseña.",g:0,
   why:"Correo legítimo: viene de TI, informa sin pedir datos ni clics.",clue:"Un mensaje que no pide claves, pagos ni urgencia suele ser seguro. Si dudas, confirma con TI."},
  {t:"ofi",from:"Escritorio de un compañero · Hora de almuerzo",msg:"La computadora quedó desbloqueada con el sistema de préstamos abierto y un post-it en el monitor: «clave: Navidad2026».",g:1,
-  why:"Equipo sin bloquear y contraseña a la vista: cualquiera puede operar con su usuario.",clue:"Win + L al levantarte, y las claves nunca en papel."}
+  why:"Equipo sin bloquear y contraseña a la vista: cualquiera puede operar con su usuario.",clue:"Win + L al levantarte, y las claves nunca en papel."},
+ {t:"cred",from:"Solicitud en comité · Análisis de capacidad",msg:"Cliente solicita préstamo para comprar un vehículo.",facts:[["Monto solicitado","L 200,000"],["Cuota mensual","L 9,800"],["Ingreso neto mensual","L 12,000"],["Cuota vs. ingreso","82%"]],g:1,
+  why:"Sin capacidad de pago: la cuota se come el 82% de su ingreso. Al primer imprevisto cae en mora.",clue:"Revisa siempre cuota contra ingreso neto, no solo el monto y la garantía."},
+ {t:"cred",from:"Solicitud en comité · Revisión de aval",msg:"El aval propuesto ya respalda otros préstamos activos en CREDIT.",facts:[["Préstamos que ya avala","4 clientes distintos"],["Saldo total avalado","L 380,000"],["Ingreso del aval","L 15,000"]],g:1,
+  why:"Aval sobreexpuesto: no podría responder por tantos préstamos si fallan.",clue:"Consulta cuánto avala ya una persona antes de aceptarla otra vez."},
+ {t:"cred",from:"Caja · Agencia",msg:"Un cliente quiere cancelar en efectivo su préstamo de L 350,000 a los 10 días del desembolso. No explica de dónde salió el dinero.",g:1,
+  why:"Alerta de posible lavado de activos: pago anticipado grande en efectivo sin origen claro.",clue:"Documenta el origen de los fondos y repórtalo a Cumplimiento."},
+ {t:"cred",from:"Solicitud en comité · Renovación",msg:"Clienta solicita renovar su préstamo.",facts:[["Préstamo anterior","80% pagado, puntual"],["Monto solicitado","Igual al anterior"],["Cuota vs. ingreso","28%"],["Garantía","Hipotecaria, avalúo vigente"]],g:0,
+  why:"Todo en orden: buen historial interno, capacidad sana y garantía sólida con avalúo al día.",clue:"El mejor indicador de pago futuro es cómo pagó antes."},
+ {t:"cred",from:"Chat interno · Asesor de crédito",msg:"«Para que no tenga que pasar por comité, mejor le hacemos tres préstamos de L 166,000 en lugar de uno de L 500,000.»",g:1,
+  why:"Fraccionar un préstamo para evadir el comité rompe los controles internos y oculta el riesgo real.",clue:"El monto total del cliente es el que define el nivel de aprobación."},
+ {t:"red",from:"Facebook Marketplace · Comprador",msg:"«Me interesa lo que vendes. Ya te pagué, entra aquí para recibir el dinero: <span class='lnk'>pagos-marketplace-seguro.com</span> y pon los datos de tu tarjeta.»",g:1,
+  why:"Para recibir dinero nunca necesitas dar los datos de tu tarjeta. Es un sitio falso.",clue:"Cobra solo por medios que tú controlas: transferencia a tu cuenta o efectivo en persona."},
+ {t:"red",from:"Anuncio en TikTok · Usa el logo de CREDIT",msg:"Préstamos SIN buró, aprobados en 10 minutos. Solo deposita L 500 de trámite a esta cuenta personal y escríbenos por WhatsApp.",g:1,
+  why:"Estafa de préstamos falsos: cobro por adelantado, cuenta personal y promesa de aprobar sin análisis.",clue:"CREDIT no cobra trámites por adelantado a cuentas personales. Repórtalo a la página oficial."},
+ {t:"cib",from:"Correo · facturacion@proveedor-honduras.co",msg:"Adjunto su factura de diciembre pendiente de pago. Ábrala hoy para evitar recargos: <span class='lnk'>Factura_Diciembre.pdf.exe</span>",g:1,
+  why:"El archivo termina en .exe: es un programa disfrazado de PDF, probablemente malware.",clue:"Revisa la extensión real del adjunto y si de verdad esperabas esa factura."},
+ {t:"ofi",from:"Notificación en la app de Google · Tu celular",msg:"Acabas de configurar tu laptop nueva. Google te avisa: «Nuevo inicio de sesión en Windows, Tegucigalpa. ¿Fuiste tú?» No pide datos ni trae enlaces.",g:0,
+  why:"Aviso legítimo: coincide con lo que acabas de hacer y no te pide claves.",clue:"Si NO fuiste tú, cambia la contraseña desde la app oficial, no desde un enlace."},
+ {t:"cib",from:"Wi-Fi en una cafetería",msg:"Aparece una red abierta llamada «CREDIT_Invitados_Gratis». Al conectarte te pide iniciar sesión con tu correo y contraseña del trabajo.",g:1,
+  why:"Red trampa: CREDIT no tiene Wi-Fi en esa cafetería. Te roba las credenciales al iniciar sesión.",clue:"Usa los datos de tu celular para trabajar fuera de la oficina."}
 ];
+const ROUND=12;
 const RANKS=[[0,"Elfo en entrenamiento","El Grinch se llevó varios regalos. ¡Repasa las reglas y vuelve a intentarlo!"],[6,"Guardián del Polo Norte","Buen ojo. Unos cuantos casos más y nadie te engaña."],[9,"Ciber-Santa CREDIT","¡Nivel experto! Protegiste la oficina y la cartera."]];
 const $=id=>document.getElementById(id);
 let order=[],i=0,pts=0,locked=false;
@@ -204,7 +225,7 @@ function setMute(m){muted=m;try{localStorage.setItem("cg-mute",m?"1":"0")}catch(
 $("snd").addEventListener("click",()=>{initAudio();startMusic();setMute(!muted)});
 setMute(muted);
 
-function start(){initAudio();startMusic();sfx("tap");order=shuffle(CASES.slice());i=0;pts=0;$("intro").classList.add("hide");$("end").classList.add("hide");$("game").classList.remove("hide");show()}
+function start(){initAudio();startMusic();sfx("tap");order=shuffle(CASES.slice()).slice(0,ROUND);i=0;pts=0;$("intro").classList.add("hide");$("end").classList.add("hide");$("game").classList.remove("hide");show()}
 function show(){
   locked=false;const c=order[i],tg=T[c.t];
   $("score").textContent=`Caso ${i+1}/${order.length} · ${pts} pts`;
