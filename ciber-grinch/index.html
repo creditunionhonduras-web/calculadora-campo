@@ -274,14 +274,17 @@ const shuffle=a=>{for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()
 const AC=window.AudioContext||window.webkitAudioContext;
 let ac=null,master=null,mus=null,nbuf=null,muted=false,timer=null,idx=0,loopStart=0;
 try{muted=localStorage.getItem("cg-mute")==="1"}catch(e){}
-const BEAT=.34,LOOP=64,F=n=>440*Math.pow(2,(n-69)/12);
-/* Jingle Bells (dominio público, 1857) en estilo 8-bit */
-const MEL=[[64,1],[64,1],[64,2],[64,1],[64,1],[64,2],[64,1],[67,1],[60,1.5],[62,.5],[64,4],[65,1],[65,1],[65,1.5],[65,.5],[65,1],[64,1],[64,1],[64,.5],[64,.5],[64,1],[62,1],[62,1],[64,1],[62,2],[67,2],
- [64,1],[64,1],[64,2],[64,1],[64,1],[64,2],[64,1],[67,1],[60,1.5],[62,.5],[64,4],[65,1],[65,1],[65,1.5],[65,.5],[65,1],[64,1],[64,1],[64,.5],[64,.5],[67,1],[67,1],[65,1],[62,1],[60,4]];
-const BASS=[48,48,48,48,41,48,43,43,48,48,48,48,41,48,43,48];
-const EV=[];{let b=0;MEL.forEach(([n,d])=>{EV.push({b,n:n+12,d,w:"square",v:.045});b+=d});
- BASS.forEach((n,k)=>[0,2].forEach(o=>EV.push({b:k*4+o,n,d:1.5,w:"triangle",v:.11})));
- for(let k=0;k<LOOP;k++)EV.push({b:k,bell:1,v:k%2?.018:.03});EV.sort((a,c)=>a.b-c.b)}
+const BEAT=.3,LOOP=48,F=n=>440*Math.pow(2,(n-69)/12);
+/* Carol of the Bells / Shchedryk (M. Leontóvich, 1916, dominio público), arreglo 8-bit propio */
+const MOT=[[0,1],[-1,.5],[0,.5],[-3,1]];      /* motivo: Si♭ La Si♭ Sol */
+const SEC=[[70,.05,0],[70,.05,74],[82,.04,86],[70,.05,74]]; /* [tono base, volumen, segunda voz] por bloque de 4 compases */
+const BASS=[55,53,51,50];                      /* bajo descendente Sol Fa Mi♭ Re */
+const EV=[];{for(let bar=0;bar<16;bar++){const [root,v,alt]=SEC[bar>>2],b0=bar*3;let b=b0;
+  MOT.forEach(([d,len])=>{EV.push({b,n:root+d,d:len,w:"square",v});if(alt)EV.push({b,n:alt+d,d:len,w:"triangle",v:.035});b+=len});
+  EV.push({b:b0,n:BASS[bar%4],d:2.8,w:"triangle",v:.12});
+  EV.push({b:b0,bell:1,v:.035});EV.push({b:b0+1,bell:1,v:.015});EV.push({b:b0+2,bell:1,v:.015});
+  if(bar>=8&&bar<12)EV.push({b:b0,n:BASS[bar%4]+24,d:.25,w:"square",v:.03})}
+ EV.sort((a,c)=>a.b-c.b)}
 function tone(n,t,dur,w,v,dest,slide){const o=ac.createOscillator(),g=ac.createGain();o.type=w;o.frequency.setValueAtTime(F(n),t);
  if(slide)o.frequency.exponentialRampToValueAtTime(F(n+slide),t+dur);
  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
