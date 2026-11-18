@@ -118,7 +118,9 @@ body.shake .wrap{animation:shake .45s}
     <svg viewBox="0 0 520 200">
       <defs>
         <radialGradient id="moon" cx="40%" cy="40%"><stop offset="0" stop-color="#fffbe6"/><stop offset="1" stop-color="#f3e3a8"/></radialGradient>
-        <linearGradient id="wall" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#435782"/><stop offset="1" stop-color="#34466c"/></linearGradient>
+        <pattern id="brick" width="24" height="12" patternUnits="userSpaceOnUse"><rect width="24" height="12" fill="#a8432f"/><path d="M0 .5H24M0 6.5H24M6 .5V6.5M18 6.5V12" stroke="#7d2e20" stroke-width="1.2"/><rect x="7" y="1.5" width="10" height="4" fill="#b54d37" opacity=".5"/></pattern>
+        <linearGradient id="shade" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset=".35" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".2"/></linearGradient>
+        <linearGradient id="glass" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff2b8"/><stop offset="1" stop-color="#ffc94d"/></linearGradient>
         <radialGradient id="glow" cx="50%" cy="50%"><stop offset="0" stop-color="#ffd977" stop-opacity=".55"/><stop offset="1" stop-color="#ffd977" stop-opacity="0"/></radialGradient>
       </defs>
       <circle cx="440" cy="40" r="22" fill="url(#moon)"/>
@@ -126,10 +128,13 @@ body.shake .wrap{animation:shake .45s}
       <ellipse cx="260" cy="120" rx="190" ry="70" fill="url(#glow)"/>
       <path d="M140 72 L260 30 L380 72 Z" fill="#2B3952" stroke="#5a6f9a" stroke-width="2"/>
       <path d="M128 76 L260 26 L392 76" fill="none" stroke="#f4f6fa" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect x="150" y="72" width="220" height="104" fill="url(#wall)"/>
+      <rect x="150" y="72" width="220" height="104" fill="url(#brick)"/><rect x="150" y="72" width="220" height="104" fill="url(#shade)"/>
       <rect x="150" y="72" width="220" height="6" fill="#2B3952" opacity=".5"/>
-      <g fill="#ffd977"><rect x="168" y="90" width="34" height="26" rx="3"/><rect x="318" y="90" width="34" height="26" rx="3"/><rect x="168" y="130" width="34" height="26" rx="3"/><rect x="318" y="130" width="34" height="26" rx="3"/></g>
-      <g stroke="#34466c" stroke-width="2.5"><path d="M185 90v26M168 103h34M335 90v26M318 103h34M185 130v26M168 143h34M335 130v26M318 143h34"/></g>
+      <g id="win">
+        <rect x="164" y="86" width="42" height="34" rx="2" fill="#f4f6fa"/><rect x="168" y="90" width="34" height="26" fill="url(#glass)"/><path d="M185 90v26M168 103h34" stroke="#f4f6fa" stroke-width="3"/><rect x="162" y="120" width="46" height="4" rx="1" fill="#e6e9ef"/>
+      </g>
+      <use href="#win" x="150"/><use href="#win" y="40"/><use href="#win" x="150" y="40"/>
+      <g fill="#fff" opacity=".35"><path d="M170 92l8 0-8 8z"/><path d="M320 92l8 0-8 8z"/><path d="M170 132l8 0-8 8z"/><path d="M320 132l8 0-8 8z"/></g>
       <rect x="232" y="118" width="56" height="58" rx="4" fill="#2B3952"/>
       <rect x="236" y="122" width="48" height="54" rx="3" fill="#1d283d"/>
       <circle cx="260" cy="140" r="15" fill="none" stroke="#6AC187" stroke-width="7"/>
