@@ -31,6 +31,7 @@ h1{font:900 clamp(30px,8vw,44px)/1.05 Poppins,sans-serif;color:#fff;margin:6px 0
 .lead{color:#dfe5ef;margin:0 0 20px}
 .card{background:var(--card);border-radius:20px;padding:22px 20px;box-shadow:0 18px 40px rgba(0,0,0,.28)}
 .tag{display:inline-flex;align-items:center;gap:6px;font:700 13px Montserrat,sans-serif;padding:4px 10px;border-radius:99px;background:var(--line);color:var(--ink)}
+.tag.hard{background:#2B3952;color:#ffd977}
 .tag i{width:8px;height:8px;border-radius:50%;display:inline-block}
 .from{font-size:13px;color:var(--muted);margin:12px 0 4px}
 .msg{font-size:17px;margin:0 0 6px}
@@ -146,6 +147,17 @@ body.shake .wrap{animation:shake .45s}
       <g id="bulbs"><circle cx="160" cy="85" r="4" fill="#E0524F"/><circle cx="185" cy="88" r="4" fill="#ffd977"/><circle cx="210" cy="81" r="4" fill="#6AC187"/><circle cx="240" cy="86" r="4" fill="#8fb0ff"/><circle cx="300" cy="86" r="4" fill="#E0524F"/><circle cx="330" cy="81" r="4" fill="#ffd977"/><circle cx="350" cy="86" r="4" fill="#6AC187"/><circle cx="365" cy="82" r="4" fill="#8fb0ff"/></g>
       <path d="M0 176 Q130 166 260 174 T520 172 V200 H0Z" fill="#f4f6fa"/>
       <g><path d="M70 176 l22-64 l22 64z" fill="#3f8a5c"/><path d="M78 150 l14-40 l14 40z" fill="#6AC187"/><circle cx="92" cy="110" r="4" fill="#ffd977"/>
+         <g id="thief" transform="translate(388 150)">
+           <ellipse cx="0" cy="26" rx="13" ry="2.5" fill="#000" opacity=".25"/>
+           <path d="M-3 12 l-7 13 M4 12 l8 12" stroke="#141a26" stroke-width="4.5" stroke-linecap="round"/>
+           <ellipse cx="0" cy="4" rx="9" ry="11" fill="#1e2433" transform="rotate(-14)"/>
+           <circle cx="-11" cy="-5" r="8.5" fill="#7a6544"/><path d="M-14 -13 q3 -4 6 0" stroke="#5a4a30" stroke-width="2" fill="none"/>
+           <path d="M-2 -2 L-8 -9" stroke="#1e2433" stroke-width="4" stroke-linecap="round"/>
+           <circle cx="3" cy="-11" r="7.5" fill="#1e2433"/>
+           <rect x="-3" y="-13.5" width="13" height="4.5" rx="2.2" fill="#0a0d14"/>
+           <circle cx="2" cy="-11.3" r="1.3" fill="#ffd977"/><circle cx="7" cy="-11.3" r="1.3" fill="#ffd977"/>
+           <path d="M-4 -15 q7 -10 15 0 z" fill="#E0524F"/><rect x="-5" y="-16.5" width="17" height="3.2" rx="1.6" fill="#f4f6fa"/><circle cx="4" cy="-24" r="2.3" fill="#f4f6fa"/>
+         </g>
          <path d="M408 176 l22-70 l22 70z" fill="#3f8a5c"/><path d="M416 148 l14-44 l14 44z" fill="#6AC187"/><circle cx="430" cy="104" r="4" fill="#ffd977"/></g>
     </svg>
   </div>
@@ -160,7 +172,7 @@ body.shake .wrap{animation:shake .45s}
       <span class="tag"><i style="background:#E0524F"></i>Ciberdelito</span>
       <span class="tag"><i style="background:#C2C1C1"></i>Correo y oficina</span>
     </div>
-    <button class="main" id="start">Empezar · 12 casos al azar</button>
+    <button class="main" id="start">Empezar · 12 casos al azar de 34</button>
     <p class="note">Sube el volumen: el juego tiene música · Casos ficticios con fines educativos · Área de TI, CREDIT</p>
   </section>
 
@@ -259,7 +271,32 @@ const CASES=[
  {t:"ofi",from:"Notificación en la app de Google · Tu celular",msg:"Acabas de configurar tu laptop nueva. Google te avisa: «Nuevo inicio de sesión en Windows, Tegucigalpa. ¿Fuiste tú?» No pide datos ni trae enlaces.",g:0,
   why:"Aviso legítimo: coincide con lo que acabas de hacer y no te pide claves.",clue:"Si NO fuiste tú, cambia la contraseña desde la app oficial, no desde un enlace."},
  {t:"cib",from:"Wi-Fi en una cafetería",msg:"Aparece una red abierta llamada «CREDIT_Invitados_Gratis». Al conectarte te pide iniciar sesión con tu correo y contraseña del trabajo.",g:1,
-  why:"Red trampa: CREDIT no tiene Wi-Fi en esa cafetería. Te roba las credenciales al iniciar sesión.",clue:"Usa los datos de tu celular para trabajar fuera de la oficina."}
+  why:"Red trampa: CREDIT no tiene Wi-Fi en esa cafetería. Te roba las credenciales al iniciar sesión.",clue:"Usa los datos de tu celular para trabajar fuera de la oficina."},
+ /* ===== Nivel difícil ===== */
+ {h:1,t:"cred",from:"Solicitud en comité · Revisión de garantía",msg:"Cliente con buen historial solicita un préstamo con garantía hipotecaria.",facts:[["Monto solicitado","L 120,000"],["Valor del avalúo","L 400,000"],["Fecha del avalúo","Hace 6 años"],["Propietario del inmueble","Su hermano"]],g:1,
+  why:"La garantía no es del cliente y el avalúo está vencido. Sin el dueño como garante hipotecario, no hay forma segura de ejecutarla.",clue:"Revisa a nombre de quién está la garantía y que el avalúo esté vigente, no solo el valor."},
+ {h:1,t:"cred",from:"Solicitud en comité · Verificación de ingresos",msg:"La constancia de trabajo se ve bien, con firma y sello.",facts:[["Ingreso según constancia","L 35,000"],["Depósitos mensuales en su cuenta","L 12,000"],["Cuota vs. ingreso declarado","30%"],["Cuota vs. ingreso real","88%"]],g:1,
+  why:"Los ingresos no cuadran: la constancia dice L 35,000 pero su cuenta solo recibe L 12,000. Con el ingreso real no puede pagar.",clue:"Cruza la constancia con los estados de cuenta. Un documento bonito no prueba ingresos."},
+ {h:1,t:"cred",from:"Solicitud en comité · Negocio propio",msg:"Dueña de una pulpería solicita capital de trabajo. No tiene constancia laboral porque trabaja por su cuenta.",facts:[["Estados de cuenta","12 meses, ventas estables"],["Cuota vs. flujo del negocio","25%"],["Monto solicitado","L 90,000"],["Garantía","Vehículo valuado en L 180,000"]],g:0,
+  why:"Todo en orden: no tener constancia laboral es normal en un negocio propio. Sus estados de cuenta prueban el flujo y la garantía cubre el doble del monto.",clue:"Para independientes, el historial de ventas y depósitos reemplaza la constancia."},
+ {h:1,t:"cred",from:"Solicitud en comité · Consulta de buró",msg:"Buró limpio, sin mora. Pide un préstamo personal de L 60,000.",facts:[["Créditos abiertos","4 en distintas instituciones"],["Fecha de apertura","Todos en los últimos 3 meses"],["Saldo total","L 210,000"],["Mora","Ninguna (todavía)"]],g:1,
+  why:"Señal de sobreendeudamiento: abrió 4 créditos en 3 meses. Aún no hay mora porque las deudas son nuevas.",clue:"En el buró no solo mires la mora: mira cuántos créditos abrió y qué tan rápido."},
+ {h:1,t:"cib",from:"Correo · contabilidad@distribuidora-hn.com",msg:"El proveedor de siempre, con su misma firma y logo, avisa que cambió de banco y pide pagar las facturas pendientes a una cuenta nueva. Su dominio de siempre es <span class='lnk'>distribuidorahn.com</span>.",g:1,
+  why:"Fraude de proveedor: el dominio tiene un guion extra. Los estafadores copian firma y logo para desviar pagos.",clue:"Un cambio de cuenta bancaria se confirma llamando al número que ya tenías del proveedor."},
+ {h:1,t:"cib",from:"Navegador · El link muestra el candado de seguro",msg:"Te llega un enlace para actualizar tus datos: <span class='lnk'>https://creditunionhn.com.verificacion-clientes.net/login</span>",g:1,
+  why:"El dominio real es verificacion-clientes.net. Pusieron «creditunionhn.com» al inicio para engañarte, y el candado solo significa que la conexión está cifrada, no que el sitio sea legítimo.",clue:"Lee el dominio de derecha a izquierda: lo que va justo antes del primer «/» es el dueño real."},
+ {h:1,t:"cib",from:"Tu celular · 11:40 p.m.",msg:"Te llegan varias notificaciones seguidas de tu app de verificación: «¿Estás intentando iniciar sesión? Aprobar / Rechazar». Tú no estás usando la computadora.",g:1,
+  why:"Alguien ya tiene tu contraseña y te está cansando con notificaciones para que aceptes una por error.",clue:"Rechaza todas, cambia tu contraseña de inmediato y avisa a TI."},
+ {h:1,t:"ofi",from:"Correo · Google Drive",msg:"«Andrea (Contabilidad) compartió contigo: Cierre noviembre». Esta mañana Andrea te llamó para decirte que te lo iba a compartir. El enlace abre docs.google.com.",g:0,
+  why:"Legítimo: lo esperabas, la persona te avisó por otro canal y el enlace va al dominio real de Google.",clue:"La verificación por otro canal, como una llamada, es lo que convierte un correo dudoso en uno confiable."},
+ {h:1,t:"red",from:"Facebook · Página oficial de CREDIT (verificada)",msg:"Publicación con el horario de agencias para el 24 y 31 de diciembre. No trae enlaces ni pide datos, y coincide con el horario publicado en creditunionhn.com.",g:0,
+  why:"Seguro: es la página oficial, solo informa y la información coincide con el sitio oficial.",clue:"Las publicaciones oficiales informan; las falsas piden datos, pagos o clics urgentes."},
+ {h:1,t:"red",from:"LinkedIn · Reclutador de «empresa internacional»",msg:"Te ofrecen trabajo remoto en dólares. Para el «bono de bienvenida» te piden llenar un formulario con tu número de identidad, cuenta bancaria y una foto sosteniendo tu DNI.",g:1,
+  why:"Robo de identidad: con esos datos pueden abrir cuentas o pedir préstamos a tu nombre.",clue:"Ninguna empresa seria pide tu cuenta bancaria ni una foto con tu DNI antes de contratarte."},
+ {h:1,t:"ofi",from:"Recepción de la agencia · Sin cita",msg:"Llega un técnico con chaleco y gafete de la compañía de internet. Dice que hay una falla urgente y necesita entrar al cuarto de equipos a revisar el router.",g:1,
+  why:"Ingeniería social en persona: un chaleco y un gafete se consiguen fácil. Nadie de TI programó esa visita.",clue:"Ningún técnico entra sin cita confirmada por TI. Pide que espere y llama a TI."},
+ {h:1,t:"ofi",from:"Chat interno de siempre · Técnico de TI que conoces",msg:"«Hoy a las 4 p.m. voy a instalar las actualizaciones del antivirus. Solo deja tu equipo encendido; yo me conecto con el acceso remoto de siempre. No necesito tu contraseña.»",g:0,
+  why:"Seguro: viene de alguien conocido, por el canal habitual, y no te pide claves.",clue:"Si dudas, confirma con TI por teléfono antes de la hora."}
 ];
 const ROUND=12;
 const RANKS=[[0,"Guardia novato","Varios ladrones se colaron esta Nochebuena. Repasa las reglas y vuelve a intentarlo."],[6,"Guardia de turno","Buen ojo: defendiste casi toda la oficina."],[9,"Jefe de seguridad de Nochebuena","¡Nadie entró a CREDIT! Oficina y cartera protegidas."]];
@@ -338,7 +375,7 @@ $("gotcha").addEventListener("click",()=>{closeGotcha();if(mus&&ac)mus.gain.setT
 
 /* posición y color de los botones al azar en cada caso */
 function btns(c){
-  const lab=[c.t==="cred"?"Aprobar":"Puede pasar","¡Es un ladrón!"];
+  const lab=c.t==="cred"?["Aprobar","Señal de alerta"]:["Puede pasar","¡Es un ladrón!"];
   const col=Math.random()<.5?["ok","bad"]:["bad","ok"];
   const pos=Math.random()<.5?[0,1]:[1,0];
   return pos.map(a=>`<button class="${col[a]}" data-a="${a}">${lab[a]}</button>`).join("");
@@ -348,7 +385,7 @@ function show(){
   $("score").textContent=`Caso ${i+1}/${order.length} · ${pts} pts`;
   paintLights();
   const facts=c.facts?`<ul class="facts">${c.facts.map(f=>`<li><span>${f[0]}</span><b>${f[1]}</b></li>`).join("")}</ul>`:"";
-  $("card").innerHTML=`<span class="tag"><i style="background:${tg[1]}"></i>${tg[0]}</span>
+  $("card").innerHTML=`<span class="tag"><i style="background:${tg[1]}"></i>${tg[0]}</span>${c.h?' <span class="tag hard">Nivel difícil</span>':""}
    <p class="from">${c.from}</p><p class="msg">${c.msg}</p>${facts}
    <p class="ask">${c.t==="cred"?"¿Lo aprobarías o hay señal de alerta?":"¿Puede pasar o es un ladrón?"}</p>
    <div class="btns">${btns(c)}</div>
