@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Atrapa al Ciber-Grinch</title>
+<title>Nadie entra a CREDIT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -49,6 +49,13 @@ button:focus-visible{outline:3px solid var(--green);outline-offset:3px}
 .bad{background:var(--red);color:#fff}
 .main{background:var(--green);color:#10331f;width:100%;font-size:17px}
 .ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);width:100%;margin-top:10px}
+.lights{display:flex;justify-content:space-between;align-items:flex-start;margin:6px 2px 18px;position:relative;height:30px}
+.lights::before{content:"";position:absolute;left:0;right:0;top:4px;height:10px;border-top:2px solid rgba(255,255,255,.35);border-radius:50%}
+.bulb{position:relative;width:14px;height:20px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:rgba(255,255,255,.18);margin-top:8px;transition:background .3s,box-shadow .3s}
+.bulb::before{content:"";position:absolute;left:4px;top:-5px;width:6px;height:6px;border-radius:2px;background:#8a93a6}
+.bulb.now{background:#ffd977;box-shadow:0 0 12px #ffd977}
+.bulb.ok{background:#6AC187;box-shadow:0 0 12px #6AC187}
+.bulb.no{background:#E0524F;box-shadow:0 0 12px #E0524F}
 .prog{height:8px;background:rgba(255,255,255,.15);border-radius:99px;margin:14px 0 16px;overflow:hidden}
 .prog div{height:100%;background:var(--green);border-radius:99px;transition:width .4s}
 .fb{margin-top:16px;border-radius:14px;padding:14px 16px;display:none}
@@ -82,10 +89,11 @@ button:focus-visible{outline:3px solid var(--green);outline-offset:3px}
 .verdict.official{border-color:var(--green)}
 .qrcard .rules{margin:6px 0 16px}
 #gotcha{position:fixed;inset:0;z-index:50;display:none;place-items:center;align-content:center;gap:6px;background:radial-gradient(circle at 50% 38%,#6a1414,#120607 72%);color:#fff;text-align:center;padding:24px;cursor:pointer}
-#gotcha.show{display:grid;animation:gin .15s ease-out}
+#gotcha.show{display:grid;animation:gin .15s ease-out,siren .5s steps(1) infinite}
+@keyframes siren{0%{background-color:#120607}50%{background-color:#4a0b0b}}
 #gotcha::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(transparent 0 3px,rgba(0,0,0,.28) 3px 4px)}
 #gotcha svg{width:min(260px,62vw);height:auto;filter:drop-shadow(0 0 24px rgba(106,193,135,.35))}
-.ah{font:900 clamp(52px,16vw,104px)/1 Poppins,sans-serif;color:#ff5a55;text-shadow:4px 0 #6AC187,-4px 0 #8fb0ff;animation:glitch .28s steps(2) infinite;margin:6px 0 0}
+.ah{font:900 clamp(44px,13vw,96px)/1 Poppins,sans-serif;color:#ff5a55;text-shadow:4px 0 #6AC187,-4px 0 #8fb0ff;animation:glitch .28s steps(2) infinite;margin:6px 0 0}
 .ahsub{font:700 clamp(18px,5vw,24px)/1.3 Montserrat,sans-serif;margin:6px 0 0}
 .ahtap{font-size:13px;color:#d9a5a5;margin-top:14px}
 #arm{transform-box:view-box;transform-origin:88px 96px;animation:wag .3s ease-in-out infinite alternate}
@@ -107,32 +115,40 @@ body.shake .wrap{animation:shake .45s}
     <button class="snd" id="snd" aria-label="Silenciar música" aria-pressed="false"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path id="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path id="xm" d="M16 9l6 6M22 9l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"/></svg></button></div></div>
 
   <div class="scene" aria-hidden="true">
-    <svg viewBox="0 0 520 170">
+    <svg viewBox="0 0 520 200">
       <defs>
-        <radialGradient id="orn" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#9be3b2"/><stop offset=".55" stop-color="#6AC187"/><stop offset="1" stop-color="#3f8a5c"/></radialGradient>
-        <linearGradient id="wr" x1="0" x2="1"><stop offset="0" stop-color="#3f8a5c"/><stop offset="1" stop-color="#6AC187"/></linearGradient>
+        <radialGradient id="moon" cx="40%" cy="40%"><stop offset="0" stop-color="#fffbe6"/><stop offset="1" stop-color="#f3e3a8"/></radialGradient>
+        <linearGradient id="wall" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#435782"/><stop offset="1" stop-color="#34466c"/></linearGradient>
+        <radialGradient id="glow" cx="50%" cy="50%"><stop offset="0" stop-color="#ffd977" stop-opacity=".55"/><stop offset="1" stop-color="#ffd977" stop-opacity="0"/></radialGradient>
       </defs>
-      <path d="M0 18 Q130 50 260 22 T520 18" fill="none" stroke="url(#wr)" stroke-width="14" stroke-linecap="round"/>
-      <g fill="#E0524F"><circle cx="70" cy="34" r="6"/><circle cx="170" cy="36" r="6"/><circle cx="350" cy="30" r="6"/><circle cx="450" cy="24" r="6"/></g>
-      <g fill="#fff" opacity=".9"><circle cx="120" cy="38" r="4"/><circle cx="300" cy="26" r="4"/><circle cx="400" cy="30" r="4"/></g>
-      <line x1="260" y1="24" x2="260" y2="58" stroke="#C2C1C1" stroke-width="2"/>
-      <rect x="250" y="54" width="20" height="10" rx="3" fill="#C2C1C1"/>
-      <ellipse cx="262" cy="160" rx="60" ry="6" fill="#000" opacity=".2"/>
-      <circle cx="260" cy="108" r="46" fill="url(#orn)"/>
-      <path d="M260 80 l24 9 v18 c0 16-11 26-24 31 c-13-5-24-15-24-31 v-18z" fill="#2B3952"/>
-      <rect x="250" y="104" width="20" height="16" rx="3" fill="#fff"/>
-      <path d="M254 104 v-6 a6 6 0 0 1 12 0 v6" fill="none" stroke="#fff" stroke-width="3"/>
-      <circle cx="260" cy="112" r="2.5" fill="#2B3952"/>
-      <path d="M238 90 q8-10 18-8" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".55"/>
-      <g fill="#435782"><path d="M70 150 l14-40 l14 40z"/><path d="M430 150 l14-46 l14 46z"/></g>
-      <g fill="#6AC187" opacity=".55"><path d="M60 156 l24-56 l24 56z"/><path d="M420 156 l24-62 l24 62z"/></g>
+      <circle cx="440" cy="40" r="22" fill="url(#moon)"/>
+      <circle cx="450" cy="34" r="20" fill="#2B3952" opacity=".0"/>
+      <ellipse cx="260" cy="120" rx="190" ry="70" fill="url(#glow)"/>
+      <path d="M140 72 L260 30 L380 72 Z" fill="#2B3952" stroke="#5a6f9a" stroke-width="2"/>
+      <path d="M128 76 L260 26 L392 76" fill="none" stroke="#f4f6fa" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="150" y="72" width="220" height="104" fill="url(#wall)"/>
+      <rect x="150" y="72" width="220" height="6" fill="#2B3952" opacity=".5"/>
+      <g fill="#ffd977"><rect x="168" y="90" width="34" height="26" rx="3"/><rect x="318" y="90" width="34" height="26" rx="3"/><rect x="168" y="130" width="34" height="26" rx="3"/><rect x="318" y="130" width="34" height="26" rx="3"/></g>
+      <g stroke="#34466c" stroke-width="2.5"><path d="M185 90v26M168 103h34M335 90v26M318 103h34M185 130v26M168 143h34M335 130v26M318 143h34"/></g>
+      <rect x="232" y="118" width="56" height="58" rx="4" fill="#2B3952"/>
+      <rect x="236" y="122" width="48" height="54" rx="3" fill="#1d283d"/>
+      <circle cx="260" cy="140" r="15" fill="none" stroke="#6AC187" stroke-width="7"/>
+      <g fill="#E0524F"><circle cx="252" cy="130" r="2.5"/><circle cx="270" cy="134" r="2.5"/><circle cx="256" cy="153" r="2.5"/></g>
+      <path d="M254 154 l6-6 l6 6" fill="#E0524F"/>
+      <rect x="226" y="86" width="68" height="20" rx="4" fill="#f4f6fa"/>
+      <text x="260" y="101" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="800" font-size="13" fill="#2B3952">CREDIT</text>
+      <path d="M150 80 Q180 92 210 80 T270 80 T330 80 T370 80" fill="none" stroke="#1d283d" stroke-width="1.5"/>
+      <g id="bulbs"><circle cx="160" cy="85" r="4" fill="#E0524F"/><circle cx="185" cy="88" r="4" fill="#ffd977"/><circle cx="210" cy="81" r="4" fill="#6AC187"/><circle cx="240" cy="86" r="4" fill="#8fb0ff"/><circle cx="300" cy="86" r="4" fill="#E0524F"/><circle cx="330" cy="81" r="4" fill="#ffd977"/><circle cx="350" cy="86" r="4" fill="#6AC187"/><circle cx="365" cy="82" r="4" fill="#8fb0ff"/></g>
+      <path d="M0 176 Q130 166 260 174 T520 172 V200 H0Z" fill="#f4f6fa"/>
+      <g><path d="M70 176 l22-64 l22 64z" fill="#3f8a5c"/><path d="M78 150 l14-40 l14 40z" fill="#6AC187"/><circle cx="92" cy="110" r="4" fill="#ffd977"/>
+         <path d="M408 176 l22-70 l22 70z" fill="#3f8a5c"/><path d="M416 148 l14-44 l14 44z" fill="#6AC187"/><circle cx="430" cy="104" r="4" fill="#ffd977"/></g>
     </svg>
   </div>
 
   <!-- INICIO -->
   <section id="intro">
-    <h1>Atrapa al Ciber-Grinch</h1>
-    <p class="lead">El Grinch se coló en la oficina disfrazado de correo, de link en redes y hasta de solicitud de crédito. Lee cada caso y decide: ¿todo en orden o es el Grinch?</p>
+    <h1>Nadie entra a CREDIT</h1>
+    <p class="lead">Es Nochebuena, la oficina quedó cerrada y te tocó la guardia. Una banda de ciber-ladrones quiere colarse disfrazada de correos, links en redes y hasta solicitudes de crédito. Lee cada caso y decide: ¿puede pasar o es un ladrón?</p>
     <div class="legend">
       <span class="tag"><i style="background:#6AC187"></i>Crédito</span>
       <span class="tag"><i style="background:#8fb0ff"></i>Redes sociales</span>
@@ -145,7 +161,7 @@ body.shake .wrap{animation:shake .45s}
 
   <!-- JUEGO -->
   <section id="game" class="hide">
-    <div class="prog"><div id="bar" style="width:0"></div></div>
+    <div class="lights" id="lights" aria-label="Progreso"></div>
     <div class="card" id="card"></div>
   </section>
 
@@ -173,23 +189,22 @@ body.shake .wrap{animation:shake .45s}
   </div>
 </div>
 <div id="gotcha" role="alertdialog" aria-live="assertive" aria-label="Respuesta incorrecta">
-  <svg viewBox="0 0 140 150" aria-hidden="true">
-    <ellipse cx="70" cy="144" rx="44" ry="5" fill="#000" opacity=".5"/>
-    <path d="M30 150 q0-46 40-50 q40 4 40 50z" fill="#1e2433"/>
-    <path d="M52 112 h36 v10 h-36z" fill="#2B3952"/>
-    <path d="M26 66 q0-40 44-42 q44 2 44 42 q0 30-20 40 h-48 q-20-10-20-40z" fill="#2a3142"/>
-    <path d="M40 70 q0-26 30-27 q30 1 30 27 q0 22-30 26 q-30-4-30-26z" fill="#07090d"/>
-    <g id="eyes" fill="#6AC187"><rect x="52" y="62" width="12" height="6" rx="2"/><rect x="76" y="62" width="12" height="6" rx="2"/></g>
-    <path d="M58 80 q12 7 26-2" stroke="#6AC187" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <path d="M28 40 q30-38 74-14 l14 16 q-44-20-88-2z" fill="#E0524F"/>
-    <path d="M100 26 q22-6 26 18" stroke="#E0524F" stroke-width="10" fill="none" stroke-linecap="round"/>
-    <circle cx="127" cy="48" r="8" fill="#fff"/>
-    <rect x="24" y="36" width="94" height="12" rx="6" fill="#fff"/>
-    <g id="arm"><path d="M88 102 q16-18 18-44" stroke="#2a3142" stroke-width="13" fill="none" stroke-linecap="round"/>
-      <circle cx="106" cy="56" r="8" fill="#c79a7a"/><rect x="102" y="30" width="7" height="24" rx="3.5" fill="#c79a7a"/></g>
+  <svg viewBox="0 0 160 170" aria-hidden="true">
+    <ellipse cx="80" cy="164" rx="48" ry="5" fill="#000" opacity=".5"/>
+    <path d="M36 168 q0-52 44-56 q44 4 44 56z" fill="#141a26"/>
+    <path d="M44 74 q0-44 36-46 q36 2 36 46 q0 34-36 40 q-36-6-36-40z" fill="#1e2433"/>
+    <path d="M46 52 q34-26 68 0 l2 10 q-36-14-72 0z" fill="#E0524F"/>
+    <rect x="42" y="54" width="76" height="10" rx="5" fill="#f4f6fa"/>
+    <circle cx="80" cy="24" r="8" fill="#f4f6fa"/>
+    <rect x="52" y="74" width="56" height="16" rx="8" fill="#0a0d14"/>
+    <g id="eyes" fill="#ffd977"><circle cx="66" cy="82" r="4.5"/><circle cx="94" cy="82" r="4.5"/></g>
+    <rect x="98" y="120" width="44" height="30" rx="4" fill="#2B3952" transform="rotate(-12 120 135)"/>
+    <rect x="102" y="124" width="36" height="20" rx="2" fill="#6AC187" opacity=".85" transform="rotate(-12 120 135)"/>
+    <path d="M20 140 q-6-26 14-32 q12 8 6 30 q-8 8-20 2z" fill="#3a3122"/>
+    <path d="M24 112 q8-6 14 0" stroke="#ffd977" stroke-width="3" fill="none"/>
   </svg>
-  <p class="ah">¡JO, JO, JO!</p>
-  <p class="ahsub">El Ciber-Grinch te engañó</p>
+  <p class="ah">¡SE COLARON!</p>
+  <p class="ahsub">Un ciber-ladrón entró a la oficina</p>
   <p class="ahtap">Toca para ver por qué</p>
 </div>
 <script>
@@ -242,7 +257,10 @@ const CASES=[
   why:"Red trampa: CREDIT no tiene Wi-Fi en esa cafetería. Te roba las credenciales al iniciar sesión.",clue:"Usa los datos de tu celular para trabajar fuera de la oficina."}
 ];
 const ROUND=12;
-const RANKS=[[0,"Elfo en entrenamiento","El Grinch se llevó varios regalos. ¡Repasa las reglas y vuelve a intentarlo!"],[6,"Guardián del Polo Norte","Buen ojo. Unos cuantos casos más y nadie te engaña."],[9,"Ciber-Santa CREDIT","¡Nivel experto! Protegiste la oficina y la cartera."]];
+const RANKS=[[0,"Guardia novato","Varios ladrones se colaron esta Nochebuena. Repasa las reglas y vuelve a intentarlo."],[6,"Guardia de turno","Buen ojo: defendiste casi toda la oficina."],[9,"Jefe de seguridad de Nochebuena","¡Nadie entró a CREDIT! Oficina y cartera protegidas."]];
+const DEF=["Candado digital","Alarma de la oficina","Cámaras de seguridad","Firewall","Bóveda sellada","Doble factor","Sensor de movimiento","Puerta blindada"];
+let marks=[];
+function paintLights(done){const L=$("lights");if(!L)return;L.innerHTML=order.map((_,k)=>`<span class="bulb ${marks[k]===1?"ok":marks[k]===0?"no":(!done&&k===i?"now":"")}"></span>`).join("")}
 const $=id=>document.getElementById(id);
 let order=[],i=0,pts=0,locked=false;
 const shuffle=a=>{for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
@@ -278,13 +296,12 @@ function sfx(k){if(!ac)return;try{const t=ac.currentTime+.02;
  if(k==="bad"){tone(55,t,.22,"sawtooth",.07,master,-1);tone(51,t+.24,.4,"sawtooth",.07,master,-3)}
  if(k==="end")[[67,0],[72,.12],[76,.24],[79,.36],[84,.5]].forEach(([n,d])=>tone(n,t+d,d===.5?.6:.14,"square",.09,master));
  if(k==="ahah"){
-  [0,.34,.68].forEach((d,j)=>{const o=ac.createOscillator(),g=ac.createGain(),f1=ac.createBiquadFilter(),f2=ac.createBiquadFilter(),lfo=ac.createOscillator(),lg=ac.createGain(),s=t+d;
-   o.type="sawtooth";o.frequency.setValueAtTime(150-j*8,s);o.frequency.exponentialRampToValueAtTime(105-j*6,s+.26);
-   lfo.frequency.value=6;lg.gain.value=4;lfo.connect(lg);lg.connect(o.frequency);
-   f1.type="bandpass";f1.frequency.value=480;f1.Q.value=4;f2.type="bandpass";f2.frequency.value=860;f2.Q.value=5;
-   g.gain.setValueAtTime(0,s);g.gain.linearRampToValueAtTime(.8,s+.03);g.gain.exponentialRampToValueAtTime(.0001,s+.28);
-   o.connect(f1);o.connect(f2);f1.connect(g);f2.connect(g);g.connect(master);o.start(s);lfo.start(s);o.stop(s+.32);lfo.stop(s+.32)});
-  tone(40,t+1.02,.5,"square",.08,master,-2)}
+  for(let r=0;r<3;r++){const s0=t+r*.5;
+   [["square",0],["sawtooth",3]].forEach(([w,dt])=>{const o=ac.createOscillator(),g=ac.createGain();o.type=w;
+    o.frequency.setValueAtTime(F(76+dt),s0);o.frequency.linearRampToValueAtTime(F(84+dt),s0+.25);o.frequency.linearRampToValueAtTime(F(76+dt),s0+.5);
+    g.gain.setValueAtTime(0,s0);g.gain.linearRampToValueAtTime(.09,s0+.02);g.gain.setValueAtTime(.09,s0+.45);g.gain.linearRampToValueAtTime(.0001,s0+.5);
+    o.connect(g);g.connect(master);o.start(s0);o.stop(s0+.52)})}
+  tone(40,t+1.55,.45,"square",.07,master,-2)}
  if(k==="tap")tone(84,t,.05,"square",.04,master)}catch(e){}}
 function setMute(m){muted=m;try{localStorage.setItem("cg-mute",m?"1":"0")}catch(e){}
  if(master)master.gain.setTargetAtTime(m?0:1,ac.currentTime,.05);
@@ -293,7 +310,7 @@ function setMute(m){muted=m;try{localStorage.setItem("cg-mute",m?"1":"0")}catch(
 $("snd").addEventListener("click",()=>{initAudio();startMusic();setMute(!muted)});
 setMute(muted);
 
-function start(){initAudio();startMusic();sfx("tap");order=shuffle(CASES.slice()).slice(0,ROUND);i=0;pts=0;$("intro").classList.add("hide");$("end").classList.add("hide");$("game").classList.remove("hide");show()}
+function start(){initAudio();startMusic();sfx("tap");order=shuffle(CASES.slice()).slice(0,ROUND);i=0;pts=0;marks=[];$("intro").classList.add("hide");$("end").classList.add("hide");$("game").classList.remove("hide");show()}
 /* alerta inicial sobre QR */
 {const h=location.hostname||"(archivo local)",off=/(^|\.)creditunionhn\.com$/i.test(h),v=$("qverd");
  $("qhost").textContent=h;
@@ -313,7 +330,7 @@ $("gotcha").addEventListener("click",()=>{closeGotcha();if(mus&&ac)mus.gain.setT
 
 /* posición y color de los botones al azar en cada caso */
 function btns(c){
-  const lab=[c.t==="cred"?"Aprobar":"Es seguro","¡Es el Grinch!"];
+  const lab=[c.t==="cred"?"Aprobar":"Puede pasar","¡Es un ladrón!"];
   const col=Math.random()<.5?["ok","bad"]:["bad","ok"];
   const pos=Math.random()<.5?[0,1]:[1,0];
   return pos.map(a=>`<button class="${col[a]}" data-a="${a}">${lab[a]}</button>`).join("");
@@ -321,21 +338,22 @@ function btns(c){
 function show(){
   locked=false;const c=order[i],tg=T[c.t];
   $("score").textContent=`Caso ${i+1}/${order.length} · ${pts} pts`;
-  $("bar").style.width=(i/order.length*100)+"%";
+  paintLights();
   const facts=c.facts?`<ul class="facts">${c.facts.map(f=>`<li><span>${f[0]}</span><b>${f[1]}</b></li>`).join("")}</ul>`:"";
   $("card").innerHTML=`<span class="tag"><i style="background:${tg[1]}"></i>${tg[0]}</span>
    <p class="from">${c.from}</p><p class="msg">${c.msg}</p>${facts}
-   <p class="ask">${c.t==="cred"?"¿Lo aprobarías o hay señal de alerta?":"¿Es seguro o es el Grinch?"}</p>
+   <p class="ask">${c.t==="cred"?"¿Lo aprobarías o hay señal de alerta?":"¿Puede pasar o es un ladrón?"}</p>
    <div class="btns">${btns(c)}</div>
    <div class="fb" id="fb"></div>`;
   $("card").querySelectorAll(".btns button").forEach(b=>b.addEventListener("click",()=>answer(+b.dataset.a)));
   $("card").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function answer(a){
-  if(locked)return;locked=true;const c=order[i],win=a===c.g;if(win)pts++;if(win)sfx("ok");else gotcha();
+  if(locked)return;locked=true;const c=order[i],win=a===c.g;if(win)pts++;marks[i]=win?1:0;paintLights();if(win)sfx("ok");else gotcha();
   $("card").querySelectorAll(".btns button").forEach(b=>{b.disabled=true;b.style.opacity=(+b.dataset.a===c.g)?1:.35});
   const fb=$("fb");fb.className="fb show "+(win?"win":"lose");
-  fb.innerHTML=`<h3>${win?(c.g?"¡Atrapaste al Grinch!":"¡Correcto, todo en orden!"):(c.g?"El Grinch se te escapó":"Falsa alarma")}</h3>
+  const dfn=DEF[Math.floor(Math.random()*DEF.length)];
+  fb.innerHTML=`<h3>${win?(c.g?"¡Defensa activada!":"¡Correcto, puede pasar!"):(c.g?"Un ladrón se te pasó":"Falsa alarma")}</h3>${win&&c.g?`<p class="clue">Activaste: <b>${dfn}</b></p>`:""}
    <p>${c.why}</p><p class="clue">${c.clue}</p>
    <button class="main" id="next">${i<order.length-1?"Siguiente caso":"Ver mi resultado"}</button>`;
   $("score").textContent=`Caso ${i+1}/${order.length} · ${pts} pts`;
@@ -343,13 +361,13 @@ function answer(a){
   $("next").focus({preventScroll:true});
 }
 function end(){
-  sfx("end");$("bar").style.width="100%";$("game").classList.add("hide");$("end").classList.remove("hide");
+  sfx("end");paintLights(true);$("game").classList.add("hide");$("end").classList.remove("hide");
   const r=RANKS.filter(x=>pts>=x[0]).pop();
   $("score").textContent=`${pts}/${order.length} pts`;
   $("result").innerHTML=`<p class="from">Tu rango</p><h2>${r[1]}</h2><div class="big">${pts}/${order.length}</div><p>${r[2]}</p>
    <ul class="rules">
     <li><b>Nadie legítimo pide tu contraseña, PIN o código SMS.</b> Ni TI, ni el banco, ni el gerente.</li>
-    <li><b>Mira el link antes de tocarlo.</b> Links acortados, dominios raros y urgencia son señales del Grinch.</li>
+    <li><b>Mira el link antes de tocarlo.</b> Links acortados, dominios raros y urgencia son señales de un ladrón.</li>
     <li><b>En crédito, el monto debe tener sentido</b> con la garantía, la capacidad de pago y el historial en buró.</li>
     <li><b>¿Dudas? Verifica por otro canal</b> y reporta a TI.</li>
    </ul>`;
